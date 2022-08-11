@@ -137,6 +137,23 @@ return packer.startup(function(use)
     use "tyru/open-browser.vim"
     use "weirongxu/plantuml-previewer.vim"
 
+    -- neorg
+    use {
+    "nvim-neorg/neorg",
+    requires = "nvim-lua/plenary.nvim"
+}
+
+    -- zen
+    use({
+	"Pocco81/true-zen.nvim",
+	config = function()
+		 require("true-zen").setup {
+			-- your config goes here
+			-- or just leave it empty :)
+		 }
+	end,
+})
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

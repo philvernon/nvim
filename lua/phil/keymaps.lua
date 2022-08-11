@@ -59,3 +59,6 @@ keymap("n", "<blash>q", ":bd<CR>", opts)
 
 -- whichkey
 keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
+
+-- zen
+keymap("n", "<leader>f", "<cmd>TZFocus<CR>", opts)
