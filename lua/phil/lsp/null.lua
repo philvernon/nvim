@@ -8,7 +8,7 @@ require("null-ls").setup({
         nullls.builtins.diagnostics.eslint,
         nullls.builtins.code_actions.eslint,
         -- nullls.builtins.completion.spell,
-        nullls.builtins.formatting.stylua,
+        -- nullls.builtins.formatting.stylua,
     },
     on_attach = function(client, bufnr)
         -- format with language server by default
@@ -25,8 +25,8 @@ require("null-ls").setup({
                 callback = function()
                     -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
                     -- vim.lsp.buf.formatting_sync()
-                    vim.lsp.buf.format({  
-                        filter = function(client) 
+                    vim.lsp.buf.format({
+                        filter = function(client)
                             return client.name == "null-ls"
                         end,
                         bufnr = bufnr,

@@ -40,20 +40,24 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'kyazdani42/nvim-web-devicons'
+    use("wbthomason/packer.nvim")
+    use("nvim-lua/plenary.nvim")
+    use("kyazdani42/nvim-web-devicons")
 
     -- telescope fzf
+    use({
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.0",
+        requires = { { "nvim-lua/plenary.nvim" } },
+    })
+    use({ "nvim-telescope/telescope-file-browser.nvim" })
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        "benfowler/telescope-luasnip.nvim",
     }
-    use { "nvim-telescope/telescope-file-browser.nvim" }
 
     -- lsp
-    use 'williamboman/nvim-lsp-installer'
-    use 'neovim/nvim-lspconfig'
+    use("williamboman/nvim-lsp-installer")
+    use("neovim/nvim-lspconfig")
     use({
         "jose-elias-alvarez/null-ls.nvim",
         config = function()
@@ -63,96 +67,84 @@ return packer.startup(function(use)
     })
 
     -- completion
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
+    use("hrsh7th/cmp-nvim-lsp")
+    use("hrsh7th/cmp-buffer")
+    use("hrsh7th/cmp-path")
+    use("hrsh7th/cmp-cmdline")
+    use("hrsh7th/nvim-cmp")
 
     -- signatures
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use("hrsh7th/cmp-nvim-lsp-signature-help")
 
     -- snippets
-    use "rafamadriz/friendly-snippets" -- snippet library
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
-
-
+    use("rafamadriz/friendly-snippets") -- snippet library
+    use("L3MON4D3/LuaSnip")
+    use("saadparwaiz1/cmp_luasnip")
 
     -- utility
     -- surround
-    use 'kylechui/nvim-surround'
+    use("kylechui/nvim-surround")
 
     -- autopairs
-    use 'windwp/nvim-autopairs'
+    use("windwp/nvim-autopairs")
+    use("windwp/nvim-ts-autotag")
 
     -- treeview
-    use {
-        'kyazdani42/nvim-tree.lua',
+    use({
+        "kyazdani42/nvim-tree.lua",
         requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+            "kyazdani42/nvim-web-devicons", -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
+        tag = "nightly", -- optional, updated every week. (see issue #1193)
+    })
 
     -- buffer/tabline
-    use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
-    use 'famiu/bufdelete.nvim'
-
+    use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
+    use("famiu/bufdelete.nvim")
 
     -- indentline
-    use "lukas-reineke/indent-blankline.nvim"
+    use("lukas-reineke/indent-blankline.nvim")
 
     -- git
-    use { 'lewis6991/gitsigns.nvim' }
+    use({ "lewis6991/gitsigns.nvim" })
 
     -- comment
-    use 'numToStr/Comment.nvim'
+    use("numToStr/Comment.nvim")
 
     -- treesitter
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-    }
+    use("JoosepAlviste/nvim-ts-context-commentstring")
+    use({
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            require("nvim-treesitter.install").update({ with_sync = true })
+        end,
+    })
 
     -- which-key
-    use { "folke/which-key.nvim" }
+    use({ "folke/which-key.nvim" })
 
     -- terminal
-    use { "akinsho/toggleterm.nvim", tag = 'v2.*' }
+    use({ "akinsho/toggleterm.nvim", tag = "v2.*" })
 
     -- statusline
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    use({
+        "nvim-lualine/lualine.nvim",
+        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    })
 
     -- theme
-    use 'EdenEast/nightfox.nvim'
-    use "rebelot/kanagawa.nvim"
-    use { "catppuccin/nvim", as = "catppuccin" }
+    use("EdenEast/nightfox.nvim")
+    use("rebelot/kanagawa.nvim")
+    use({ "catppuccin/nvim", as = "catppuccin" })
+    use("LunarVim/onedarker.nvim")
 
     -- plantuml
-    use "tyru/open-browser.vim"
-    use "weirongxu/plantuml-previewer.vim"
+    use("tyru/open-browser.vim")
+    use("weirongxu/plantuml-previewer.vim")
 
-    -- neorg
-    use {
-    "nvim-neorg/neorg",
-    requires = "nvim-lua/plenary.nvim"
-}
+    use({ "ellisonleao/glow.nvim" })
 
-    -- zen
-    use({
-	"Pocco81/true-zen.nvim",
-	config = function()
-		 require("true-zen").setup {
-			-- your config goes here
-			-- or just leave it empty :)
-		 }
-	end,
-})
+    -- use 'SidOfc/mkdx'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -38,3 +38,7 @@ cmp_autopairs.on_confirm_done({
     }
 })
 )
+
+-- treesitter autotag for html
+require('nvim-ts-autotag').setup()
+

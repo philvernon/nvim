@@ -3,10 +3,6 @@ local cmp = require'cmp'
 
 local luasnip = require'luasnip'
 
-require("luasnip.loaders.from_vscode").lazy_load()
-
-require'luasnip'.filetype_extend("vue", {"vue"})
-
 local check_backspace = function()
     local col = vim.fn.col "." - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
@@ -118,6 +114,7 @@ cmp.setup({
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'nvim_lsp_signature_help' },
       { name = 'buffer' },
+      { name = "neorg" },
   })
 })
 

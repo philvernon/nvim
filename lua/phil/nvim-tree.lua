@@ -54,6 +54,9 @@ nvim_tree.setup {
     update_focused_file = {
         enable = false
     },
+    git = {
+        ignore = false
+    },
     renderer = {
         root_folder_modifier = ":t",
         icons = {

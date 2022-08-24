@@ -25,18 +25,18 @@ local options = {
     fileencoding = "utf-8",
     expandtab = true, -- convert tabs to spaces
     tabstop = 2, -- insert 2 spaces for a tab
-
+    spelllang = en,
 }
 
-vim.cmd [[
+vim.cmd([[
 try
 highlight SignColumn guibg=None
 highlight WinSeperator guibg=None
-]]
+]])
 
 -- vim.g.colors_name = "angr"
 
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append("c")
 
 for k, v in pairs(options) do
     vim.opt[k] = v

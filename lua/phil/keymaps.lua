@@ -25,6 +25,9 @@ keymap("n", "<Down>", "<C-w>j", opts)
 keymap("n", "<Up>", "<C-w>k", opts)
 keymap("n", "<Right>", "<C-w>l", opts)
 
+-- jk to exit insert mode
+keymap("i", "jk", "<ESC>", opts)
+
 -- Map alt + s to save
 keymap("n", "ß", ":update<CR><ESC>", opts)
 keymap("v", "ß", "<C-C>:update<CR><ESC>", opts)
@@ -60,5 +63,10 @@ keymap("n", "<blash>q", ":bd<CR>", opts)
 -- whichkey
 keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
 
--- zen
-keymap("n", "<leader>f", "<cmd>TZFocus<CR>", opts)
+-- toggleterm
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)

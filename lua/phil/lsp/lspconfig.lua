@@ -12,3 +12,7 @@ require'lspconfig'.vuels.setup{
 require'lspconfig'.sumneko_lua.setup{
     on_attach = on_attach
 }
+
+require'lspconfig'.marksman.setup{
+    on_attach = on_attach
+}
