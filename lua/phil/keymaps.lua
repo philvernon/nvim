@@ -29,7 +29,7 @@ keymap("n", "<Right>", "<C-w>l", opts)
 keymap("i", "jk", "<ESC>", opts)
 
 -- Map alt + s to save
-keymap("n", "ß", ":update<CR><ESC>", opts)
+keymap("n", "ß", "<ESC>:update<CR>", opts)
 keymap("v", "ß", "<C-C>:update<CR><ESC>", opts)
 keymap("i", "ß", "<C-O>:update<CR><ESC>", opts)
 

@@ -4,14 +4,14 @@ local options = {
     colorscheme = nightfox,
     termguicolors = true,
     number = true,
-    relativenumber = false,
+    relativenumber = true,
     hlsearch = false,
-    ignorecase = false,
+    ignorecase = true,
     showtabline = 2,
     splitbelow = true,
     splitright = true,
     undofile = true,
-    updatetime = 300,
+    updatetime = 100,
     cursorline = true,
     showcmd = true,
     signcolumn = "yes",
@@ -25,13 +25,13 @@ local options = {
     fileencoding = "utf-8",
     expandtab = true, -- convert tabs to spaces
     tabstop = 2, -- insert 2 spaces for a tab
-    spelllang = en,
+    clipboard = "unnamedplus"
 }
 
 vim.cmd([[
-try
-highlight SignColumn guibg=None
-highlight WinSeperator guibg=None
+    try
+        highlight SignColumn guibg=None
+        highlight WinSeperator guibg=None
 ]])
 
 -- vim.g.colors_name = "angr"
