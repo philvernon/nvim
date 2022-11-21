@@ -2,7 +2,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local nullls = require("null-ls")
 
-require("null-ls").setup({
+nullls.setup({
     sources = {
         nullls.builtins.formatting.prettier,
         nullls.builtins.diagnostics.eslint,
@@ -13,8 +13,8 @@ require("null-ls").setup({
     on_attach = function(client, bufnr)
         -- format with language server by default
         if client.name == "sumneko_lua" then
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+            client.server_capabilities.document_formatting = false
+            client.server_capabilities.document_range_formatting = false
         end
 
         if client.supports_method("textDocument/formatting") then

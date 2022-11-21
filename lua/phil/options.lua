@@ -1,7 +1,6 @@
 local options = {
     backup = false,
     writebackup = false,
-    colorscheme = nightfox,
     termguicolors = true,
     number = true,
     relativenumber = true,
@@ -21,11 +20,13 @@ local options = {
     softtabstop = 4,
     shiftwidth = 4,
     hidden = true,
-    cmdheight = 2,
+    -- cmdheight = 2,
     fileencoding = "utf-8",
     expandtab = true, -- convert tabs to spaces
     tabstop = 2, -- insert 2 spaces for a tab
-    clipboard = "unnamedplus"
+    clipboard = "unnamedplus",
+    mouse = "",
+    laststatus = 3
 }
 
 vim.cmd([[

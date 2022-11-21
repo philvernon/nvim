@@ -1,3 +1,8 @@
+local gheight = 46
+local gwidth = 201
+local width = math.floor(gwidth * 0.3)
+local height = math.floor(gheight * 0.8)
+
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
 if not status_ok then
     return
@@ -51,13 +56,29 @@ nvim_tree.setup {
     --     enable = true,
     --     update_cwd = true,
     -- },
+    disable_netrw = true,
+    hijack_netrw = true,
     update_focused_file = {
         enable = false
+    },
+    actions = {
+        open_file = {
+            quit_on_open = true
+        }
     },
     git = {
         ignore = false
     },
     renderer = {
+        indent_markers = {
+            enable = false,
+            icons = {
+                corner = "└",
+                edge = "│",
+                item = "│",
+                none = " ",
+            },
+        },
         root_folder_modifier = ":t",
         icons = {
             git_placement = "after",
@@ -97,16 +118,34 @@ nvim_tree.setup {
         },
     },
     view = {
-        width = 30,
-        height = 30,
-        side = "left",
+        adaptive_size = true,
+        width = width,
+        height = gheight * 0.5,
+        hide_root_folder = false,
+        preserve_window_proportions = true,
+        -- side = "right",
+        number = false,
+        relativenumber = false,
+        signcolumn = "yes",
         mappings = {
             list = {
                 -- { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
                 { key = 'l', cb = '<cmd>lua EC.nvim_tree_go_in()<CR>' },
                 { key = "h", cb = tree_cb "close_node" },
                 { key = "v", cb = tree_cb "vsplit" },
-                { key = "<C-t>", action = "" }
+                { key = "<C-t>", action = "" },
+                { key = "o", action = "cd" }
+            },
+        },
+        float = {
+            enable = true,
+            open_win_config = {
+                width = width,
+                relative = "editor",
+                height = height,
+                border = "rounded",
+                row = (gheight - height) * 0.1,
+                col = (gwidth - width) - 10,
             },
         },
     },
