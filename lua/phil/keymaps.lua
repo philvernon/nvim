@@ -5,7 +5,7 @@ local term_opts = { silent = true }
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
---Remap space as leader key
+-- Remap comma as leader key
 keymap("", ",", "<Nop>", opts)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -42,6 +42,13 @@ keymap("n", "ß", "<ESC>:update<CR>", opts)
 keymap("v", "ß", "<C-C>:update<CR><ESC>", opts)
 keymap("i", "ß", "<C-O>:update<CR><ESC>", opts)
 
+-- center ctrl d and u
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+
+-- paste over and keep in register
+keymap("x", "<leader>p", "\"_dP", opts)
+
 -- Update vim config
 keymap("n", "<bslash>u", ":so ~/.config/nvim/init.lua<CR>", opts)
 
@@ -59,14 +66,22 @@ keymap("n", "<bslash>sg", "<cmd>Telescope git_commits<CR>", opts)
 keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
 
 -- nvim-tree
-keymap("n", "<C-t>", ":NvimTreeToggle<CR>", opts)
-keymap("n", "<leader>tt", ":NvimTreeFocus<CR>", opts)
-keymap("n", "<leader>tf", ":NvimTreeFindFile<CR>", opts)
+-- keymap("n", "<C-t>", ":NvimTreeToggle<CR>", opts)
+-- keymap("n", "<leader>tt", ":NvimTreeFocus<CR>", opts)
+-- keymap("n", "<leader>tf", ":NvimTreeFindFile<CR>", opts)
+
+-- neo-tree
+keymap("n", "<C-t>", ":Neotree float<CR>", opts)
+-- keymap("n", "<leader>tt", ":NvimTreeFocus<CR>", opts)
+keymap("n", "<leader>tf", ":Neotree reveal<CR>", opts)
 
 -- bufferline
 keymap("n", "tg", ":BufferLinePick<CR>", opts)
-keymap("n", "<bslash>w", ":BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>", opts)
+-- keymap("n", "<bslash>w", ":BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>", opts)
+keymap("n", "<bslash>w", ":w|%bd|e#|bd#<CR>", opts)
 keymap("n", "<bslash>q", ":Bdelete<CR>", opts)
+
+
 
 -- shift to navigate buffers
 keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
@@ -77,21 +92,22 @@ keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
 
 -- floatterm
-keymap('n', "<C-bslash>", ":FloatermToggle<CR>", opts)
-keymap('n', "<bslash>t", ":FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topright --autoclose=2 ranger <CR>", opts)
-
-keymap('t', "<C-n>", [[<C-\><C-n> <cmd>FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright:FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright<CR>]], opts)
+-- keymap('n', "<C-bslash>", ":FloatermToggle<CR>", opts)
+-- keymap('n', "<bslash>t", ":FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topright --autoclose=2 ranger <CR>", opts)
+--
+-- keymap('t', "<C-n>", [[<C-\><C-n> <cmd>FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright:FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright<CR>]], opts)
 -- keymap('t', '<esc>', [[<C-\><C-n>]], opts)
 -- keymap('t', '<C-bslash>', [[<C-n>]], opts)
 
 -- toggleterm
--- keymap('t', '<esc>', [[<C-\><C-n>]], opts)
-keymap('t', '<C-bslash>', [[<C-\><C-n> <cmd>FloatermToggle<CR>]], opts)
+-- keymap('n', "<C-bslash>", ":ToggleTerm<CR>", opts)
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+-- keymap('t', '<C-bslash>', [[<C-\><C-n> <cmd>FloatermToggle<CR>]], opts)
 -- keymap('t', 'jk', [[<C-\><C-n>]], opts)
 keymap('t', '<esc>', [[<C-\><C-n> <C-w>k]], opts)
-keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+-- keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+-- keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+-- keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 
 -- outline
 keymap('n', '<bslash>o', ":SymbolsOutline<CR>", opts)

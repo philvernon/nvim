@@ -120,7 +120,7 @@ nvim_tree.setup {
     view = {
         adaptive_size = true,
         width = width,
-        height = gheight * 0.5,
+        -- height = gheight * 0.5,
         hide_root_folder = false,
         preserve_window_proportions = true,
         -- side = "right",
@@ -138,7 +138,7 @@ nvim_tree.setup {
             },
         },
         float = {
-            enable = true,
+            enable = false,
             open_win_config = {
                 width = width,
                 relative = "editor",

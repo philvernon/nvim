@@ -5,8 +5,8 @@ local nullls = require("null-ls")
 nullls.setup({
     sources = {
         nullls.builtins.formatting.prettier,
-        nullls.builtins.diagnostics.eslint,
-        nullls.builtins.code_actions.eslint,
+        nullls.builtins.diagnostics.eslint_d,
+        nullls.builtins.code_actions.eslint_d,
         -- nullls.builtins.completion.spell,
         -- nullls.builtins.formatting.stylua,
     },
