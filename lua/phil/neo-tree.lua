@@ -1,4 +1,14 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+local colors = require("catppuccin.palettes").get_palette()
+
+local NeoTreeColours = {
+	NeoTreeNormal = { fg = colors.text, bg = colors.mantle, bold = true },
+	NeoTreeFloatBorder = { bg = colors.mantle, fg = colors.mantle },
+}
+
+for hl, col in pairs(NeoTreeColours) do
+	vim.api.nvim_set_hl(0, hl, col)
+end
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",
@@ -12,7 +22,26 @@ vim.fn.sign_define("DiagnosticSignHint",
 
 require("neo-tree").setup({
   filesystem = {
-     hijack_netrw_behavior = "open_current"
+    hijack_netrw_behavior = "open_current",
+    filtered_items = {
+      visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+      hide_dotfiles = false,
+      hide_gitignored = true,
+    },
+    window = {
+      popup = {
+        position = { col = "50%", row = "50%" },
+        size = function(state)
+          local root_name = vim.fn.fnamemodify(state.path, ":~")
+          local root_len = string.len(root_name) + 4
+          print(lines)
+          return {
+            width = math.max(root_len, 60),
+            height = vim.o.lines / 2 + 4
+          }
+        end
+      },
+    }
   },
   popup_border_style = "rounded",
   enable_git_status = true,
@@ -51,8 +80,9 @@ require("neo-tree").setup({
     }
   },
   window = {
-    position = "current",
-    width = 40,
+    position = "float",
+    width = 5,
+    height = 5,
     mapping_options = {
       noremap = true,
       nowait = true,
@@ -60,6 +90,7 @@ require("neo-tree").setup({
     mappings = {
       ["<C-t>"] = "close_window",
       ["<esc>"] = "close_window",
+      ["<Tab>"] = "close_window",
       ["o"] = "navigate_up",
       ["h"] = function(state)
         local node = state.tree:get_node()
@@ -75,6 +106,7 @@ require("neo-tree").setup({
         if node.type == 'directory' then
           if not node:is_expanded() then
             require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+            print(node:get_child_ids())
             require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])
           elseif node:has_children() then
             require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])

@@ -38,5 +38,6 @@ ls.add_snippets("vue", {
     })
 })
 
+ls.filetype_extend("typescript", {"javascript"})
 ls.filetype_extend("vue", {"vue"})
 

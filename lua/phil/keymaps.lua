@@ -49,6 +49,9 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 -- paste over and keep in register
 keymap("x", "<leader>p", "\"_dP", opts)
 
+-- keymap("n", "<C-Tab>", "<C-I>", opts)
+keymap("n", "<tab>", "<c-n>", opts)
+
 -- Update vim config
 keymap("n", "<bslash>u", ":so ~/.config/nvim/init.lua<CR>", opts)
 
@@ -57,7 +60,9 @@ keymap("n", "<leader>c", "/script<CR>ggn", opts)
 keymap("n", "<leader>v", "/template<CR>ggn", opts)
 
 -- Telescope
-keymap("n", "<bslash>f", "<cmd>Telescope find_files<CR>", opts)
+keymap("n", "<C-f>", "<cmd>Telescope find_files<CR>", opts)
+keymap("n", "<bslash>st", "<cmd>Telescope<CR>", opts)
+keymap("n", "<bslash>b", "<cmd>Telescope buffers<CR>", opts)
 keymap("n", "<bslash>ss", "<cmd>Telescope live_grep<CR>", opts)
 keymap("n", "<bslash>sf", "<cmd>Telescope git_files<CR>", opts)
 keymap("n", "<bslash>sb", "<cmd>Telescope buffers<CR>", opts)
@@ -71,7 +76,9 @@ keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
 -- keymap("n", "<leader>tf", ":NvimTreeFindFile<CR>", opts)
 
 -- neo-tree
-keymap("n", "<C-t>", ":Neotree float<CR>", opts)
+keymap("n", "<C-t>", ":Neotree<CR>", opts)
+-- keymap("n", "<Tab>", ":Neotree buffers top<CR>", opts)
+
 -- keymap("n", "<leader>tt", ":NvimTreeFocus<CR>", opts)
 keymap("n", "<leader>tf", ":Neotree reveal<CR>", opts)
 
@@ -81,8 +88,6 @@ keymap("n", "tg", ":BufferLinePick<CR>", opts)
 keymap("n", "<bslash>w", ":w|%bd|e#|bd#<CR>", opts)
 keymap("n", "<bslash>q", ":Bdelete<CR>", opts)
 
-
-
 -- shift to navigate buffers
 keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
 keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
@@ -91,20 +96,12 @@ keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 -- whichkey
 keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
 
--- floatterm
--- keymap('n', "<C-bslash>", ":FloatermToggle<CR>", opts)
--- keymap('n', "<bslash>t", ":FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topright --autoclose=2 ranger <CR>", opts)
---
--- keymap('t', "<C-n>", [[<C-\><C-n> <cmd>FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright:FloatermUpdate --height=0.6 --width=0.4 --name=floaterm_name --wintype=float --position=topright<CR>]], opts)
--- keymap('t', '<esc>', [[<C-\><C-n>]], opts)
--- keymap('t', '<C-bslash>', [[<C-n>]], opts)
-
 -- toggleterm
 -- keymap('n', "<C-bslash>", ":ToggleTerm<CR>", opts)
 keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+keymap('t', 'jk', [[<C-\><C-n>]], opts)
+-- keymap('t', '<esc>', [[<C-\><C-n> <C-w>k]], opts)
 -- keymap('t', '<C-bslash>', [[<C-\><C-n> <cmd>FloatermToggle<CR>]], opts)
--- keymap('t', 'jk', [[<C-\><C-n>]], opts)
-keymap('t', '<esc>', [[<C-\><C-n> <C-w>k]], opts)
 -- keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
 -- keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 -- keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
@@ -114,3 +111,10 @@ keymap('n', '<bslash>o', ":SymbolsOutline<CR>", opts)
 
 -- love2d
 keymap('n', '<leader>r', ":AsyncRun -mode=term -rows=6 -listed=0 -scroll=1 -focus=0  love .<CR>", opts)
+
+-- tabby
+keymap("n", "<bslash>ta", ":$tabnew<CR>", opts)
+keymap("n", "<bslash>tc", ":tabclose<CR>", opts)
+keymap("n", "<bslash>to", ":tabonly<CR>", opts)
+keymap("n", "<bslash>tn", ":tabn<CR>", opts)
+keymap("n", "<bslash>tp", ":tabp<CR>", opts)

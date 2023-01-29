@@ -50,18 +50,41 @@ return packer.startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
+      {
+        -- only needed if you want to use the commands with "_with_window_picker" suffix
+        's1n7ax/nvim-window-picker',
+        tag = "v1.*",
+        config = function()
+          require'window-picker'.setup({
+            autoselect_one = true,
+            include_current = false,
+            filter_rules = {
+              -- filter using buffer options
+              bo = {
+                -- if the file type is one of following, the window will be ignored
+                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+
+                -- if the buffer type is one of following, the window will be ignored
+                buftype = { 'terminal', "quickfix" },
+              },
+            },
+            other_win_hl_color = '#e35e4f',
+          })
+        end,
+      }
     }
   }
   use {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.0",
+    -- tag = "0.1.0",
     requires = { { "nvim-lua/plenary.nvim" } },
   }
   use "nvim-telescope/telescope-file-browser.nvim"
   use "benfowler/telescope-luasnip.nvim"
   use "williamboman/nvim-lsp-installer"
   use { "neovim/nvim-lspconfig" }
-  use { "jose-elias-alvarez/null-ls.nvim", config = function() require("null-ls").setup() end, requires = { "nvim-lua/plenary.nvim" } }
+  use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } }
+  use "windwp/nvim-autopairs"
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
@@ -72,20 +95,21 @@ return packer.startup(function(use)
   use "L3MON4D3/LuaSnip"
   use "saadparwaiz1/cmp_luasnip"
   use "kylechui/nvim-surround"
-  use "windwp/nvim-autopairs"
   use "windwp/nvim-ts-autotag"
   use { "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" }
+  -- use 'nanozuki/tabby.nvim'
   use "famiu/bufdelete.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use "lewis6991/gitsigns.nvim"
   use "numToStr/Comment.nvim"
   use "JoosepAlviste/nvim-ts-context-commentstring"
-  use { "nvim-treesitter/nvim-treesitter", tag="4cccb6f494eb255b32a290d37c35ca12584c74d0", run = function() require("nvim-treesitter.install").update({ with_sync = true }) end, }
+  use { "nvim-treesitter/nvim-treesitter", run = function() require("nvim-treesitter.install").update({ with_sync = true }) end, }
+
   use { "folke/which-key.nvim" }
   use { "akinsho/toggleterm.nvim", tag = "*" }
   use 'voldikss/vim-floaterm'
   use 'skywind3000/asyncrun.vim'
-  use { "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true }, }
+  use { "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } }
   use 'rebelot/heirline.nvim'
   use "EdenEast/nightfox.nvim"
   use "rebelot/kanagawa.nvim"
@@ -98,6 +122,7 @@ return packer.startup(function(use)
   use "dstein64/vim-startuptime"
   use "simrat39/symbols-outline.nvim"
   use 'Mofiqul/dracula.nvim'
+  use 'norcalli/nvim-colorizer.lua'
   use({
     "andrewferrier/debugprint.nvim",
     config = function()
