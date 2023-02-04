@@ -9,6 +9,11 @@ keymap('n', '<bslash>gr', "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 keymap('n', 'K', "<cmd>lua vim.lsp.buf.hover({border = 'rounded' })<CR>", opts)
 keymap('n', '<bslash>k', "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
+
+keymap('n', '<leader>dq', "<cmd>lua vim.diagnostic.toqflist()<CR>", opts)
+keymap('n', '<leader>ds', "<cmd>lua vim.diagnostic.show()<CR>", opts)
+keymap('n', '<leader>dh', "<cmd>lua vim.diagnostic.hide()<CR>", opts)
+
 keymap('n', '<bslash>gn', "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 keymap('n', '<bslash>ga', "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 

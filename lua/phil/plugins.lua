@@ -96,7 +96,9 @@ return packer.startup(function(use)
   use "saadparwaiz1/cmp_luasnip"
   use "kylechui/nvim-surround"
   use "windwp/nvim-ts-autotag"
-  use { "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" }
+  use 'ThePrimeagen/harpoon'
+  use { "akinsho/bufferline.nvim", tag = "v3.1.0", requires = "kyazdani42/nvim-web-devicons" }
+  -- use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
   -- use 'nanozuki/tabby.nvim'
   use "famiu/bufdelete.nvim"
   use "lukas-reineke/indent-blankline.nvim"
@@ -104,7 +106,6 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim"
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use { "nvim-treesitter/nvim-treesitter", run = function() require("nvim-treesitter.install").update({ with_sync = true }) end, }
-
   use { "folke/which-key.nvim" }
   use { "akinsho/toggleterm.nvim", tag = "*" }
   use 'voldikss/vim-floaterm'
@@ -123,6 +124,8 @@ return packer.startup(function(use)
   use "simrat39/symbols-outline.nvim"
   use 'Mofiqul/dracula.nvim'
   use 'norcalli/nvim-colorizer.lua'
+  use 'mfussenegger/nvim-dap'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use({
     "andrewferrier/debugprint.nvim",
     config = function()

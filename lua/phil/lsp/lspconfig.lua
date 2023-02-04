@@ -9,7 +9,7 @@ require("lspconfig").tsserver.setup({
 require'lspconfig'.vuels.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+    filetypes = { 'javascriptreact', 'typescriptreact', 'vue', 'json'},
     settings = {
         vetur = {
             experimental = {

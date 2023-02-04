@@ -92,16 +92,25 @@ local conditions = {
     end,
 }
 
+local disallow = {
+  'packer',
+  'neo-tree filesystem',
+}
+
 -- Config
 local config = {
     extensions = {'quickfix', 'nvim-tree', 'symbols-outline'},
-    globalstatus = true,
+    globalstatus = false,
     options = {
-        -- Disable sections and component separators
-        component_separators = '',
-        section_separators = '',
-        theme = {
-            -- We are going to use lualine_c an lualine_x as left and
+      disabled_filetypes = {
+        statusline = disallow,
+        winbar = disallow,
+      },
+      -- Disable sections and component separators
+      component_separators = '',
+      section_separators = '',
+      theme = {
+        -- We are going to use lualine_c an lualine_x as left and
             -- right section. Both are highlighted by c theme .  So we
             -- are just setting default looks o statusline
             normal = { c = { fg = clrs.text, bg = clrs.mantle } },
@@ -127,7 +136,15 @@ local config = {
         lualine_c = {},
         lualine_x = {},
     },
-}
+    tabline = {
+      lualine_a = {},
+      -- lualine_b = {{ 'buffers', max_length = 1, color = { fg = clrs.peach }, padding = { left = 3, right = 5, bottom = 2 }}},
+      lualine_c = {{ 'filename', color = { gui = 'bold', bg = clrs.base }, padding = {left = 6, right = 5, bottom = 2}, symbols = { modified = "●", newfile = "" }}},
+      -- lualine_x = {},
+      -- lualine_y = {},
+      -- lualine_z = {}
+    }
+  }
 
 -- Inserts a component in lualine_c at left section
 local function ins_left(component)
@@ -159,65 +176,7 @@ ins_left {
     end,
     padding = { right = 1 },
 }
--- color = function()
---   -- auto change color according to neovims mode
---   local mode_color = {
---     n = colors.red,
---     i = colors.green,
---     v = colors.blue,
---     [''] = colors.blue,
---     V = colors.blue,
---     c = colors.magenta,
---     no = colors.red,
---     s = colors.orange,
---     S = colors.orange,
---     [''] = colors.orange,
---     ic = colors.yellow,
---     R = colors.violet,
---     Rv = colors.violet,
---     cv = colors.red,
---     ce = colors.red,
---     r = colors.cyan,
---     rm = colors.cyan,
---     ['r?'] = colors.cyan,
---     ['!'] = colors.red,
---     t = colors.red,
---   }
---   return { fg = mode_color[vim.fn.mode()] }
---   end
---
---
---
---
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
---
--- ins_left {
---   -- Lsp server name .
---   function()
---     local msg = 'No Active Lsp'
---     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
---     local clients = vim.lsp.get_active_clients()
---     if next(clients) == nil then
---       return msg
---     end
---     for _, client in ipairs(clients) do
---       local filetypes = client.config.filetypes
---       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
---         return client.name
---       end
---     end
---     return msg
---   end,
---   icon = ' LSP:',
---   color = { fg = '#ffffff', gui = 'bold' },
--- }
---
--- -- Add components to right sections
---
---
 local function fill_string_width(str)
-    local default_str = "+888 ~888 -888"
     local tmp_str = str
 
     tmp_str = tmp_str:gsub("+", "")
@@ -225,23 +184,18 @@ local function fill_string_width(str)
     tmp_str = tmp_str:gsub("-", "")
 
     return string.format("%3s", tostring(tmp_str))
-    -- return tostring(string.len(str))
-    -- return tostring(vim.fn.strdisplaywidth(str))
 end
 
 
 ins_left {
     'branch',
-    -- icon = '',
     icon = '',
     color = { fg = clrs.blue, gui = 'bold' },
 }
 
 ins_left {
     'diff',
-    -- Is it me or the symbol for modified us really weird
     symbols = { added = '+', modified = '~', removed = '-' },
-    -- fmt = function (str) return string.format(' %90s ', str, " ") end,
     fmt = fill_string_width,
     diff_color = {
         added = { fg = colors.green },
@@ -250,12 +204,6 @@ ins_left {
     },
     cond = conditions.hide_in_width,
 }
-
--- ins_left {
---   function()
---     return '%='
---   end,
--- }
 
 ins_left {
     'filename',
@@ -294,7 +242,6 @@ ins_right {
     end
     return msg
   end,
-  -- icon = ' LSP:',
   color = { fg = clrs.subtext, gui = 'bold' },
 }
 
@@ -304,21 +251,6 @@ ins_right { 'location', color = { fg = clrs.subtext0 } }
 --
 ins_right { 'progress', color = { fg = clrs.subtext0, gui = 'bold' } }
 
--- ins_right {
---   'o:encoding', -- option component same as &encoding in viml
---   fmt = string.upper, -- I'm not sure why it's upper case either ;)
---   cond = conditions.hide_in_width,
---   color = { fg = clrs.subtext0, gui = 'bold' },
--- }
-
-
--- ins_right {
---     'fileformat',
---     fmt = string.upper,
---     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
---     color = { fg = colors.green, gui = 'bold' },
--- }
-
 ins_right {
     function()
         return ' ▊'
@@ -327,5 +259,4 @@ ins_right {
     padding = { left = 1 },
 }
 
--- Now don't forget to initialize lualine
 lualine.setup(config)

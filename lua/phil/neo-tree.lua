@@ -22,7 +22,8 @@ vim.fn.sign_define("DiagnosticSignHint",
 
 require("neo-tree").setup({
   filesystem = {
-    hijack_netrw_behavior = "open_current",
+    find_by_full_path_words = true,
+   -- hijack_netrw_behavior = "open_current",
     filtered_items = {
       visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
       hide_dotfiles = false,
@@ -34,7 +35,6 @@ require("neo-tree").setup({
         size = function(state)
           local root_name = vim.fn.fnamemodify(state.path, ":~")
           local root_len = string.len(root_name) + 4
-          print(lines)
           return {
             width = math.max(root_len, 60),
             height = vim.o.lines / 2 + 4
@@ -106,7 +106,6 @@ require("neo-tree").setup({
         if node.type == 'directory' then
           if not node:is_expanded() then
             require'neo-tree.sources.filesystem'.toggle_directory(state, node)
-            print(node:get_child_ids())
             require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])
           elseif node:has_children() then
             require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])
@@ -117,5 +116,4 @@ require("neo-tree").setup({
       end,
     }
   }
-
 })
