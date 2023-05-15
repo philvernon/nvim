@@ -56,9 +56,16 @@ require("telescope").setup({
       i = {
         ["<C-f>"] = "close"
       }
+    },
+    extensions = {
+      project = {
+        layout_strategy = "horizontal"
+      }
     }
   }
 })
 
 require('telescope').load_extension('luasnip')
+require('telescope').load_extension('project')
+
 

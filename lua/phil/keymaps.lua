@@ -3,9 +3,9 @@ local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- Remap comma as leader key
-keymap("", ",", "<Nop>", opts)
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+-- keymap("", ",", "<Nop>", opts)
+vim.g.mapleader = "sd"
+vim.g.maplocalleader = "sd"
 
 -- GENERAL
 keymap("n", "<leader>qq", ":wqa<CR>", opts)
@@ -14,12 +14,14 @@ keymap("n", "<Left>", "<C-w>h", opts)
 keymap("n", "<Down>", "<C-w>j", opts)
 keymap("n", "<Up>", "<C-w>k", opts)
 keymap("n", "<Right>", "<C-w>l", opts)
+keymap("n", "<leader>l", ":q<CR>", opts)
 -- open split
 keymap("n", "<leader>s", ":vsplit<CR>", opts)
+keymap("n", "<leader>S", ":split<CR>", opts)
 -- buffer
 keymap("n", "<blash>q", ":bd<CR>", opts)
-keymap("n", "tt", ":bn<CR>", opts)
-keymap("n", "T", ":bp<CR>", opts)
+keymap("n", "<leader><tab>", ":bn<CR>", opts)
+keymap("n", "<leader><s-tab>", ":bp<CR>", opts)
 -- quickfix
 keymap("n", "]e", ":cnext<CR>", opts)
 keymap("n", "[e", ":cprev<CR>", opts)
@@ -57,6 +59,9 @@ keymap("n", "<bslash>sf", "<cmd>Telescope git_files<CR>", opts)
 keymap("n", "<bslash>sh", "<cmd>Telescope help_tags<CR>", opts)
 keymap("n", "<bslash>sg", "<cmd>Telescope git_commits<CR>", opts)
 keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
+keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
+keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
+
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)
 keymap("n", "<leader>tf", ":Neotree reveal<CR>", opts)
@@ -87,4 +92,21 @@ keymap("n", "<C-c>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
 keymap("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
 keymap("n", "<C-e>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
 keymap("n", "<C-b>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
+-- zen
+keymap("n", "<leader>ts", "<cmd>ZenMode<CR>", opts)
+
+-- UUID Gen
+keymap("n", "<leader>id", '<cmd>exe ":normal i" . system("uuidgen | tr -d \'\\n\'")<CR>', opts)
+
+-- octo
+keymap("n", "<leader>gp", '<cmd>Octo pr list<CR>', opts)
+keymap("n", "<leader>gi", '<cmd>Octo issue list<CR>', opts)
+keymap("n", "<leader>gv", '<cmd>Octo issue list assignee=philvernon<CR>', opts)
+
+-- git
+keymap("n", "<leader>gd", '<cmd>Gitsigns diffthis<CR>', opts)
+keymap("n", "<leader>gD", '<cmd>Gitsigns diffthis develop<CR>', opts)
+
+keymap("n", "<leader>gs", ':Gitsigns show ', opts)
+keymap("n", "<leader>gS", '<cmd>Gitsigns show develop<CR>', opts)
 

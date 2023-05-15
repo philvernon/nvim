@@ -36,8 +36,8 @@ require("neo-tree").setup({
           local root_name = vim.fn.fnamemodify(state.path, ":~")
           local root_len = string.len(root_name) + 4
           return {
-            width = math.max(root_len, 60),
-            height = vim.o.lines / 2 + 4
+            width = math.max(root_len, 100),
+            height = math.max(math.floor(vim.o.lines / 2 + 4), 10)
           }
         end
       },

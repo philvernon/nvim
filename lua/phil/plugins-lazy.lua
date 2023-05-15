@@ -11,26 +11,27 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local config = {
+  defaults = {
+    -- lazy = true
+  }
+}
 
 
 require("lazy").setup({
-
-
-  "wbthomason/packer.nvim",
   "nvim-lua/plenary.nvim",
-  "kyazdani42/nvim-web-devicons",
-  "nvim-treesitter/nvim-treesitter",
+  'nvim-treesitter/nvim-treesitter',
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
       {
         -- only needed if you want to use the commands with "_with_window_picker" suffix
         's1n7ax/nvim-window-picker',
-        tag = "v1.*",
+        version = "1.*",
         config = function()
           require'window-picker'.setup({
             autoselect_one = true,
@@ -54,29 +55,42 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     -- tag = "0.1.0",
-    dependencies = { { "nvim-lua/plenary.nvim" } },
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
-  "nvim-telescope/telescope-file-browser.nvim",
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
   "benfowler/telescope-luasnip.nvim",
-  "williamboman/nvim-lsp-installer",
+  "nvim-telescope/telescope-project.nvim",
+  -- "williamboman/nvim-lsp-installer",
+  { "folke/trouble.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons"} },
+
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+
   { "neovim/nvim-lspconfig" },
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  "windwp/nvim-autopairs",
+  { "windwp/nvim-autopairs" },
+  -- { 'echasnovski/mini.pairs', version = '*' },
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-cmdline",
-  "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp-signature-help",
+  "hrsh7th/cmp-calc",
+  "hrsh7th/nvim-cmp",
   "rafamadriz/friendly-snippets",
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   "kylechui/nvim-surround",
   "windwp/nvim-ts-autotag",
   'ThePrimeagen/harpoon',
-  --{ "akinsho/bufferline.nvim", tag = "v3.1.0", dependencies = "kyazdani42/nvim-web-devicons" },
-  -- {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'},
-  -- 'nanozuki/tabby.nvim',
   "famiu/bufdelete.nvim",
   "lukas-reineke/indent-blankline.nvim",
   "lewis6991/gitsigns.nvim",
@@ -84,34 +98,31 @@ require("lazy").setup({
   "JoosepAlviste/nvim-ts-context-commentstring",
   { "folke/which-key.nvim" },
   "akinsho/toggleterm.nvim",
-  'voldikss/vim-floaterm',
-  'skywind3000/asyncrun.vim',
-  { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons", opt = true } },
-  'rebelot/heirline.nvim',
-  "EdenEast/nightfox.nvim",
-  "rebelot/kanagawa.nvim",
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
   { "catppuccin/nvim", as = "catppuccin" },
-  "LunarVim/onedarker.nvim",
-  "tyru/open-browser.vim",
-  "weirongxu/plantuml-previewer.vim",
-  "ellisonleao/glow.nvim",
-  "iamcco/markdown-preview.nvim",
-  "dstein64/vim-startuptime",
   "simrat39/symbols-outline.nvim",
-  'Mofiqul/dracula.nvim',
   'norcalli/nvim-colorizer.lua',
-  'mfussenegger/nvim-dap',
-  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} },
+  'dkarter/bullets.vim',
+  'tpope/vim-fugitive',
+  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   ({
     "andrewferrier/debugprint.nvim",
     config = function()
       require("debugprint").setup()
     end,
   }),
-
+  { "weirongxu/plantuml-previewer.vim", lazy = true },
+  { "iamcco/markdown-preview.nvim" },
+  { 'mfussenegger/nvim-dap', lazy = true },
+  { "ellisonleao/glow.nvim" },
+  { 'skywind3000/asyncrun.vim'},
+  { "tyru/open-browser.vim", lazy = true },
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}, lazy = true },
   {
     'glacambre/firenvim',
-    run = function() vim.fn['firenvim#install'](0) end
+    run = function() vim.fn['firenvim#install'](0) end,
+    lazy = true
   },
+  "folke/zen-mode.nvim"
 
-})
+}, config)
