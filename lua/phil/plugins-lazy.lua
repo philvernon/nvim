@@ -20,7 +20,12 @@ local config = {
 
 require("lazy").setup({
   "nvim-lua/plenary.nvim",
-  'nvim-treesitter/nvim-treesitter',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+  },
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -95,7 +100,6 @@ require("lazy").setup({
   "lukas-reineke/indent-blankline.nvim",
   "lewis6991/gitsigns.nvim",
   "numToStr/Comment.nvim",
-  "JoosepAlviste/nvim-ts-context-commentstring",
   { "folke/which-key.nvim" },
   "akinsho/toggleterm.nvim",
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },

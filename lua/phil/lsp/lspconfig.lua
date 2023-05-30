@@ -110,3 +110,7 @@ require 'lspconfig'.gopls.setup {
 require 'lspconfig'.bashls.setup {
     on_attach = on_attach
 }
+
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
