@@ -61,9 +61,9 @@ require 'lspconfig'.yamlls.setup {
 require'lspconfig'.volar.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    -- flags = {
-    --     debounce_text_changes = 150,
-    -- },
+    flags = {
+        debounce_text_changes = 150,
+    },
     -- Enable "Take Over Mode" where volar will provide all TS LSP services
     -- This drastically improves the responsiveness of diagnostic updates on change
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
@@ -112,5 +112,9 @@ require 'lspconfig'.bashls.setup {
 }
 
 require'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
+
+require'lspconfig'.cssls.setup {
   capabilities = capabilities,
 }

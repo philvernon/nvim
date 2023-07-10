@@ -10,31 +10,31 @@ end
 
 
 local kind_icons = {
-    Text = "",
+    Text = "󰉿",
     Method = "m",
-    Function = "",
+    Function = "󰊕",
     Constructor = "",
     Field = "",
-    Variable = "",
-    Class = "",
+    Variable = "󰆧",
+    Class = "󰌗",
     Interface = "",
     Module = "",
     Property = "",
     Unit = "",
-    Value = "",
+    Value = "󰎠",
     Enum = "",
-    Keyword = "",
+    Keyword = "󰌋",
     Snippet = "",
-    Color = "",
-    File = "",
+    Color = "󰸌",
+    File = "󰈙",
     Reference = "",
-    Folder = "",
+    Folder = "󰉋",
     EnumMember = "",
-    Constant = "",
+    Constant = "󰇽",
     Struct = "",
     Event = "",
-    Operator = "",
-    TypeParameter = "",
+    Operator = "󰆕",
+    TypeParameter = "󰊄",
 }
 
 cmp.setup({
@@ -113,7 +113,11 @@ cmp.setup({
         end,
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp',
+          entry_filter = function(entry, ctx)
+            return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+          end
+        },
         { name = 'luasnip' }, -- For luasnip users.
         { name = 'nvim_lsp_signature_help' },
         { name = 'buffer' },

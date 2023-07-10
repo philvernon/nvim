@@ -26,7 +26,7 @@ local options = {
     expandtab = true, -- convert tabs to spaces
     tabstop = 2, -- insert 2 spaces for a tab
     clipboard = "unnamedplus",
-    mouse = "",
+    mouse = "a",
     laststatus = 3,
 }
 
