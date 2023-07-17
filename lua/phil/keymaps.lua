@@ -61,6 +61,7 @@ keymap("n", "<bslash>sg", "<cmd>Telescope git_commits<CR>", opts)
 keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
 keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
 keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
+keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
 
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)
