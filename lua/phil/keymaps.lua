@@ -107,7 +107,8 @@ keymap("n", "<leader>gv", '<cmd>Octo issue list assignee=philvernon<CR>', opts)
 -- git
 keymap("n", "<leader>gd", '<cmd>Gitsigns diffthis<CR>', opts)
 keymap("n", "<leader>gD", '<cmd>Gitsigns diffthis develop<CR>', opts)
-
 keymap("n", "<leader>gs", ':Gitsigns show ', opts)
 keymap("n", "<leader>gS", '<cmd>Gitsigns show develop<CR>', opts)
 
+-- session
+keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)

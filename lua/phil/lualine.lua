@@ -109,7 +109,7 @@ local disallow = {
 
 -- Config
 local config = {
-  extensions = { 'quickfix', 'nvim-tree', 'symbols-outline' },
+  extensions = { 'nvim-tree', 'symbols-outline' },
   globalstatus = true,
   options = {
     disabled_filetypes = {
@@ -152,13 +152,17 @@ local config = {
     lualine_c = { { 'filename', color = { gui = 'bold', bg = clrs.base }, padding = { left = 6, right = 5, bottom = 2 }, symbols = { modified = "●", newfile = "" } } },
     -- lualine_x = {},
     -- lualine_y = {},
-    lualine_z = { { 'windows', windows_color = {
+    lualine_z = {
+      {
+        'windows',
+        windows_color = {
       -- Same values as the general color option can be used here.
-      active = 'lualine_windows_normal', -- Color for active window.
-      inactive = 'lualine_windows_inactive', -- Color for inactive window.
-    },
-  } }
-}
+          active = 'lualine_windows_normal', -- Color for active window.
+          inactive = 'lualine_windows_inactive', -- Color for inactive window.
+        },
+      }
+    }
+  }
 }
 
 -- Inserts a component in lualine_c at left section

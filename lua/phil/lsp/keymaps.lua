@@ -20,8 +20,10 @@ keymap('n', '<bslash>gf', "<cmd>lua vim.lsp.buf.format({filter = function(client
 
 
 keymap('n', '<leader>dq', "<cmd>lua vim.diagnostic.toqflist()<CR>", opts)
-keymap('n', '<leader>ds', "<cmd>lua vim.diagnostic.show()<CR>", opts)
-keymap('n', '<leader>dh', "<cmd>lua vim.diagnostic.hide()<CR>", opts)
+-- keymap('n', '<leader>ds', "<cmd>lua vim.diagnostic.show()<CR>", opts)
+-- keymap('n', '<leader>dh', "<cmd>lua vim.diagnostic.hide()<CR>", opts)
+keymap('n', '<leader>ds', "<cmd>:lua vim.diagnostic.config({ virtual_text = true })<CR>", opts)
+keymap('n', '<leader>dh', "<cmd>:lua vim.diagnostic.config({ virtual_text = false })<CR>", opts)
 
 function toggle_diagnostic()
   if vim.diagnostic.is_disabled() then

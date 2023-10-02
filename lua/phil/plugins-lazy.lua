@@ -80,6 +80,8 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
 
   { "neovim/nvim-lspconfig" },
+  'simrat39/rust-tools.nvim',
+  'rust-lang/rust.vim',
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   { "windwp/nvim-autopairs" },
   -- { 'echasnovski/mini.pairs', version = '*' },
@@ -95,6 +97,7 @@ require("lazy").setup({
   "saadparwaiz1/cmp_luasnip",
   "kylechui/nvim-surround",
   "windwp/nvim-ts-autotag",
+  {'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async'},
   'ThePrimeagen/harpoon',
   "famiu/bufdelete.nvim",
   "lukas-reineke/indent-blankline.nvim",
@@ -105,6 +108,7 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
   { "catppuccin/nvim", as = "catppuccin" },
   "simrat39/symbols-outline.nvim",
+  "rmagatti/auto-session",
   'norcalli/nvim-colorizer.lua',
   'dkarter/bullets.vim',
   'tpope/vim-fugitive',
@@ -127,6 +131,26 @@ require("lazy").setup({
     run = function() vim.fn['firenvim#install'](0) end,
     lazy = true
   },
-  "folke/zen-mode.nvim"
-
+  "folke/zen-mode.nvim",
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+  'ThePrimeagen/vim-be-good'
 }, config)

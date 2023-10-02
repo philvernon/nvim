@@ -9,12 +9,12 @@ require('neorg').setup {
                 }
             }
         },
-        ["core.norg.concealer"] = {},
-        ["core.norg.completion"] = {
-            config = {
-                engine = 'nvim-cmp'
-            }
-        },
-        ["core.gtd.base"] = {}
+        -- ["core.norg.concealer"] = {},
+        -- ["core.norg.completion"] = {
+        --     config = {
+        --         engine = 'nvim-cmp'
+        --     }
+        -- },
+        -- ["core.gtd.base"] = {}
     }
 }

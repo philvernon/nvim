@@ -6,6 +6,7 @@ local options = {
     relativenumber = true,
     hlsearch = false,
     ignorecase = true,
+    smartcase = true,
     showtabline = 1,
     splitbelow = true,
     splitright = true,
@@ -38,8 +39,6 @@ try
 highlight SignColumn guibg=None
 highlight WinSeperator guibg=None
 ]])
-
--- vim.g.colors_name = "angr"
 
 vim.opt.shortmess:append("c")
 vim.g.loaded_netrw = 0
