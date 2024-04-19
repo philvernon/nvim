@@ -8,7 +8,7 @@ nullls.setup({
         nullls.builtins.diagnostics.eslint_d,
         nullls.builtins.code_actions.eslint_d,
         -- nullls.builtins.completion.spell,
-        -- nullls.builtins.formatting.stylua,
+        nullls.builtins.formatting.stylua,
     },
     on_attach = function(client, bufnr)
         -- format with language server by default

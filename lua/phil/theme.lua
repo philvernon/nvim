@@ -1,6 +1,8 @@
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+-- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 
-require("catppuccin").setup()
+require("catppuccin").setup({
+  flavour = "mocha"
+})
 
 -- vim.cmd [[
 -- try

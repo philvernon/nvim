@@ -1,9 +1,10 @@
 local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
-local keymap = vim.api.nvim_set_keymap
+-- local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
+local wk = require("which-key")
 
--- Remap comma as leader key
--- keymap("", ",", "<Nop>", opts)
+-- leader key
 vim.g.mapleader = "sd"
 vim.g.maplocalleader = "sd"
 
@@ -63,9 +64,15 @@ keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
 keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
 keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
 
+wk.register({
+  f = {
+    name = "file (neotree)",
+    -- s = "Reveal file"
+  },
+}, { prefix = "<bslash>" })
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)
-keymap("n", "<leader>tf", ":Neotree reveal<CR>", opts)
+keymap("n", "<bslash>fs", ":Neotree reveal<CR>", opts)
 -- bufferline
 keymap("n", "tg", ":BufferLinePick<CR>", opts)
 -- keymap("n", "<bslash>w", ":BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>", opts)
@@ -87,12 +94,12 @@ keymap("n", "<bslash>to", ":tabonly<CR>", opts)
 keymap("n", "<bslash>tn", ":tabn<CR>", opts)
 keymap("n", "<bslash>tp", ":tabp<CR>", opts)
 -- harpoon
-keymap("n", "<leader>h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
-keymap("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<CR>", opts)
-keymap("n", "<C-c>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
-keymap("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
-keymap("n", "<C-e>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
-keymap("n", "<C-b>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
+-- keymap("n", "<leader>h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
+-- keymap("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<CR>", opts)
+-- keymap("n", "<C-c>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
+-- keymap("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
+-- keymap("n", "<C-e>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
+-- keymap("n", "<C-b>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
 -- zen
 keymap("n", "<leader>ts", "<cmd>ZenMode<CR>", opts)
 

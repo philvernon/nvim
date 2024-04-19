@@ -1,11 +1,7 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "css", "html", "scss", "vue", "typescript", "json", "bash", "lua", "vim", "help" },
+  ensure_installed = { "javascript", "css", "html", "scss", "vue", "typescript", "json", "bash", "lua", "vim", "vimdoc" },
   highlight = {
     enable = true,
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
   },
   incremental_selection = {
     enable = true,
@@ -32,3 +28,9 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
+
+vim.g.skip_ts_context_commentstring_module = true

@@ -51,6 +51,14 @@ cmp.setup({
         -- completion = cmp.config.window.bordered(),
         -- documentation = cmp.config.window.bordered(),
     },
+		performance = {
+			debounce = 0,
+			throttle = 0,
+			fetching_timeout = 500,
+			confirm_resolve_timeout = 80,
+			async_budget = 1,
+			max_view_entries = 200,
+		},
     mapping = {
         ["<Up>"] = cmp.mapping.select_prev_item(),
         ["<Down>"] = cmp.mapping.select_next_item(),
@@ -99,6 +107,7 @@ cmp.setup({
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
+				expandable_indicator = true,
         format = function(entry, vim_item)
           -- Kind icons
           vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
@@ -118,8 +127,8 @@ cmp.setup({
             return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
           end
         },
-        { name = 'luasnip' }, -- For luasnip users.
         { name = 'nvim_lsp_signature_help' },
+        { name = 'luasnip' }, -- For luasnip users.
         { name = 'buffer' },
         { name = 'calc' }
     })

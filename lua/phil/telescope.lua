@@ -1,6 +1,7 @@
 local colors = require("catppuccin.palettes").get_palette()
 local action_layout = require("telescope.actions.layout")
 local action = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
 
 local TelescopeColor = {
 	-- TelescopeMatching = { fg = colors.flamingo },
@@ -52,9 +53,11 @@ require("telescope").setup({
         ["<C-f>"] = "close",
         ["]"] = action_layout.cycle_layout_next,
         ["["] = action_layout.cycle_layout_prev,
+        ["<C-t>"] = trouble.open_with_trouble
       },
       i = {
-        ["<C-f>"] = "close"
+        ["<C-f>"] = "close",
+        ["<C-t>"] = trouble.open_with_trouble
       }
     },
     extensions = {
