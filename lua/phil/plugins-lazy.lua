@@ -130,6 +130,31 @@ require("lazy").setup({
 	'dkarter/bullets.vim',
 	'tpope/vim-fugitive',
 	{ 'sindrets/diffview.nvim',           dependencies = 'nvim-lua/plenary.nvim' },
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+		},
+		config = {
+			integrations = {
+				telescope = nil,
+				-- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `diffview`.
+				-- The diffview integration enables the diff popup.
+				--
+				-- Requires you to have `sindrets/diffview.nvim` installed.
+				diffview = false,
+
+				-- If enabled, uses fzf-lua for menu selection. If the telescope integration
+				-- is also selected then telescope is used instead
+				-- Requires you to have `ibhagwan/fzf-lua` installed.
+				fzf_lua = false,
+			},
+		}
+	},
 	({
 		"andrewferrier/debugprint.nvim",
 		config = function()
