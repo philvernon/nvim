@@ -129,32 +129,18 @@ require("lazy").setup({
 	'norcalli/nvim-colorizer.lua',
 	'dkarter/bullets.vim',
 	'tpope/vim-fugitive',
-	{ 'sindrets/diffview.nvim',           dependencies = 'nvim-lua/plenary.nvim' },
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-lua/plenary.nvim",         -- required
+			"sindrets/diffview.nvim",        -- optional - Diff integration
 
 			-- Only one of these is needed, not both.
 			"nvim-telescope/telescope.nvim", -- optional
 		},
-		config = {
-			integrations = {
-				telescope = nil,
-				-- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `diffview`.
-				-- The diffview integration enables the diff popup.
-				--
-				-- Requires you to have `sindrets/diffview.nvim` installed.
-				diffview = false,
-
-				-- If enabled, uses fzf-lua for menu selection. If the telescope integration
-				-- is also selected then telescope is used instead
-				-- Requires you to have `ibhagwan/fzf-lua` installed.
-				fzf_lua = false,
-			},
-		}
+		config = true
 	},
+	{ 'sindrets/diffview.nvim',           dependencies = 'nvim-lua/plenary.nvim' },
 	({
 		"andrewferrier/debugprint.nvim",
 		config = function()
@@ -176,23 +162,23 @@ require("lazy").setup({
 	},
 	"folke/zen-mode.nvim",
 	-- {
-	--   "nvim-neorg/neorg",
-	--   build = ":Neorg sync-parsers",
-	--   dependencies = { "nvim-lua/plenary.nvim" },
-	--   config = function()
-	--     require("neorg").setup {
-	--       load = {
-	--         ["core.defaults"] = {}, -- Loads default behaviour
-	--         ["core.concealer"] = {}, -- Adds pretty icons to your documents
-	--         ["core.dirman"] = { -- Manages Neorg workspaces
-	--           config = {
-	--             workspaces = {
-	--               notes = "~/notes",
-	--             },
-	--           },
-	--         },
-	--       },
-	--     }
-	--   end,
-	-- },
-}, config)
+		--   "nvim-neorg/neorg",
+		--   build = ":Neorg sync-parsers",
+		--   dependencies = { "nvim-lua/plenary.nvim" },
+		--   config = function()
+			--     require("neorg").setup {
+				--       load = {
+					--         ["core.defaults"] = {}, -- Loads default behaviour
+					--         ["core.concealer"] = {}, -- Adds pretty icons to your documents
+					--         ["core.dirman"] = { -- Manages Neorg workspaces
+						--           config = {
+							--             workspaces = {
+								--               notes = "~/notes",
+								--             },
+								--           },
+								--         },
+								--       },
+								--     }
+								--   end,
+								-- },
+							}, config)
