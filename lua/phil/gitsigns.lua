@@ -46,6 +46,9 @@ require('gitsigns').setup {
             opts.buffer = bufnr
             vim.keymap.set(mode, l, r, opts)
         end
+				local function hello()
+					
+				end
 
         -- Navigation
         map('n', ']c', function()
@@ -61,3 +64,22 @@ require('gitsigns').setup {
         end, {expr=true})
     end
 }
+
+local colors = require("catppuccin.palettes").get_palette()
+
+local NeoTreeColours = {
+	DiffviewFolderSign = { fg = colors.blue, bold = true },
+}
+
+for hl, col in pairs(NeoTreeColours) do
+	vim.api.nvim_set_hl(0, hl, col)
+end
+
+require('diffview').setup({
+	enhanced_diff_hl = true,
+	use_icons = true,
+	icons = {                 -- Only applies when use_icons is true.
+		folder_closed = "",
+		folder_open = "",
+	},
+})
