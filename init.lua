@@ -1,5 +1,4 @@
 -- core
--- require "phil.plugins"
 require("phil.options")
 require("phil.plugins-lazy")
 require("phil.theme")
@@ -7,10 +6,8 @@ require("phil.keymaps")
 require("phil.lualine")
 --plugins
 require("phil.nvim-cmp")
--- require "phil.lsp.null"
 require("phil.conform")
 require("phil.lint")
--- require "phil.lsp.lsp-installer"
 require("phil.mason")
 require("phil.lsp.lsp-mason")
 require("phil.lsp.lspconfig")
@@ -23,9 +20,6 @@ require("phil.comment")
 require("phil.surround")
 require("phil.autopairs")
 require("phil.fold")
--- require "phil.mini-pairs"
--- require "phil.bufferline"
--- require "phil.tabby"
 require("phil.telescope")
 require("phil.trouble")
 require("phil.gitsigns")
@@ -34,7 +28,7 @@ require("phil.whichkey")
 require("phil.outline")
 require("phil.markdown-preview")
 -- require "phil.glow"
--- require "phil.colorizor"
+-- require("phil.colorizor")
 require("phil.zen")
 require("phil.octo")
 require("phil.session")
