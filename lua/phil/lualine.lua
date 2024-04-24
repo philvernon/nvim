@@ -148,8 +148,8 @@ local config = {
 		lualine_a = {},
 		lualine_c = { {
 			'filename',
-			color = { gui = 'bold', bg = clrs.mantle },
-			padding = { left = 6, right = 5, bottom = 0, top = 0 },
+			color = { gui = 'bold', bg = clrs.base },
+			padding = { left = 0, right = 0, bottom = 0, top = 0 },
 			symbols = { modified = "●", newfile = "" }
 		}
 		},
@@ -159,8 +159,8 @@ local config = {
 		lualine_a = {},
 		lualine_c = { {
 			'filename',
-			color = { gui = 'bold', fg = clrs.mantle, bg = clrs.base },
-			padding = { left = 6, right = 5, bottom = 0, top = 0 },
+			color = { gui = 'bold', fg = clrs.surface2, bg = clrs.base },
+			padding = { left = 0, right = 0, bottom = 0, top = 0 },
 			symbols = { modified = "●", newfile = "" }
 		}
 		},
