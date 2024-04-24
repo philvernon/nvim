@@ -3,7 +3,7 @@ if clrs == nil then
 	print("catpuccin not working")
 	return
 end
-local catppuccin = require'catppuccin.utils.lualine'("mocha")
+local catppuccin = require 'catppuccin.utils.lualine' ("mocha")
 
 local lualine = require('lualine')
 
@@ -146,24 +146,24 @@ local config = {
 	},
 	winbar = {
 		lualine_a = {},
-		lualine_c = { { 
-			'filename', 
-			color = { gui = 'bold', bg = clrs.mantle }, 
+		lualine_c = { {
+			'filename',
+			color = { gui = 'bold', bg = clrs.mantle },
 			padding = { left = 6, right = 5, bottom = 0, top = 0 },
-			symbols = { modified = "●", newfile = "" } 
-		} 
-	},
+			symbols = { modified = "●", newfile = "" }
+		}
+		},
 		lualine_z = {}
 	},
 	inactive_winbar = {
 		lualine_a = {},
 		lualine_c = { {
-			'filename', 
-			color = { gui = 'bold', fg = clrs.mantle, bg = clrs.base }, 
+			'filename',
+			color = { gui = 'bold', fg = clrs.mantle, bg = clrs.base },
 			padding = { left = 6, right = 5, bottom = 0, top = 0 },
-			symbols = { modified = "●", newfile = "" } 
-		} 
-	},
+			symbols = { modified = "●", newfile = "" }
+		}
+		},
 		lualine_z = {}
 	},
 }
@@ -249,31 +249,25 @@ ins_right {
 ins_right { 'filetype', color = { fg = clrs.subtext0 } }
 
 ins_right {
-	-- Lsp server name .
+	-- Lsp server name
 	function()
-		local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-		local clients = vim.lsp.get_active_clients()
-		-- clients = table.remove(clients, 1)
+		local clients = vim.lsp.get_clients()
 		if next(clients) == nil then
 			return ''
 		end
 		local msg = ''
 		for _, client in ipairs(clients) do
-			local filetypes = client.config.filetypes
-			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= 'null-ls' then
+			if client.name ~= 'null-ls' then
 				msg = msg .. client.name .. ' '
-				-- msg = msg .. require'nvim-web-devicons'.get_icon('', "ts", { default = true })
-				-- return client.name
 			end
 		end
 		-- remove space after last client string
 		msg = msg:gsub("%s+$", "")
 		return msg .. ''
 	end,
-	color = { fg = clrs.subtext, gui = 'bold' },
+	color = { fg = clrs.subtext0, gui = 'bold' },
 	padding = 0
 }
-
 
 ins_right { 'location', color = { fg = clrs.subtext0 } }
 
