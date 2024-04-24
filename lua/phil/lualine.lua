@@ -1,4 +1,9 @@
 local clrs = require("catppuccin.palettes").get_palette()
+if clrs == nil then
+	print("catpuccin not working")
+	return
+end
+local catppuccin = require'catppuccin.utils.lualine'("mocha")
 
 local lualine = require('lualine')
 
@@ -24,7 +29,6 @@ local LuaLineHighlights = {
 for hl, col in pairs(LuaLineHighlights) do
 	vim.api.nvim_set_hl(0, hl, col)
 end
-
 
 -- from catppuccin
 local mode_names = {
@@ -119,13 +123,7 @@ local config = {
 		-- Disable sections and component separators
 		component_separators = '',
 		section_separators = '',
-		theme = {
-			-- We are going to use lualine_c an lualine_x as left and
-			-- right section. Both are highlighted by c theme .  So we
-			-- are just setting default looks o statusline
-			normal = { c = { fg = clrs.text, bg = clrs.mantle } },
-			inactive = { c = { fg = colors.fg, bg = colors.bg } },
-		},
+		theme = catppuccin,
 	},
 	sections = {
 		-- these are to remove the defaults
@@ -150,8 +148,8 @@ local config = {
 		lualine_a = {},
 		lualine_c = { { 
 			'filename', 
-			color = { gui = 'bold', bg = clrs.base }, 
-			padding = { left = 6, right = 5, bottom = 2 }, 
+			color = { gui = 'bold', bg = clrs.mantle }, 
+			padding = { left = 6, right = 5, bottom = 0, top = 0 },
 			symbols = { modified = "●", newfile = "" } 
 		} 
 	},
@@ -161,8 +159,8 @@ local config = {
 		lualine_a = {},
 		lualine_c = { {
 			'filename', 
-			color = { gui = 'bold', bg = clrs.base }, 
-			padding = { left = 6, right = 5, bottom = 2 }, 
+			color = { gui = 'bold', fg = clrs.mantle, bg = clrs.base }, 
+			padding = { left = 6, right = 5, bottom = 0, top = 0 },
 			symbols = { modified = "●", newfile = "" } 
 		} 
 	},
