@@ -39,7 +39,7 @@ keymap("i", "ß", "<C-O>:update<CR><ESC>", opts)
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 -- paste over and keep in register
-keymap("x", "<leader>p", "\"_dP", opts)
+keymap("x", "<leader>p", '"_dP', opts)
 -- Update vim config
 keymap("n", "<bslash>u", ":so ~/.config/nvim/init.lua<CR>", opts)
 -- UTIL
@@ -47,7 +47,7 @@ keymap("n", "<bslash>u", ":so ~/.config/nvim/init.lua<CR>", opts)
 keymap("n", "<leader>c", "/script<CR>ggn", opts)
 keymap("n", "<leader>v", "/template<CR>ggn", opts)
 -- love2d
-keymap('n', '<leader>r', ":AsyncRun -mode=term -rows=6 -listed=0 -scroll=1 -focus=0  love .<CR>", opts)
+keymap("n", "<leader>r", ":AsyncRun -mode=term -rows=6 -listed=0 -scroll=1 -focus=0  love .<CR>", opts)
 
 -- PLUGINS
 -- Telescope
@@ -65,10 +65,10 @@ keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.projec
 keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
 
 wk.register({
-  f = {
-    name = "file (neotree)",
-    -- s = "Reveal file"
-  },
+	f = {
+		name = "file (neotree)",
+		-- s = "Reveal file"
+	},
 }, { prefix = "<bslash>" })
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)
@@ -83,10 +83,10 @@ keymap("n", "<bslash>q", ":Bdelete<CR>", opts)
 -- whichkey
 keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
 -- toggleterm
-keymap('t', '<esc>', [[<C-\><C-n>]], opts)
-keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap("t", "<esc>", [[<C-\><C-n>]], opts)
+keymap("t", "jk", [[<C-\><C-n>]], opts)
 -- outline
-keymap('n', '<bslash>o', ":SymbolsOutline<CR>", opts)
+keymap("n", "<bslash>o", ":SymbolsOutline<CR>", opts)
 -- tabby
 keymap("n", "<bslash>ta", ":$tabnew<CR>", opts)
 keymap("n", "<bslash>tc", ":tabclose<CR>", opts)
@@ -107,15 +107,18 @@ keymap("n", "<leader>ts", "<cmd>ZenMode<CR>", opts)
 keymap("n", "<leader>id", '<cmd>exe ":normal i" . system("uuidgen | tr -d \'\\n\'")<CR>', opts)
 
 -- octo
-keymap("n", "<leader>gp", '<cmd>Octo pr list<CR>', opts)
-keymap("n", "<leader>gi", '<cmd>Octo issue list<CR>', opts)
-keymap("n", "<leader>gv", '<cmd>Octo issue list assignee=philvernon<CR>', opts)
+keymap("n", "<leader>gp", "<cmd>Octo pr list<CR>", opts)
+keymap("n", "<leader>gi", "<cmd>Octo issue list<CR>", opts)
+keymap("n", "<leader>gv", "<cmd>Octo issue list assignee=philvernon<CR>", opts)
 
 -- git
-keymap("n", "<leader>gd", '<cmd>Gitsigns diffthis<CR>', opts)
-keymap("n", "<leader>gD", '<cmd>Gitsigns diffthis develop<CR>', opts)
-keymap("n", "<leader>gs", ':Gitsigns show ', opts)
-keymap("n", "<leader>gS", '<cmd>Gitsigns show develop<CR>', opts)
+keymap("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", opts)
+keymap("n", "<leader>gD", "<cmd>Gitsigns diffthis develop<CR>", opts)
+keymap("n", "<leader>gs", ":Gitsigns show ", opts)
+keymap("n", "<leader>gS", "<cmd>Gitsigns show develop<CR>", opts)
+keymap("n", "<bslash>gg", "<cmd>Neogit kind=vsplit<CR>", opts)
+keymap("n", "<bslash>gs", "<cmd>Gitsigns stage_buffer<CR>", opts)
+keymap("n", "<bslash>gh", "<cmd>Gitsigns stage_hunk<CR>", opts)
 
 -- session
 keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)

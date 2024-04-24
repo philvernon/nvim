@@ -1,3 +1,3 @@
 require("symbols-outline").setup({
-    autofold_depth = 0
+	autofold_depth = 0,
 })

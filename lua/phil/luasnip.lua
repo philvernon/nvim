@@ -17,27 +17,33 @@ local l = extras.l
 local rep = extras.rep
 local postfix = require("luasnip.extras.postfix").postfix
 
-
 require("luasnip.loaders.from_vscode").lazy_load()
 
 ls.add_snippets("vue", {
-    s("translate", {
-        t("{{ $t('"), i(1, "text"), t("') }}")
-    })
+	s("translate", {
+		t("{{ $t('"),
+		i(1, "text"),
+		t("') }}"),
+	}),
 })
 
 ls.add_snippets("vue", {
-    s("translateStr", {
-        t("$t('"), i(1, "text"), t("')")
-    })
+	s("translateStr", {
+		t("$t('"),
+		i(1, "text"),
+		t("')"),
+	}),
 })
 
 ls.add_snippets("vue", {
-    s("translatecount", {
-        t("{{ $tc('"), i(1, "text"), t(', '), i(2, "count"), t("') }}")
-    })
+	s("translatecount", {
+		t("{{ $tc('"),
+		i(1, "text"),
+		t(", "),
+		i(2, "count"),
+		t("') }}"),
+	}),
 })
 
-ls.filetype_extend("typescript", {"javascript"})
-ls.filetype_extend("vue", {"vue"})
-
+ls.filetype_extend("typescript", { "javascript" })
+ls.filetype_extend("vue", { "vue" })

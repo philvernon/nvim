@@ -3,26 +3,26 @@ if clrs == nil then
 	print("catpuccin not working")
 	return
 end
-local catppuccin = require 'catppuccin.utils.lualine' ("mocha")
+local catppuccin = require("catppuccin.utils.lualine")("mocha")
 
-local lualine = require('lualine')
+local lualine = require("lualine")
 
 local colors = {
-	bg       = '#202328',
-	fg       = '#bbc2cf',
-	yellow   = '#ECBE7B',
-	cyan     = '#008080',
-	darkblue = '#081633',
-	green    = '#98be65',
-	orange   = '#FF8800',
-	violet   = '#a9a1e1',
-	magenta  = '#c678dd',
-	blue     = '#51afef',
-	red      = '#ec5f67',
+	bg = "#202328",
+	fg = "#bbc2cf",
+	yellow = "#ECBE7B",
+	cyan = "#008080",
+	darkblue = "#081633",
+	green = "#98be65",
+	orange = "#FF8800",
+	violet = "#a9a1e1",
+	magenta = "#c678dd",
+	blue = "#51afef",
+	red = "#ec5f67",
 }
 
 local LuaLineHighlights = {
-	lualine_windows_normal = { fg = clrs.base },      -- Color for active window.
+	lualine_windows_normal = { fg = clrs.base }, -- Color for active window.
 	lualine_windows_inactive = { fg = clrs.subtext0 }, -- Color for inactive window.
 }
 
@@ -94,26 +94,26 @@ local mode_colors = {
 
 local conditions = {
 	buffer_not_empty = function()
-		return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+		return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 	end,
 	hide_in_width = function()
 		return vim.fn.winwidth(0) > 80
 	end,
 	check_git_workspace = function()
-		local filepath = vim.fn.expand('%:p:h')
-		local gitdir = vim.fn.finddir('.git', filepath .. ';')
+		local filepath = vim.fn.expand("%:p:h")
+		local gitdir = vim.fn.finddir(".git", filepath .. ";")
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
 }
 
 local disallow = {
-	'packer',
-	'neo-tree filesystem',
+	"packer",
+	"neo-tree filesystem",
 }
 
 -- Config
 local config = {
-	extensions = { 'nvim-tree', 'symbols-outline' },
+	extensions = { "nvim-tree", "symbols-outline" },
 	globalstatus = true,
 	options = {
 		disabled_filetypes = {
@@ -121,8 +121,8 @@ local config = {
 			winbar = disallow,
 		},
 		-- Disable sections and component separators
-		component_separators = '',
-		section_separators = '',
+		component_separators = "",
+		section_separators = "",
 		theme = catppuccin,
 	},
 	sections = {
@@ -146,25 +146,27 @@ local config = {
 	},
 	winbar = {
 		lualine_a = {},
-		lualine_c = { {
-			'filename',
-			color = { gui = 'bold', bg = clrs.base },
-			padding = { left = 0, right = 0, bottom = 0, top = 0 },
-			symbols = { modified = "●", newfile = "" }
-		}
+		lualine_c = {
+			{
+				"filename",
+				color = { gui = "bold", bg = clrs.base },
+				padding = { left = 0, right = 0, bottom = 0, top = 0 },
+				symbols = { modified = "●", newfile = "" },
+			},
 		},
-		lualine_z = {}
+		lualine_z = {},
 	},
 	inactive_winbar = {
 		lualine_a = {},
-		lualine_c = { {
-			'filename',
-			color = { gui = 'bold', fg = clrs.surface2, bg = clrs.base },
-			padding = { left = 0, right = 0, bottom = 0, top = 0 },
-			symbols = { modified = "●", newfile = "" }
-		}
+		lualine_c = {
+			{
+				"filename",
+				color = { gui = "bold", fg = clrs.surface2, bg = clrs.base },
+				padding = { left = 0, right = 0, bottom = 0, top = 0 },
+				symbols = { modified = "●", newfile = "" },
+			},
 		},
-		lualine_z = {}
+		lualine_z = {},
 	},
 }
 
@@ -178,26 +180,25 @@ local function ins_right(component)
 	table.insert(config.sections.lualine_x, component)
 end
 
-
 local function mode_to_color()
 	return { fg = mode_colors[vim.fn.mode()] }
 end
 
-ins_left {
+ins_left({
 	function()
-		return '▊'
+		return "▊"
 	end,
 	color = mode_to_color,
 	padding = { left = 0, right = 1 }, -- We don't need space before this
-}
+})
 
-ins_left {
+ins_left({
 	-- mode component
 	function()
 		return mode_names[vim.fn.mode()]
 	end,
 	padding = { right = 1 },
-}
+})
 local function fill_string_width(str)
 	local tmp_str = str
 
@@ -208,16 +209,15 @@ local function fill_string_width(str)
 	return string.format("%3s", tostring(tmp_str))
 end
 
+ins_left({
+	"branch",
+	icon = "",
+	color = { fg = clrs.blue, gui = "bold" },
+})
 
-ins_left {
-	'branch',
-	icon = '',
-	color = { fg = clrs.blue, gui = 'bold' },
-}
-
-ins_left {
-	'diff',
-	symbols = { added = '+', modified = '~', removed = '-' },
+ins_left({
+	"diff",
+	symbols = { added = "+", modified = "~", removed = "-" },
 	fmt = fill_string_width,
 	diff_color = {
 		added = { fg = colors.green },
@@ -225,66 +225,67 @@ ins_left {
 		removed = { fg = colors.red },
 	},
 	cond = conditions.hide_in_width,
-}
+})
 
-ins_left {
-	'filename',
+ins_left({
+	"filename",
 	cond = conditions.buffer_not_empty,
-	color = { fg = clrs.subtext0, gui = 'bold' },
+	color = { fg = clrs.subtext0, gui = "bold" },
 	path = 1,
-	shorting_target = 150
-}
+	shorting_target = 150,
+})
 
-ins_right {
-	'diagnostics',
-	sources = { 'nvim_diagnostic' },
-	symbols = { error = '', warn = '', info = '', hint = '' },
+ins_right({
+	"diagnostics",
+	sources = { "nvim_diagnostic" },
+	symbols = { error = "", warn = "", info = "", hint = "" },
 	diagnostics_color = {
 		color_error = { fg = colors.red },
 		color_warn = { fg = colors.yellow },
 		color_info = { fg = colors.cyan },
 	},
-}
+})
 
-ins_right { 'filetype', color = { fg = clrs.subtext0 } }
+ins_right({ "filetype", color = { fg = clrs.subtext0 } })
 
-ins_right {
+ins_right({
 	-- Lsp server name
 	function()
 		local clients = vim.lsp.get_clients()
 		if next(clients) == nil then
-			return ''
+			return ""
 		end
-		local msg = ''
+		local msg = ""
 		for _, client in ipairs(clients) do
-			if client.name ~= 'null-ls' then
-				msg = msg .. client.name .. ' '
+			if client.name ~= "null-ls" then
+				msg = msg .. client.name .. " "
 			end
 		end
 		-- remove space after last client string
 		msg = msg:gsub("%s+$", "")
-		return msg .. ''
+		return msg .. ""
 	end,
-	color = { fg = clrs.subtext0, gui = 'bold' },
-	padding = 0
-}
+	color = { fg = clrs.subtext0, gui = "bold" },
+	padding = 0,
+})
 
-ins_right { 'location', color = { fg = clrs.subtext0 } }
+ins_right({ "location", color = { fg = clrs.subtext0 } })
 
-ins_right {
+ins_right({
 	function()
 		return tostring(vim.api.nvim_buf_line_count(vim.fn.winbufnr(vim.g.statusline_winid)))
 	end,
-	color = { fg = clrs.subtext0 } }
+	color = { fg = clrs.subtext0 },
+})
 
-ins_right { 'progress', color = { fg = clrs.subtext0, gui = 'bold' } }
+ins_right({ "progress", color = { fg = clrs.subtext0, gui = "bold" } })
 
-ins_right {
+ins_right({
 	function()
-		return ' ▊'
+		return " ▊"
 	end,
 	color = mode_to_color,
 	padding = { left = 1 },
-}
+})
 
 lualine.setup(config)

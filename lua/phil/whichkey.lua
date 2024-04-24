@@ -13,10 +13,10 @@ local wk = require("which-key")
 --
 -- wk.register({}, opts)
 
-wk.setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-}
+wk.setup({
+	-- your configuration comes here
+	-- or leave it empty to use the default settings
+	-- refer to the configuration section below
+})
 
 -- wk.register(mappings, opts)

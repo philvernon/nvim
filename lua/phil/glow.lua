@@ -1,3 +1,3 @@
-require('glow').setup({
-  -- your override config
+require("glow").setup({
+	-- your override config
 })
