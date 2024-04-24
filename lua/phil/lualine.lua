@@ -146,23 +146,28 @@ local config = {
 		lualine_c = {},
 		lualine_x = {},
 	},
-	tabline = {
+	winbar = {
 		lualine_a = {},
-		-- lualine_b = {{ 'buffers', max_length = 1, color = { fg = clrs.peach }, padding = { left = 3, right = 5, bottom = 2 }}},
-		lualine_c = { { 'filename', color = { gui = 'bold', bg = clrs.base }, padding = { left = 6, right = 5, bottom = 2 }, symbols = { modified = "●", newfile = "" } } },
-		-- lualine_x = {},
-		-- lualine_y = {},
-		lualine_z = {
-			{
-				'windows',
-				windows_color = {
-					-- Same values as the general color option can be used here.
-					active = 'lualine_windows_normal', -- Color for active window.
-					inactive = 'lualine_windows_inactive', -- Color for inactive window.
-				},
-			}
-		}
-	}
+		lualine_c = { { 
+			'filename', 
+			color = { gui = 'bold', bg = clrs.base }, 
+			padding = { left = 6, right = 5, bottom = 2 }, 
+			symbols = { modified = "●", newfile = "" } 
+		} 
+	},
+		lualine_z = {}
+	},
+	inactive_winbar = {
+		lualine_a = {},
+		lualine_c = { {
+			'filename', 
+			color = { gui = 'bold', bg = clrs.base }, 
+			padding = { left = 6, right = 5, bottom = 2 }, 
+			symbols = { modified = "●", newfile = "" } 
+		} 
+	},
+		lualine_z = {}
+	},
 }
 
 -- Inserts a component in lualine_c at left section
