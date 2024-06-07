@@ -109,6 +109,7 @@ local conditions = {
 local disallow = {
 	"packer",
 	"neo-tree filesystem",
+	"toggleterm",
 }
 
 -- Config

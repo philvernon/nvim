@@ -4,10 +4,6 @@ local term_opts = { silent = true }
 local keymap = vim.keymap.set
 local wk = require("which-key")
 
--- leader key
-vim.g.mapleader = "sd"
-vim.g.maplocalleader = "sd"
-
 -- GENERAL
 keymap("n", "<leader>qq", ":wqa<CR>", opts)
 -- Better window navigation
@@ -122,3 +118,6 @@ keymap("n", "<bslash>gh", "<cmd>Gitsigns stage_hunk<CR>", opts)
 
 -- session
 keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)
+
+-- translate
+keymap("n", "<bslash>l", "<cmd>Translate<CR>", opts)

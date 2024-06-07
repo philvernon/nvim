@@ -6,8 +6,9 @@ require("phil.keymaps")
 require("phil.lualine")
 --plugins
 require("phil.nvim-cmp")
-require("phil.conform")
-require("phil.lint")
+-- require("phil.conform")
+-- require("phil.lint")
+require("phil.none-ls")
 require("phil.mason")
 require("phil.lsp.lsp-mason")
 require("phil.lsp.lspconfig")
@@ -73,3 +74,22 @@ scnvim.setup({
 		},
 	},
 })
+
+local google_translate = function(args)
+	local lang = args["args"]
+
+	if lang == "" then
+		lang = vim.fn.expand("%:t:r")
+	end
+
+	vim.api.nvim_command('normal! 0vi"y')
+
+	local selected_text = vim.fn.getreg('"')
+
+	local translation =
+		vim.fn.system("trans -brief :" .. lang .. " " .. vim.fn.shellescape(selected_text) .. " | tr -d '\n'")
+	vim.fn.setreg('"', translation)
+	vim.api.nvim_command('normal vi"""p')
+end
+
+vim.api.nvim_create_user_command("Translate", google_translate, { nargs = "?" })

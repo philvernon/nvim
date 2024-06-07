@@ -30,7 +30,7 @@ require("telescope").setup({
 		prompt_prefix = " ",
 		selection_caret = ". ",
 		layout_strategy = "center",
-		cycle_layout_list = { "horizontal", "center" },
+		cycle_layout_list = { "horizontal", "center", "cursor" },
 		layout_config = {
 			center = {
 				prompt_position = "bottom",
@@ -38,6 +38,9 @@ require("telescope").setup({
 			horizontal = {
 				-- width = 0.5
 				-- prompt_position = "top",
+			},
+			cursor = {
+				height = 0.01,
 			},
 		},
 		-- border = false,
@@ -53,6 +56,7 @@ require("telescope").setup({
 				["<C-f>"] = "close",
 				["]"] = action_layout.cycle_layout_next,
 				["["] = action_layout.cycle_layout_prev,
+				["gq"] = action.send_selected_to_qflist + action.open_qflist,
 				["<C-t>"] = trouble.open_with_trouble,
 			},
 			i = {
@@ -64,9 +68,16 @@ require("telescope").setup({
 			project = {
 				layout_strategy = "horizontal",
 			},
+			["ui-select"] = {
+				layout_strategy = "cursor",
+				-- require("telescope.themes").get_cursor({
+				-- 	-- even more opts
+				-- }),
+			},
 		},
 	},
 })
 
 require("telescope").load_extension("luasnip")
 require("telescope").load_extension("project")
+require("telescope").load_extension("ui-select")

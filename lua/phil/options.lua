@@ -47,3 +47,7 @@ vim.g.loaded_netrwPlugin = 0
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
+
+-- leader key
+vim.g.mapleader = "sd"
+vim.g.maplocalleader = "sd"

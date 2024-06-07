@@ -121,19 +121,19 @@ require("lspconfig").cssls.setup({
 	capabilities = capabilities,
 })
 
-require("lspconfig").rust_analyzer.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "rust" },
-	root_dir = lspconfig.util.root_pattern("Cargo.toml"),
-	setting = {
-		["rust-analyzer"] = {
-			cargo = {
-				allFeatures = true,
-			},
-		},
-	},
-})
+-- require("lspconfig").rust_analyzer.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	filetypes = { "rust" },
+-- 	root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+-- 	setting = {
+-- 		["rust-analyzer"] = {
+-- 			cargo = {
+-- 				allFeatures = true,
+-- 			},
+-- 		},
+-- 	},
+-- })
 
 require("lspconfig").gdscript.setup({
 	on_attach = on_attach,

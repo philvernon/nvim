@@ -86,10 +86,16 @@ require("lazy").setup({
 	"williamboman/mason-lspconfig.nvim",
 
 	{ "neovim/nvim-lspconfig" },
-	"simrat39/rust-tools.nvim",
-	"rust-lang/rust.vim",
-	{ "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-	{ "stevearc/conform.nvim" },
+	-- "simrat39/rust-tools.nvim",
+	-- "rust-lang/rust.vim",
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{ "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
+	{ "nvim-telescope/telescope-ui-select.nvim" },
+	-- { "stevearc/conform.nvim" },
 	{ "mfussenegger/nvim-lint" },
 	{
 		"folke/neodev.nvim",
@@ -113,6 +119,7 @@ require("lazy").setup({
 	"saadparwaiz1/cmp_luasnip",
 	"fatih/vim-go",
 	"kylechui/nvim-surround",
+	-- "roycrippen4/nvim-ts-autotag",
 	"windwp/nvim-ts-autotag",
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
@@ -166,6 +173,7 @@ require("lazy").setup({
 		lazy = true,
 	},
 	"folke/zen-mode.nvim",
+	{ import = "phil.plugins" },
 	-- {
 	--   "nvim-neorg/neorg",
 	--   build = ":Neorg sync-parsers",

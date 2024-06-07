@@ -6,8 +6,6 @@ require("mason-nvim-dap").setup({
 	automatic_installation = true,
 })
 
-print(require("mason-nvim-dap").get_installed_sources()[1])
-
 -- local masondap = require('mason-nvim-dap')
 
 -- Set keymaps to control the debugger
