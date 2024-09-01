@@ -1,8 +1,6 @@
 local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
 -- local keymap = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
-local wk = require("which-key")
 
 -- GENERAL
 keymap("n", "<leader>qq", ":wqa<CR>", opts)
@@ -69,13 +67,6 @@ keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
 keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
 keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
 keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
-
--- wk.register({
--- 	f = {
--- 		name = "file (neotree)",
--- 		-- s = "Reveal file"
--- 	},
--- }, { prefix = "<bslash>" })
 
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)

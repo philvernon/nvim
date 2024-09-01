@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-local lspconfig_configs = require("lspconfig.configs")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
@@ -38,12 +37,6 @@ require("lspconfig").yamlls.setup({
 
 local vue_ts_plugin_path = volar:get_install_path()
 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
-
--- local vue_typescript_plugin = require('mason-registry')
--- 		.get_package('vue-language-server')
--- 		:get_install_path()
--- 		.. '/node_modules/@vue/language-server'
--- 		.. '/node_modules/@vue/typescript-plugin'
 
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
@@ -120,20 +113,6 @@ require("lspconfig").html.setup({
 require("lspconfig").cssls.setup({
 	capabilities = capabilities,
 })
-
--- require("lspconfig").rust_analyzer.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- 	filetypes = { "rust" },
--- 	root_dir = lspconfig.util.root_pattern("Cargo.toml"),
--- 	setting = {
--- 		["rust-analyzer"] = {
--- 			cargo = {
--- 				allFeatures = true,
--- 			},
--- 		},
--- 	},
--- })
 
 require("lspconfig").gdscript.setup({
 	on_attach = on_attach,
