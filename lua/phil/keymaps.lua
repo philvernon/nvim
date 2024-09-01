@@ -6,6 +6,7 @@ local wk = require("which-key")
 
 -- GENERAL
 keymap("n", "<leader>qq", ":wqa<CR>", opts)
+
 -- Better window navigation
 keymap("n", "<Left>", "<C-w>h", opts)
 keymap("n", "<Down>", "<C-w>j", opts)
@@ -31,8 +32,17 @@ keymap("i", "kk", "<ESC>", opts)
 keymap("n", "ß", "<ESC>:update<CR>", opts)
 keymap("v", "ß", "<C-C>:update<CR><ESC>", opts)
 keymap("i", "ß", "<C-O>:update<CR><ESC>", opts)
+-- Map super + s to save on linux
+keymap("n", "<D-s>", "<ESC>:update<CR>", opts)
+keymap("v", "<D-s>", "<C-C>:update<CR><ESC>", opts)
+keymap("i", "<D-s>", "<C-O>:update<CR><ESC>", opts)
+-- Map Alt + s to save on linux in tmux (ffs)
+keymap("n", "<M-s>", "<ESC>:update<CR>", opts)
+keymap("v", "<M-s>", "<C-C>:update<CR><ESC>", opts)
+keymap("i", "<M-s>", "<C-O>:update<CR><ESC>", opts)
 -- center ctrl d and u
 keymap("n", "<C-d>", "<C-d>zz", opts)
+
 keymap("n", "<C-u>", "<C-u>zz", opts)
 -- paste over and keep in register
 keymap("x", "<leader>p", '"_dP', opts)

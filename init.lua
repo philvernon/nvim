@@ -82,7 +82,7 @@ local google_translate = function(args)
 		lang = vim.fn.expand("%:t:r")
 	end
 
-	vim.api.nvim_command('normal! 0vi"y')
+	vim.api.nvim_command('normal! 0f:wvi"y')
 
 	local selected_text = vim.fn.getreg('"')
 
