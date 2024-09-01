@@ -1,7 +1,7 @@
 vim.g.rustaceanvim = {
 	tools = {
 		float_win_config = {
-			-- border = "single",
+			border = "rounded",
 		},
 	},
 }
