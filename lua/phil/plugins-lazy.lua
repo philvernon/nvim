@@ -90,7 +90,7 @@ require("lazy").setup({
 	-- "rust-lang/rust.vim",
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
+		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
 	{ "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
