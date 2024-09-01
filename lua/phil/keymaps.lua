@@ -70,12 +70,13 @@ keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
 keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
 keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
 
-wk.register({
-	f = {
-		name = "file (neotree)",
-		-- s = "Reveal file"
-	},
-}, { prefix = "<bslash>" })
+-- wk.register({
+-- 	f = {
+-- 		name = "file (neotree)",
+-- 		-- s = "Reveal file"
+-- 	},
+-- }, { prefix = "<bslash>" })
+
 -- neo-tree
 keymap("n", "<C-t>", ":Neotree<CR>", opts)
 keymap("n", "<bslash>fs", ":Neotree reveal<CR>", opts)
