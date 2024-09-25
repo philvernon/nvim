@@ -9,6 +9,7 @@ return {
 				-- Use a sub-list to run only the first available formatter
 				javascript = { { "prettierd", "prettier" } },
 				vue = { { "prettierd", "prettier" } },
+				scss = { { "prettierd", "prettier" } },
 				typescript = { { "prettierd", "prettier" } },
 				rust = { "rustfmt" },
 			},
