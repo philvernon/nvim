@@ -1,3 +1,3 @@
 require("mason-lspconfig").setup({
-	ensure_installed = { "volar", "tsserver", "lua_ls", "bashls", "gopls", "marksman" },
+	ensure_installed = { "volar", "ts_ls", "lua_ls", "bashls", "gopls", "marksman" },
 })

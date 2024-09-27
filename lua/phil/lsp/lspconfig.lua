@@ -38,7 +38,7 @@ require("lspconfig").yamlls.setup({
 local vue_ts_plugin_path = volar:get_install_path()
 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "typescript", "javascript", "json", "vue" },
