@@ -3,6 +3,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	-- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 
 local mason_registry = require("mason-registry")
@@ -21,6 +22,14 @@ vim.diagnostic.config({
 		header = "",
 		prefix = "",
 	},
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.HINT] = "󰌵",
+		},
+	},
 })
 
 require("lspconfig").yamlls.setup({
@@ -35,13 +44,44 @@ require("lspconfig").yamlls.setup({
 	},
 })
 
+lspconfig.eslint.setup({
+	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
+	end,
+	root_dir = function()
+		return vim.fn.getcwd() -- Use the current working directory
+	end,
+	settings = {
+		workingDirectories = { mode = "auto" }, -- Helps with multi-project monorepos
+		experimental = {
+			useFlatConfig = true,
+		},
+	},
+})
+
 local vue_ts_plugin_path = volar:get_install_path()
 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
 
 lspconfig.ts_ls.setup({
-	on_attach = on_attach,
+	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
+
+		-- volar seems to provide better document symbols
+		-- so disable ts symbols when in a .vue file
+		client.server_capabilities.documentSymbolProvider = false
+		vim.api.nvim_create_autocmd("BufEnter", {
+			callback = function()
+				if vim.bo.filetype == "vue" then
+					client.server_capabilities.documentSymbolProvider = false
+				else
+					client.server_capabilities.documentSymbolProvider = true
+				end
+			end,
+		})
+	end,
 	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "json", "vue" },
+	filetypes = { "typescript", "javascript", "json", "vue", "javascriptreact", "typescriptreact" },
 	init_options = {
 		plugins = {
 			{
@@ -100,6 +140,11 @@ require("lspconfig").marksman.setup({
 
 require("lspconfig").gopls.setup({
 	on_attach = on_attach,
+	settings = {
+		gopls = {
+			buildFlags = { "-tags=configtool" },
+		},
+	},
 })
 
 require("lspconfig").bashls.setup({
@@ -139,3 +184,5 @@ require("lspconfig").efm.setup({
 		},
 	},
 })
+
+require("lspconfig").cobol_ls.setup({})

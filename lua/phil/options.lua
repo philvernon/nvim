@@ -34,11 +34,14 @@ local options = {
 -- let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 -- let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-vim.cmd([[
-try
-highlight SignColumn guibg=None
-highlight WinSeperator guibg=None
-]])
+vim.api.nvim_cmd({
+	cmd = "highlight",
+	args = { "SignColumn guibg=None" },
+}, {})
+vim.api.nvim_cmd({
+	cmd = "highlight",
+	args = { "WinSeperator guibg=None" },
+}, {})
 
 vim.opt.shortmess:append("c")
 vim.g.loaded_netrw = 0

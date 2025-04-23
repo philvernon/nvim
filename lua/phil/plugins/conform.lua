@@ -2,6 +2,13 @@ return {
 	"stevearc/conform.nvim",
 	config = function()
 		require("conform").setup({
+			formatters = {
+				prettierd = {
+					env = {
+						PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/.prettierrc"),
+					},
+				},
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform will run multiple formatters sequentially
@@ -12,6 +19,8 @@ return {
 				scss = { "prettierd", "prettier" },
 				typescript = { "prettierd", "prettier" },
 				rust = { "rustfmt" },
+				go = { "goimports", "gofumpt" },
+				html = { "prettierd" },
 			},
 		})
 
@@ -28,7 +37,7 @@ return {
 					-- Check LSP clients that support formatting
 					for _, client in pairs(buf_clients) do
 						if client.supports_method("textDocument/formatting") then
-							-- vim.lsp.buf.format({ async = true })
+							vim.lsp.buf.format({ async = false })
 						end
 					end
 				end

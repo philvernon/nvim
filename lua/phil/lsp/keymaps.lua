@@ -29,14 +29,14 @@ keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.toqflist()<CR>", opts)
 keymap("n", "<leader>ds", "<cmd>:lua vim.diagnostic.config({ virtual_text = true })<CR>", opts)
 keymap("n", "<leader>dh", "<cmd>:lua vim.diagnostic.config({ virtual_text = false })<CR>", opts)
 
-function toggle_diagnostic()
-	if vim.diagnostic.is_disabled() then
-		vim.diagnostic.enable()
-	else
-		vim.diagnostic.disable()
-	end
-end
-
+-- function toggle_diagnostic()
+-- 	if vim.diagnostic.is_disabled() then
+-- 		vim.diagnostic.enable()
+-- 	else
+-- 		vim.diagnostic.disable()
+-- 	end
+-- end
+--
 keymap("n", "<leader>dd", "<cmd>lua toggle_diagnostic()<CR>", opts)
 keymap("n", "<leader>de", "<cmd>lua vim.diagnostic.enable()<CR>", opts)
 

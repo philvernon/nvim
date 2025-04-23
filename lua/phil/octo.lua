@@ -8,4 +8,6 @@ for hl, col in pairs(LuaLineHighlights) do
 	vim.api.nvim_set_hl(0, hl, col)
 end
 
-require("octo").setup()
+require("octo").setup({
+	default_to_projects_v2 = true,
+})

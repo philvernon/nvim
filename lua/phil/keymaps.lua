@@ -84,7 +84,7 @@ keymap("n", "<bslash>a", ":WhichKey<CR>", opts)
 keymap("t", "<esc>", [[<C-\><C-n>]], opts)
 keymap("t", "jk", [[<C-\><C-n>]], opts)
 -- outline
-keymap("n", "<bslash>o", ":SymbolsOutline<CR>", opts)
+keymap("n", "<bslash>o", "<cmd>Outline<CR>", opts)
 -- tabby
 keymap("n", "<bslash>ta", ":$tabnew<CR>", opts)
 keymap("n", "<bslash>tc", ":tabclose<CR>", opts)

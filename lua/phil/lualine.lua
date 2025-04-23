@@ -22,8 +22,8 @@ local colors = {
 }
 
 local LuaLineHighlights = {
-	lualine_windows_normal = { fg = clrs.base }, -- Color for active window.
-	lualine_windows_inactive = { fg = clrs.subtext0 }, -- Color for inactive window.
+	lualine_windows_normal = { fg = clrs.mantle }, -- Color for active window.
+	lualine_windows_inactive = { fg = clrs.mantle }, -- Color for inactive window.
 }
 
 for hl, col in pairs(LuaLineHighlights) do
@@ -112,19 +112,73 @@ local disallow = {
 	"toggleterm",
 }
 
+-- use this theme for transparent winbar
+local theme = {
+	normal = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+	insert = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+	visual = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+	replace = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+	command = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+	inactive = {
+		a = { bg = "None", gui = "bold" },
+		b = { bg = "None", gui = "bold" },
+		c = { bg = "None", gui = "bold" },
+		x = { bg = "None", gui = "bold" },
+		y = { bg = "None", gui = "bold" },
+		z = { bg = "None", gui = "bold" },
+	},
+}
+
 -- Config
 local config = {
-	extensions = { "nvim-tree", "symbols-outline" },
+	extensions = { "nvim-tree" },
 	globalstatus = true,
 	options = {
 		disabled_filetypes = {
 			statusline = disallow,
 			winbar = disallow,
+			"Outline",
+			"",
 		},
 		-- Disable sections and component separators
 		component_separators = "",
 		section_separators = "",
-		theme = catppuccin,
+		theme = theme,
 	},
 	sections = {
 		-- these are to remove the defaults
@@ -146,16 +200,15 @@ local config = {
 		lualine_x = {},
 	},
 	winbar = {
-		lualine_a = {},
 		lualine_c = {
 			{
 				"filename",
-				color = { gui = "bold", bg = clrs.base },
+				color = { gui = "bold", fg = clrs.text },
 				padding = { left = 0, right = 0, bottom = 0, top = 0 },
 				symbols = { modified = "●", newfile = "" },
 			},
 		},
-		lualine_z = {},
+		lualine_x = {},
 	},
 	inactive_winbar = {
 		lualine_a = {},
@@ -217,6 +270,14 @@ ins_left({
 })
 
 ins_left({
+	"filename",
+	cond = conditions.buffer_not_empty,
+	color = { fg = clrs.subtext0, gui = "bold" },
+	path = 1,
+	shorting_target = 150,
+})
+
+ins_left({
 	"diff",
 	symbols = { added = "+", modified = "~", removed = "-" },
 	fmt = fill_string_width,
@@ -226,14 +287,6 @@ ins_left({
 		removed = { fg = colors.red },
 	},
 	cond = conditions.hide_in_width,
-})
-
-ins_left({
-	"filename",
-	cond = conditions.buffer_not_empty,
-	color = { fg = clrs.subtext0, gui = "bold" },
-	path = 1,
-	shorting_target = 150,
 })
 
 ins_right({

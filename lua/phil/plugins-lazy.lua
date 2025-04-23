@@ -79,7 +79,18 @@ require("lazy").setup({
 	-- "williamboman/nvim-lsp-installer",
 	{
 		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {},
+		cmd = "Trouble",
+	},
+	{
+		"artemave/workspace-diagnostics.nvim",
+		config = function()
+			require("workspace-diagnostics").setup({
+				workspace_files = function()
+					return vim.fn.systemlist("git ls-files") -- Example to get files from Git.
+				end,
+			})
+		end,
 	},
 
 	"williamboman/mason.nvim",
@@ -117,7 +128,21 @@ require("lazy").setup({
 	"rafamadriz/friendly-snippets",
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
-	"fatih/vim-go",
+	-- "fatih/vim-go",
+	-- {
+	-- 	"ray-x/go.nvim",
+	-- 	dependencies = { -- optional packages
+	-- 		"ray-x/guihua.lua",
+	-- 		"neovim/nvim-lspconfig",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 	},
+	-- 	config = function()
+	-- 		require("go").setup()
+	-- 	end,
+	-- 	event = { "CmdlineEnter" },
+	-- 	ft = { "go", "gomod" },
+	-- 	build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	-- },
 	"kylechui/nvim-surround",
 	-- "roycrippen4/nvim-ts-autotag",
 	"windwp/nvim-ts-autotag",
@@ -130,7 +155,7 @@ require("lazy").setup({
 	"akinsho/toggleterm.nvim",
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
 	{ "catppuccin/nvim", as = "catppuccin", priority = 1000 },
-	"simrat39/symbols-outline.nvim",
+	"hedyhli/outline.nvim",
 	"rmagatti/auto-session",
 	"norcalli/nvim-colorizer.lua",
 	"dkarter/bullets.vim",
@@ -154,7 +179,17 @@ require("lazy").setup({
 		end,
 	},
 	{ "weirongxu/plantuml-previewer.vim", lazy = true },
-	{ "iamcco/markdown-preview.nvim" },
+	-- { "iamcco/markdown-preview.nvim" },
+	{
+		"toppair/peek.nvim",
+		event = { "VeryLazy" },
+		build = "deno task --quiet build:fast",
+		config = function()
+			require("peek").setup()
+			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+		end,
+	},
 	{ "mfussenegger/nvim-dap", lazy = true },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
@@ -173,6 +208,87 @@ require("lazy").setup({
 		lazy = true,
 	},
 	"folke/zen-mode.nvim",
+	-- {
+	-- 	"MeanderingProgrammer/render-markdown.nvim",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("render-markdown").setup({
+	-- 			heading = {
+	-- 				width = "block",
+	-- 				above = "|||",
+	-- 				icons = { "§ ", "§§ ", "§§§ ", "§§§§ ", "§§§§§ " },
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+	-- },
+	{
+		"Bekaboo/dropbar.nvim",
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+		},
+		config = function()
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+		end,
+		opts = {
+			icons = {
+				ui = {
+					bar = {
+						separator = "!",
+					},
+				},
+			},
+		},
+	},
+	{
+		"shellRaining/hlchunk.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local clrs = require("catppuccin.palettes").get_palette()
+
+			require("hlchunk").setup({
+				chunk = {
+					style = {
+						{ fg = clrs.surface1 },
+						{ fg = clrs.surface1 },
+					},
+					enable = true,
+					chars = {
+						right_arrow = "",
+					},
+					delay = 100,
+					duration = 0,
+				},
+			})
+		end,
+	},
+	{
+		"linrongbin16/gitlinker.nvim",
+		cmd = "GitLink",
+		opts = {},
+		keys = {
+			{ "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
+			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
+		},
+	},
+	"github/copilot.vim",
+	-- {
+	-- 	"CopilotC-Nvim/CopilotChat.nvim",
+	-- 	dependencies = {
+	-- 		{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+	-- 		{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+	-- 	},
+	-- 	-- build = "make tiktoken", -- Only on MacOS or Linux
+	-- 	opts = {
+	-- 		-- See Configuration section for options
+	-- 	},
+	-- 	-- See Commands section for default commands if you want to lazy load on them
+	-- },
 	{ import = "phil.plugins" },
 	-- {
 	--   "nvim-neorg/neorg",
