@@ -40,8 +40,8 @@ keymap("n", "<leader>dh", "<cmd>:lua vim.diagnostic.config({ virtual_text = fals
 keymap("n", "<leader>dd", "<cmd>lua toggle_diagnostic()<CR>", opts)
 keymap("n", "<leader>de", "<cmd>lua vim.diagnostic.enable()<CR>", opts)
 
-keymap("n", "<bslash>gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-keymap("n", "<bslash>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+keymap("", "<bslash>gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+keymap("", "<bslash>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded", focusable = true })<CR>', opts)
 keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)

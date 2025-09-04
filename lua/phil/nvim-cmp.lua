@@ -67,7 +67,7 @@ cmp.setup({
 		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
+			c = cmp.mapping.abort(),
 		}),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
@@ -77,14 +77,19 @@ cmp.setup({
 		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
+				print("here 1")
 				cmp.select_next_item()
 			elseif luasnip.expandable() then
+				print("here 2")
 				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
+				print("here 3")
 				luasnip.expand_or_jump()
 			elseif check_backspace() then
+				print("here 4")
 				fallback()
 			else
+				print("here 5")
 				fallback()
 			end
 		end, {
