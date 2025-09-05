@@ -1,8 +1,8 @@
 local colors = require("catppuccin.palettes").get_palette()
 local action_layout = require("telescope.actions.layout")
 local action = require("telescope.actions")
-local trouble = require("trouble.providers.telescope")
-local openTrouble = require("trouble.sources.telescope").open()
+-- local trouble = require("trouble.providers.telescope")
+local openTrouble = require("trouble.sources.telescope").open
 
 local TelescopeColor = {
 	-- TelescopeMatching = { fg = colors.flamingo },
