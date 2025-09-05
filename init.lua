@@ -42,6 +42,12 @@ require("phil.dap")
 -- 	end,
 -- })
 --
+-- vim.api.nvim_create_autocmd({ "VimLeave" }, {
+-- 	callback = function()
+-- 		vim.fn.jobstart("", { detach = true })
+-- 	end,
+-- })
+
 -- local scnvim = require("scnvim")
 -- local map = scnvim.map
 -- local map_expr = scnvim.map_expr
@@ -74,7 +80,7 @@ require("phil.dap")
 -- 		},
 -- 	},
 -- })
---
+
 local google_translate = function(args)
 	local lang = args["args"]
 
@@ -93,42 +99,42 @@ local google_translate = function(args)
 end
 
 vim.api.nvim_create_user_command("Translate", google_translate, { nargs = "?" })
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		local cwd = vim.fn.getcwd()
-		if cwd:match("/synthesis/web$") then
-			if os.getenv("TMUX") then
-				-- Check if web-dev already exists
-				local windows = vim.fn.systemlist("tmux list-windows -F '#W'")
-				local exists = vim.tbl_contains(windows, "web-dev")
-
-				if not exists then
-					-- Create web-dev window in background
-					vim.fn.jobstart({ "tmux", "new-window", "-d", "-n", "web-dev", "-c", cwd }, { detach = true })
-
-					-- Run docker compose in top pane (pane 0)
-					vim.fn.jobstart(
-						{ "tmux", "send-keys", "-t", "web-dev.0", "docker compose up", "C-m" },
-						{ detach = true }
-					)
-
-					-- Create vertical split in that window (bottom pane)
-					vim.fn.jobstart({ "tmux", "split-window", "-v", "-t", "web-dev", "-c", cwd }, { detach = true })
-
-					vim.defer_fn(function()
-						vim.fn.jobstart(
-							{ "tmux", "send-keys", "-t", "web-dev.1", "npm run dev", "C-m" },
-							{ detach = true }
-						)
-					end, 1000)
-
-					print("🧱 Started Docker + npm in tmux window: web-dev")
-				else
-					print("🔁 tmux window 'web-dev' already exists — skipping")
-				end
-			else
-				print("⚠️ Not inside tmux — skipping dev setup")
-			end
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	callback = function()
+-- 		local cwd = vim.fn.getcwd()
+-- 		if cwd:match("/synthesis/web$") then
+-- 			if os.getenv("TMUX") then
+-- 				-- Check if web-dev already exists
+-- 				local windows = vim.fn.systemlist("tmux list-windows -F '#W'")
+-- 				local exists = vim.tbl_contains(windows, "web-dev")
+--
+-- 				if not exists then
+-- 					-- Create web-dev window in background
+-- 					vim.fn.jobstart({ "tmux", "new-window", "-d", "-n", "web-dev", "-c", cwd }, { detach = true })
+--
+-- 					-- Run docker compose in top pane (pane 0)
+-- 					vim.fn.jobstart(
+-- 						{ "tmux", "send-keys", "-t", "web-dev.0", "docker compose up", "C-m" },
+-- 						{ detach = true }
+-- 					)
+--
+-- 					-- Create vertical split in that window (bottom pane)
+-- 					vim.fn.jobstart({ "tmux", "split-window", "-v", "-t", "web-dev", "-c", cwd }, { detach = true })
+--
+-- 					vim.defer_fn(function()
+-- 						vim.fn.jobstart(
+-- 							{ "tmux", "send-keys", "-t", "web-dev.1", "npm run dev", "C-m" },
+-- 							{ detach = true }
+-- 						)
+-- 					end, 1000)
+--
+-- 					print("🧱 Started Docker + npm in tmux window: web-dev")
+-- 				else
+-- 					print("🔁 tmux window 'web-dev' already exists — skipping")
+-- 				end
+-- 			else
+-- 				print("⚠️ Not inside tmux — skipping dev setup")
+-- 			end
+-- 		end
+-- 	end,
+-- })

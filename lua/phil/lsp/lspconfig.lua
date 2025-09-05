@@ -9,7 +9,7 @@ end
 local mason_registry = require("mason-registry")
 mason_registry.refresh()
 mason_registry.update()
-local has_volar, volar = pcall(mason_registry.get_package, "vue-language-server")
+-- local has_volar, volar = pcall(mason_registry.get_package, "vue-language-server")
 
 vim.diagnostic.config({
 	virtual_text = false,
@@ -60,26 +60,11 @@ lspconfig.eslint.setup({
 	},
 })
 
-local vue_ts_plugin_path = volar:get_install_path()
+local vue_ts_plugin_path = vim.fn.expand("$MASON")
 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
 
 lspconfig.ts_ls.setup({
-	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
-
-		-- volar seems to provide better document symbols
-		-- so disable ts symbols when in a .vue file
-		client.server_capabilities.documentSymbolProvider = false
-		vim.api.nvim_create_autocmd("BufEnter", {
-			callback = function()
-				if vim.bo.filetype == "vue" then
-					client.server_capabilities.documentSymbolProvider = false
-				else
-					client.server_capabilities.documentSymbolProvider = true
-				end
-			end,
-		})
-	end,
+	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "typescript", "javascript", "json", "vue", "javascriptreact", "typescriptreact" },
 	init_options = {
