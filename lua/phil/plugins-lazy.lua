@@ -145,7 +145,7 @@ require("lazy").setup({
 	-- },
 	"kylechui/nvim-surround",
 	-- "roycrippen4/nvim-ts-autotag",
-	"windwp/nvim-ts-autotag",
+	-- "windwp/nvim-ts-autotag",
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",

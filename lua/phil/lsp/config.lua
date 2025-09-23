@@ -44,10 +44,20 @@ require("lspconfig").yamlls.setup({
 	},
 })
 
+local base_on_attach = vim.lsp.config.eslint.on_attach
 lspconfig.eslint.setup({
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
 		on_attach(client, bufnr)
+		if not base_on_attach then
+			return
+		end
+
+		base_on_attach(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "LspEslintFixAll",
+		})
 	end,
 	root_dir = function()
 		return vim.fn.getcwd() -- Use the current working directory
@@ -60,32 +70,34 @@ lspconfig.eslint.setup({
 	},
 })
 
-local vue_ts_plugin_path = vim.fn.expand("$MASON")
-	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
-
-lspconfig.ts_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "json", "vue", "javascriptreact", "typescriptreact" },
-	init_options = {
-		plugins = {
-			{
-				name = "@vue/typescript-plugin",
-				location = vue_ts_plugin_path,
-				languages = { "vue" },
-			},
-		},
-	},
-})
-
-lspconfig.volar.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	flags = {
-		debounce_text_changes = 150,
-	},
-	filetypes = { "vue" },
-})
+-- local vue_ts_plugin_path = vim.fn.expand("$MASON")
+-- 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
+--
+-- print(vue_ts_plugin_path)
+--
+-- lspconfig.ts_ls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	filetypes = { "typescript", "javascript", "json", "vue", "javascriptreact", "typescriptreact" },
+-- 	init_options = {
+-- 		plugins = {
+-- 			{
+-- 				name = "@vue/typescript-plugin",
+-- 				location = vue_ts_plugin_path,
+-- 				languages = { "vue" },
+-- 			},
+-- 		},
+-- 	},
+-- })
+--
+-- lspconfig.vue_ls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	flags = {
+-- 		debounce_text_changes = 150,
+-- 	},
+-- 	filetypes = { "vue" },
+-- })
 
 require("lspconfig").lua_ls.setup({
 	on_attach = on_attach,
@@ -171,3 +183,5 @@ require("lspconfig").efm.setup({
 })
 
 require("lspconfig").cobol_ls.setup({})
+
+vim.lsp.enable("jsonls")
