@@ -3,11 +3,11 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters = {
-				prettierd = {
-					env = {
-						PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/.prettierrc"),
-					},
-				},
+				-- 	prettierd = {
+				-- 		env = {
+				-- 			PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/.prettierrc"),
+				-- 		},
+				-- 	},
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -36,7 +36,7 @@ return {
 
 					-- Check LSP clients that support formatting
 					for _, client in pairs(buf_clients) do
-						if client.supports_method("textDocument/formatting") then
+						if client:supports_method("textDocument/formatting", args.buf) then
 							vim.lsp.buf.format({ async = false })
 						end
 					end

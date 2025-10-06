@@ -1,4 +1,4 @@
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
@@ -32,7 +32,7 @@ vim.diagnostic.config({
 	},
 })
 
-require("lspconfig").yamlls.setup({
+vim.lsp.config("yamlls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -43,9 +43,10 @@ require("lspconfig").yamlls.setup({
 		},
 	},
 })
+vim.lsp.enable("yamlls")
 
 local base_on_attach = vim.lsp.config.eslint.on_attach
-lspconfig.eslint.setup({
+vim.lsp.config("eslint", {
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
 		on_attach(client, bufnr)
@@ -59,9 +60,9 @@ lspconfig.eslint.setup({
 			command = "LspEslintFixAll",
 		})
 	end,
-	root_dir = function()
-		return vim.fn.getcwd() -- Use the current working directory
-	end,
+	-- root_dir = function()
+	-- 	return vim.fn.getcwd() -- Use the current working directory
+	-- end,
 	settings = {
 		workingDirectories = { mode = "auto" }, -- Helps with multi-project monorepos
 		experimental = {
@@ -69,6 +70,7 @@ lspconfig.eslint.setup({
 		},
 	},
 })
+vim.lsp.enable("eslint")
 
 -- local vue_ts_plugin_path = vim.fn.expand("$MASON")
 -- 	.. "/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
@@ -99,7 +101,7 @@ lspconfig.eslint.setup({
 -- 	filetypes = { "vue" },
 -- })
 
-require("lspconfig").lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	-- root_dir = function(fname)
@@ -130,12 +132,14 @@ require("lspconfig").lua_ls.setup({
 		},
 	},
 })
+vim.lsp.enable("lua_ls")
 
-require("lspconfig").marksman.setup({
+vim.lsp.config("marksman", {
 	on_attach = on_attach,
 })
+vim.lsp.enable("marksman")
 
-require("lspconfig").gopls.setup({
+vim.lsp.config("gopls", {
 	on_attach = on_attach,
 	settings = {
 		gopls = {
@@ -143,28 +147,33 @@ require("lspconfig").gopls.setup({
 		},
 	},
 })
+vim.lsp.enable("gopls")
 
-require("lspconfig").bashls.setup({
+vim.lsp.config("bashls", {
 	on_attach = on_attach,
 })
+vim.lsp.enable("bashls")
 
-require("lspconfig").html.setup({
+vim.lsp.config("html", {
 	capabilities = capabilities,
 })
+vim.lsp.enable("html")
 
-require("lspconfig").cssls.setup({
+vim.lsp.config("cssls", {
 	capabilities = capabilities,
 })
+vim.lsp.enable("cssls")
 
-require("lspconfig").gdscript.setup({
+vim.lsp.config("gdscript", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	flags = {
 		debounce_text_changes = 150,
 	},
 })
+vim.lsp.enable("gdscript")
 
-require("lspconfig").efm.setup({
+vim.lsp.config("efm", {
 	on_attach = on_attach,
 	flags = {
 		debounce_text_changes = 150,
@@ -181,7 +190,8 @@ require("lspconfig").efm.setup({
 		},
 	},
 })
+vim.lsp.enable("efm")
 
-require("lspconfig").cobol_ls.setup({})
+-- require("lspconfig").cobol_ls.setup({})
 
 vim.lsp.enable("jsonls")
