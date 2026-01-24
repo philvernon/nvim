@@ -164,32 +164,23 @@ vim.lsp.config("cssls", {
 })
 vim.lsp.enable("cssls")
 
-vim.lsp.config("gdscript", {
-	on_attach = on_attach,
-	capabilities = capabilities,
-	flags = {
-		debounce_text_changes = 150,
-	},
-})
-vim.lsp.enable("gdscript")
-
-vim.lsp.config("efm", {
-	on_attach = on_attach,
-	flags = {
-		debounce_text_changes = 150,
-	},
-	filetypes = { "gdscript" },
-
-	init_options = { documentFormatting = true },
-	settings = {
-		rootMarkers = { ".git/" },
-		languages = {
-			gdscript = {
-				{ formatCommand = "gdformat -l 80 -", formatStdin = true },
-			},
-		},
-	},
-})
+-- vim.lsp.config("efm", {
+-- 	on_attach = on_attach,
+-- 	flags = {
+-- 		debounce_text_changes = 150,
+-- 	},
+-- 	filetypes = { "gdscript" },
+--
+-- 	init_options = { documentFormatting = true },
+-- 	settings = {
+-- 		rootMarkers = { ".git/" },
+-- 		languages = {
+-- 			gdscript = {
+-- 				{ formatCommand = "gdformat -l 80 -", formatStdin = true },
+-- 			},
+-- 		},
+-- 	},
+-- })
 vim.lsp.enable("efm")
 
 -- require("lspconfig").cobol_ls.setup({})

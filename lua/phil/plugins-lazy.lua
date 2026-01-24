@@ -104,7 +104,7 @@ require("lazy").setup({
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	{ "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
+	{ "nvimtools/none-ls.nvim",                 dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	-- { "stevearc/conform.nvim" },
 	{ "mfussenegger/nvim-lint" },
@@ -154,7 +154,7 @@ require("lazy").setup({
 	{ "folke/which-key.nvim" },
 	"akinsho/toggleterm.nvim",
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
-	{ "catppuccin/nvim", as = "catppuccin", priority = 1000 },
+	{ "catppuccin/nvim",           as = "catppuccin",                                           priority = 1000 },
 	"hedyhli/outline.nvim",
 	"rmagatti/auto-session",
 	"norcalli/nvim-colorizer.lua",
@@ -171,7 +171,7 @@ require("lazy").setup({
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim",           dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
@@ -190,7 +190,7 @@ require("lazy").setup({
 			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
 		end,
 	},
-	{ "mfussenegger/nvim-dap", lazy = true },
+	{ "mfussenegger/nvim-dap",       lazy = true },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
 		"rcarriga/nvim-dap-ui",
@@ -199,7 +199,7 @@ require("lazy").setup({
 	},
 	{ "ellisonleao/glow.nvim" },
 	{ "skywind3000/asyncrun.vim" },
-	{ "tyru/open-browser.vim", lazy = true },
+	{ "tyru/open-browser.vim",   lazy = true },
 	{
 		"glacambre/firenvim",
 		run = function()
@@ -285,7 +285,7 @@ require("lazy").setup({
 		cmd = "GitLink",
 		opts = {},
 		keys = {
-			{ "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
+			{ "<leader>gy", "<cmd>GitLink<cr>",  mode = { "n", "v" }, desc = "Yank git link" },
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
 	},
@@ -293,7 +293,7 @@ require("lazy").setup({
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		dependencies = {
-			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+			{ "github/copilot.vim" },                    -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
 		-- build = "make tiktoken", -- Only on MacOS or Linux
@@ -302,6 +302,51 @@ require("lazy").setup({
 		},
 		-- 	-- See Commands section for default commands if you want to lazy load on them
 	},
+	---@type LazySpec
+	{
+		"mikavilpas/yazi.nvim",
+		version = "*", -- use the latest stable version
+		event = "VeryLazy",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+		},
+		keys = {
+			-- 👇 in this section, choose your own keymappings!
+			{
+				"<leader>-",
+				mode = { "n", "v" },
+				"<cmd>Yazi<cr>",
+				desc = "Open yazi at the current file",
+			},
+			{
+				-- Open in the current working directory
+				"<leader>cw",
+				"<cmd>Yazi cwd<cr>",
+				desc = "Open the file manager in nvim's working directory",
+			},
+			{
+				"<c-up>",
+				"<cmd>Yazi toggle<cr>",
+				desc = "Resume the last yazi session",
+			},
+		},
+		---@type YaziConfig | {}
+		opts = {
+			-- if you want to open yazi instead of netrw, see below for more info
+			open_for_directories = false,
+			keymaps = {
+				show_help = "<f1>",
+			},
+		},
+		-- 👇 if you use `open_for_directories=true`, this is recommended
+		init = function()
+			-- mark netrw as loaded so it's not loaded at all.
+			--
+			-- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+			vim.g.loaded_netrwPlugin = 1
+		end,
+	},
+
 	{ import = "phil.plugins" },
 	-- {
 	--   "nvim-neorg/neorg",
