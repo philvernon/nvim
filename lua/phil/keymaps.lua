@@ -123,3 +123,5 @@ keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)
 
 -- translate
 keymap("n", "<bslash>l", "<cmd>Translate<CR>", opts)
+-- checkboxes
+keymap("n", "<leader>x", "<cmd>:lua require('toggle-checkbox').toggle()<CR>", opts)

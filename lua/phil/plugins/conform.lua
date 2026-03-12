@@ -21,6 +21,7 @@ return {
 				rust = { "rustfmt" },
 				go = { "goimports", "gofumpt" },
 				html = { "prettierd" },
+				sql = { "pg_format" }
 			},
 		})
 

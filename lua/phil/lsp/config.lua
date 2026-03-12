@@ -163,6 +163,7 @@ vim.lsp.config("cssls", {
 	capabilities = capabilities,
 })
 vim.lsp.enable("cssls")
+vim.lsp.enable("sqls")
 
 -- vim.lsp.config("efm", {
 -- 	on_attach = on_attach,

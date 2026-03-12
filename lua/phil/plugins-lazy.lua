@@ -171,25 +171,25 @@ require("lazy").setup({
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim",           dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim",      dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
 			require("debugprint").setup()
 		end,
 	},
-	{ "weirongxu/plantuml-previewer.vim", lazy = true },
+	-- { "weirongxu/plantuml-previewer.vim", lazy = true },
 	-- { "iamcco/markdown-preview.nvim" },
-	{
-		"toppair/peek.nvim",
-		event = { "VeryLazy" },
-		build = "deno task --quiet build:fast",
-		config = function()
-			require("peek").setup()
-			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-		end,
-	},
+	-- {
+	-- 	"toppair/peek.nvim",
+	-- 	event = { "VeryLazy" },
+	-- 	build = "deno task --quiet build:fast",
+	-- 	config = function()
+	-- 		require("peek").setup()
+	-- 		vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+	-- 		vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+	-- 	end,
+	-- },
 	{ "mfussenegger/nvim-dap",       lazy = true },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
@@ -197,7 +197,15 @@ require("lazy").setup({
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		lazy = true,
 	},
-	{ "ellisonleao/glow.nvim" },
+	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {},
+	},
 	{ "skywind3000/asyncrun.vim" },
 	{ "tyru/open-browser.vim",   lazy = true },
 	{
@@ -208,19 +216,19 @@ require("lazy").setup({
 		lazy = true,
 	},
 	"folke/zen-mode.nvim",
-	{
-		"OXY2DEV/markview.nvim",
-		lazy = false,
-
-		-- For `nvim-treesitter` users.
-		priority = 49,
-
-		-- For blink.cmp's completion
-		-- source
-		-- dependencies = {
-		--     "saghen/blink.cmp"
-		-- },
-	},
+	-- {
+	-- 	"OXY2DEV/markview.nvim",
+	-- 	lazy = false,
+	--
+	-- 	-- For `nvim-treesitter` users.
+	-- 	priority = 49,
+	--
+	-- 	-- For blink.cmp's completion
+	-- 	-- source
+	-- 	-- dependencies = {
+	-- 	--     "saghen/blink.cmp"
+	-- 	-- },
+	-- },
 	-- {
 	-- 	"MeanderingProgrammer/render-markdown.nvim",
 	-- 	opts = {},
@@ -289,7 +297,12 @@ require("lazy").setup({
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
 	},
-	"github/copilot.vim",
+	{
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_enabled = false
+		end
+	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		dependencies = {
@@ -345,6 +358,130 @@ require("lazy").setup({
 			-- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
 			vim.g.loaded_netrwPlugin = 1
 		end,
+	},
+	"opdavies/toggle-checkbox.nvim",
+	"tpope/vim-dadbod",
+	{
+		"kndndrj/nvim-dbee",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		build = function()
+			-- Install tries to automatically detect the install method.
+			-- if it fails, try calling it with one of these parameters:
+			--    "curl", "wget", "bitsadmin", "go"
+			require("dbee").install()
+		end,
+		config = function()
+			require("dbee").setup {
+				sources = {
+					require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS")
+				}
+			}
+		end,
+	},
+	-- lazy.nvim
+	{
+		"folke/snacks.nvim",
+		---@type snacks.Config
+		opts = {
+			terminal = {
+				-- your terminal configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			}
+		}
+	},
+	-- {
+	-- 	"nickjvandyke/opencode.nvim",
+	-- 	version = "*", -- Latest stable release
+	-- 	dependencies = {
+	-- 		{
+	-- 			-- `snacks.nvim` integration is recommended, but optional
+	-- 			---@module "snacks" <- Loads `snacks.nvim` types for configuration intellisense
+	-- 			"folke/snacks.nvim",
+	-- 			opts = {
+	-- 				input = {}, -- Enhances `ask()`
+	-- 				picker = { -- Enhances `select()`
+	-- 					actions = {
+	-- 						-- opencode_send = function(...) return require("opencode").snacks_picker_send(...) end,
+	-- 					},
+	-- 					win = {
+	-- 						input = {
+	-- 							keys = {
+	-- 								-- ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+	-- 							},
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			"e-cal/opencode-tmux.nvim",
+	-- 			opts = {
+	-- 				options = "-h",
+	-- 				focus = false,
+	-- 				auto_close = false,
+	-- 				allow_passthrough = false,
+	-- 				find_sibling = true,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	config = function()
+	-- 		vim.o.autoread = true -- Required for `opts.events.reload`
+	-- 		-- Recommended/example keymaps
+	-- 		vim.keymap.set({ "n", "x" }, "<C-a>", function() require("opencode").ask("@this: ", { submit = true }) end,
+	-- 			{ desc = "Ask opencode…" })
+	-- 		vim.keymap.set({ "n", "x" }, "<C-x>", function() require("opencode").select() end,
+	-- 			{ desc = "Execute opencode action…" })
+	-- 		vim.keymap.set({ "n", "t" }, "<C-p>", function() require("opencode").toggle() end, { desc = "Toggle opencode" })
+	--
+	-- 		vim.keymap.set({ "n", "x" }, "go", function() return require("opencode").operator("@this ") end,
+	-- 			{ desc = "Add range to opencode", expr = true })
+	-- 		vim.keymap.set("n", "goo", function() return require("opencode").operator("@this ") .. "_" end,
+	-- 			{ desc = "Add line to opencode", expr = true })
+	--
+	-- 		vim.keymap.set("n", "<S-u>", function() require("opencode").command("session.half.page.up") end,
+	-- 			{ desc = "Scroll opencode up" })
+	-- 		vim.keymap.set("n", "<S-d>", function() require("opencode").command("session.half.page.down") end,
+	-- 			{ desc = "Scroll opencode down" })
+	--
+	-- 		-- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
+	-- 		vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
+	-- 		vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
+	-- 	end,
+	-- },
+	{
+		"sudo-tee/opencode.nvim",
+		config = function()
+			require("opencode").setup({
+				keymap = {
+					editor = {
+						['<C-p>'] = { 'toggle' }, -- Open opencode. Close if opened
+					}
+				}
+			})
+		end,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					anti_conceal = { enabled = false },
+					file_types = { 'markdown', 'opencode_output' },
+				},
+				ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
+			},
+			-- Optional, for file mentions and commands completion, pick only one
+			-- 'saghen/blink.cmp',
+			-- 'hrsh7th/nvim-cmp',
+
+			-- Optional, for file mentions picker, pick only one
+			'folke/snacks.nvim',
+			-- 'nvim-telescope/telescope.nvim',
+			-- 'ibhagwan/fzf-lua',
+			-- 'nvim_mini/mini.nvim',
+		},
 	},
 
 	{ import = "phil.plugins" },
