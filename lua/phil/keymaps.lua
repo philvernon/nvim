@@ -125,6 +125,3 @@ keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)
 keymap("n", "<bslash>l", "<cmd>Translate<CR>", opts)
 -- checkboxes
 keymap("n", "<leader>x", "<cmd>lua require('toggle-checkbox').toggle()<CR>", opts)
-keymap("n", "<C-e>", function()
-	vim.fn.jobstart({ "zsh", "-ic", "tmux-sesh" }, { detach = true })
-end, { silent = true, desc = "Open tmux-sesh" })
