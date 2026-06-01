@@ -483,8 +483,21 @@ require("lazy").setup({
 			-- 'nvim_mini/mini.nvim',
 		},
 	},
-
-	{ import = "phil.plugins" },
+	-- {
+	-- 	"carderne/pi-nvim",
+	-- 	config = function()
+	-- 		require("pi-nvim").setup()
+	-- 	end
+	-- },
+	{
+		"pablopunk/pi.nvim",
+		config = function()
+			require("pi").setup()
+		end
+	},
+	{
+		import = "phil.plugins"
+	},
 	-- {
 	--   "nvim-neorg/neorg",
 	--   build = ":Neorg sync-parsers",
