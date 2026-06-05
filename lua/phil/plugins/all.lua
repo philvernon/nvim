@@ -10,11 +10,17 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
+		config = function()
+			require("phil.plugins.treesitter")
+		end,
 	},
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		lazy = false,
+		config = function()
+			require("phil.plugins.neo-tree")
+		end,
 		branch = "v2.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -47,12 +53,18 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		lazy = false,
+		config = function()
+			require("phil.plugins.telescope")
+		end,
 		-- tag = "0.1.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{
 		"pwntester/octo.nvim",
 		lazy = false,
+		config = function()
+			require("phil.plugins.octo")
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
@@ -65,6 +77,9 @@ return {
 	{
 		"folke/trouble.nvim",
 		lazy = false,
+		config = function()
+			require("phil.plugins.trouble")
+		end,
 		opts = {},
 		cmd = "Trouble",
 	},
@@ -79,10 +94,19 @@ return {
 		end,
 	},
 
-	{ "williamboman/mason.nvim", lazy = false },
-	{ "williamboman/mason-lspconfig.nvim", lazy = false },
+	{ "williamboman/mason.nvim", lazy = false, config = function() require("phil.plugins.mason") end },
+	{ "williamboman/mason-lspconfig.nvim", lazy = false, config = function() require("phil.plugins.lsp.lsp-mason") end },
 
-	{ "neovim/nvim-lspconfig", lazy = false },
+	{
+		"neovim/nvim-lspconfig",
+		lazy = false,
+		config = function()
+			require("phil.plugins.lsp.config")
+			require("phil.plugins.lsp.vue")
+			require("phil.plugins.lsp.rust")
+			require("phil.plugins.lsp.keymaps")
+		end,
+	},
 	-- "simrat39/rust-tools.nvim",
 	-- "rust-lang/rust.vim",
 	{
@@ -101,7 +125,7 @@ return {
 			require("neodev").setup()
 		end,
 	},
-	{ "windwp/nvim-autopairs", lazy = false },
+	{ "windwp/nvim-autopairs", lazy = false, config = function() require("phil.plugins.autopairs") end },
 	-- { 'echasnovski/mini.pairs', version = '*' },
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
@@ -109,10 +133,10 @@ return {
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"hrsh7th/cmp-calc",
-	{ "hrsh7th/nvim-cmp", lazy = false },
+	{ "hrsh7th/nvim-cmp", lazy = false, config = function() require("phil.plugins.nvim-cmp") end },
 	-- "ms-jpq/coq_nvim",
 	"rafamadriz/friendly-snippets",
-	{ "L3MON4D3/LuaSnip", lazy = false },
+	{ "L3MON4D3/LuaSnip", lazy = false, config = function() require("phil.plugins.luasnip") end },
 	"saadparwaiz1/cmp_luasnip",
 	-- "fatih/vim-go",
 	-- {
@@ -129,21 +153,21 @@ return {
 	-- 	ft = { "go", "gomod" },
 	-- 	build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 	-- },
-	{ "kylechui/nvim-surround", lazy = false },
+	{ "kylechui/nvim-surround", lazy = false, config = function() require("phil.plugins.surround") end },
 	-- "roycrippen4/nvim-ts-autotag",
 	-- "windwp/nvim-ts-autotag",
-	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async", config = function() require("phil.plugins.fold") end },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
-	{ "lewis6991/gitsigns.nvim", lazy = false },
-	{ "numToStr/Comment.nvim", lazy = false },
-	{ "folke/which-key.nvim", lazy = false },
-	{ "akinsho/toggleterm.nvim", lazy = false },
-	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
+	{ "lewis6991/gitsigns.nvim", lazy = false, config = function() require("phil.plugins.gitsigns") end },
+	{ "numToStr/Comment.nvim", lazy = false, config = function() require("phil.plugins.comment") end },
+	{ "folke/which-key.nvim", lazy = false, config = function() require("phil.plugins.whichkey") end },
+	{ "akinsho/toggleterm.nvim", lazy = false, config = function() require("phil.plugins.toggleterm") end },
+	{ "nvim-lualine/lualine.nvim", lazy = false, config = function() require("phil.plugins.lualine") end, dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "hedyhli/outline.nvim", lazy = false },
-	{ "rmagatti/auto-session", lazy = false },
-	"norcalli/nvim-colorizer.lua",
+	{ "hedyhli/outline.nvim", lazy = false, config = function() require("phil.plugins.outline") end },
+	{ "rmagatti/auto-session", lazy = false, config = function() require("phil.plugins.session") end },
+	{ "norcalli/nvim-colorizer.lua", config = function() require("phil.plugins.colorizor") end },
 	"dkarter/bullets.vim",
 	"tpope/vim-fugitive",
 	{
@@ -176,7 +200,7 @@ return {
 	-- 		vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
 	-- 	end,
 	-- },
-	{ "mfussenegger/nvim-dap", lazy = false },
+	{ "mfussenegger/nvim-dap", lazy = false, config = function() require("phil.plugins.dap") end },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
 		"rcarriga/nvim-dap-ui",
@@ -201,7 +225,7 @@ return {
 		end,
 		lazy = true,
 	},
-	{ "folke/zen-mode.nvim", lazy = false },
+	{ "folke/zen-mode.nvim", lazy = false, config = function() require("phil.plugins.zen") end },
 	{
 		"Bekaboo/dropbar.nvim",
 		-- optional, but required for fuzzy finder support

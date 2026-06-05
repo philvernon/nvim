@@ -13,10 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 local config = {
 	defaults = {
-		lazy = true,
+		-- lazy = true,
 	},
 }
 
 require("lazy").setup({
-	{ import = "phil.plugins" },
+	require("phil.plugins.all"),
+	require("phil.plugins.conform"),
+	require("phil.plugins.sidekick"),
 }, config)
