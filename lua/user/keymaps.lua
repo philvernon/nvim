@@ -62,7 +62,7 @@ keymap("n", "<bslash>sh", "<cmd>Telescope help_tags<CR>", opts)
 keymap("n", "<bslash>sg", "<cmd>Telescope git_commits<CR>", opts)
 keymap("n", "<bslash>sc", "<cmd>Telescope git_status<CR>", opts)
 keymap("n", "<bslash>sd", "<cmd>Telescope diagnostics<CR>", opts)
-keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
+-- keymap("n", "<bslash>sp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>", opts)
 keymap("n", "<bslash>sr", "<cmd>Telescope resume<CR>", opts)
 
 -- neo-tree
@@ -102,9 +102,9 @@ keymap("n", "<leader>ts", "<cmd>ZenMode<CR>", opts)
 keymap("n", "<leader>id", '<cmd>exe ":normal i" . system("uuidgen | tr -d \'\\n\'")<CR>', opts)
 
 -- octo
-keymap("n", "<leader>gp", "<cmd>Octo pr list<CR>", opts)
-keymap("n", "<leader>gi", "<cmd>Octo issue list<CR>", opts)
-keymap("n", "<leader>gv", "<cmd>Octo issue list assignee=philvernon<CR>", opts)
+-- keymap("n", "<leader>gp", "<cmd>Octo pr list<CR>", opts)
+-- keymap("n", "<leader>gi", "<cmd>Octo issue list<CR>", opts)
+-- keymap("n", "<leader>gv", "<cmd>Octo issue list assignee=philvernon<CR>", opts)
 
 -- git
 keymap("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", opts)
