@@ -20,28 +20,6 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
-			{
-				-- only needed if you want to use the commands with "_with_window_picker" suffix
-				"s1n7ax/nvim-window-picker",
-				version = "1.*",
-				config = function()
-					require("window-picker").setup({
-						autoselect_one = true,
-						include_current = false,
-						filter_rules = {
-							-- filter using buffer options
-							bo = {
-								-- if the file type is one of following, the window will be ignored
-								filetype = { "neo-tree", "neo-tree-popup", "notify" },
-
-								-- if the buffer type is one of following, the window will be ignored
-								buftype = { "terminal", "quickfix" },
-							},
-						},
-						other_win_hl_color = "#e35e4f",
-					})
-				end,
-			},
 		},
 	},
 	{
@@ -142,9 +120,7 @@ return {
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
 	{ "catppuccin/nvim",           name = "catppuccin",                                         priority = 1000 },
 	{ "hedyhli/outline.nvim",      lazy = false },
-	{ "rmagatti/auto-session",     lazy = false },
 	"norcalli/nvim-colorizer.lua",
-	"dkarter/bullets.vim",
 	"tpope/vim-fugitive",
 	{
 		"NeogitOrg/neogit",
@@ -192,16 +168,7 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{ "skywind3000/asyncrun.vim" },
 	{ "tyru/open-browser.vim",   lazy = true },
-	{
-		"glacambre/firenvim",
-		build = function()
-			vim.fn["firenvim#install"](0)
-		end,
-		lazy = true,
-	},
-	{ "folke/zen-mode.nvim", lazy = false },
 	{
 		"Bekaboo/dropbar.nvim",
 		-- optional, but required for fuzzy finder support
@@ -255,24 +222,6 @@ return {
 			{ "<leader>gy", "<cmd>GitLink<cr>",  mode = { "n", "v" }, desc = "Yank git link" },
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
-	},
-	{
-		"github/copilot.vim",
-		config = function()
-			vim.g.copilot_enabled = false
-		end,
-	},
-	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		dependencies = {
-			{ "github/copilot.vim" },                    -- or zbirenbaum/copilot.lua
-			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-		},
-		-- build = "make tiktoken", -- Only on MacOS or Linux
-		opts = {
-			-- See Configuration section for options
-		},
-		-- See Commands section for default commands if you want to lazy load on them
 	},
 	---@type LazySpec
 	{
@@ -336,30 +285,6 @@ return {
 			terminal = {
 				-- terminal config
 			},
-		},
-	},
-	{
-		"sudo-tee/opencode.nvim",
-		config = function()
-			require("opencode").setup({
-				keymap = {
-					editor = {
-						["<C-p>"] = { "toggle" },
-					},
-				},
-			})
-		end,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					anti_conceal = { enabled = false },
-					file_types = { "markdown", "opencode_output" },
-				},
-				ft = { "markdown", "Avante", "copilot-chat", "opencode_output" },
-			},
-			"folke/snacks.nvim",
 		},
 	},
 	{

@@ -31,9 +31,7 @@ require("phil.outline")
 require("phil.markdown-preview")
 -- require "phil.glow"
 -- require("phil.colorizor")
-require("phil.zen")
 require("phil.octo")
-require("phil.session")
 require("phil.dap")
 require("phil.godot-setup")
 

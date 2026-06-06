@@ -50,9 +50,6 @@ keymap("n", "<bslash>u", "<cmd>so ~/.config/nvim/init.lua<CR>", opts)
 -- Vue
 keymap("n", "<leader>c", "/script<CR>ggn", opts)
 keymap("n", "<leader>v", "/template<CR>ggn", opts)
--- love2d
-keymap("n", "<leader>r", "<cmd>AsyncRun -mode=term -rows=6 -listed=0 -scroll=1 -focus=0  love .<CR>", opts)
-
 -- PLUGINS
 -- Telescope
 keymap("n", "<C-f>", "<cmd>Telescope find_files hidden=true<CR>", opts)
