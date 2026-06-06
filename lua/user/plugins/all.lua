@@ -4,30 +4,11 @@ return {
 	{ "neovim/nvim-lspconfig", lazy = false },
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
+		version = "^9", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	{
-		"folke/neodev.nvim",
-		opts = {},
-		config = function()
-			require("neodev").setup()
-		end,
-	},
 	"famiu/bufdelete.nvim",
-	"lukas-reineke/indent-blankline.nvim",
-	"tpope/vim-fugitive",
-	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-
-			-- Only one of these is needed, not both.
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-		config = true,
-	},
+	{ "NeogitOrg/neogit", config = true },
 	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
@@ -37,10 +18,7 @@ return {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
-		opts = {},
+		dependencies = { "nvim-mini/mini.nvim" },
 	},
 	{ "tyru/open-browser.vim", lazy = true },
 	{
@@ -77,6 +55,12 @@ return {
 	"opdavies/toggle-checkbox.nvim",
 	"tpope/vim-dadbod",
 	{ "folke/snacks.nvim" },
+	{
+		"carderne/pi-nvim",
+		config = function()
+			require("pi-nvim").setup()
+		end,
+	},
 	{
 		"carderne/pi-nvim",
 		config = function()
