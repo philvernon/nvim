@@ -1,7 +1,11 @@
 return {
-	"jose-elias-alvarez/null-ls.nvim",
-	event = "VeryLazy",
-	config = function()
-		require("outline").setup({})
-	end,
+	"hedyhli/outline.nvim",
+	lazy = true,
+	cmd = { "Outline", "OutlineOpen" },
+	keys = { -- Example mapping to toggle outline
+		{ "<bslash>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+	},
+	opts = {
+		-- Your setup opts here
+	},
 }

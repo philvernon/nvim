@@ -1,61 +1,93 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	cmd = "Telescope",
 	event = "VeryLazy",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"benfowler/telescope-luasnip.nvim",
+		"nvim-telescope/telescope-ui-select.nvim",
+		"folke/trouble.nvim",
+	},
 	config = function()
-		local clrs = require("catppuccin.palettes").get_palette()
+		local colors = require("catppuccin.palettes").get_palette()
+		local action_layout = require("telescope.actions.layout")
+		local action = require("telescope.actions")
+		-- local trouble = require("trouble.providers.telescope")
+		local openTrouble = require("trouble.sources.telescope").open
 
+		local TelescopeColor = {
+			-- TelescopeMatching = { fg = colors.flamingo },
+			TelescopeTitle = { fg = colors.surface2 },
+			TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+			--
+			TelescopePromptPrefix = { bg = colors.mantle },
+			TelescopePromptNormal = { bg = colors.mantle },
+			TelescopeResultsNormal = { bg = colors.mantle },
+			TelescopePreviewNormal = { bg = colors.mantle },
+			TelescopePromptBorder = { bg = colors.mantle, fg = colors.mantle },
+			TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+			TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+			TelescopeSelectionCaret = { fg = colors.mantle },
+			-- TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+			-- TelescopeResultsTitle = { fg = colors.mantle },
+			-- TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+		}
+
+		for hl, col in pairs(TelescopeColor) do
+			vim.api.nvim_set_hl(0, hl, col)
+		end
 		require("telescope").setup({
 			defaults = {
-				vimgrep_arguments = {
-					"rg",
-					"--color=never",
-					"--no-heading",
-					"--with-filename",
-					"--line-number",
-					"--column",
-					"--smart-case",
-				},
+				results_title = false,
 				prompt_prefix = " ",
 				selection_caret = ". ",
-				entry_prefix = "  ",
-				initial_mode = "insert",
-				selection_strategy = "reset",
-				sorting_strategy = "ascending",
 				layout_strategy = "center",
+				cycle_layout_list = { "horizontal", "center", "cursor" },
 				layout_config = {
 					center = {
-						height = 0.6,
-						width = 0.75,
+						prompt_position = "bottom",
 					},
 					horizontal = {
-						preview_width = 0.55,
+						-- width = 0.5
+						-- prompt_position = "top",
 					},
-					vertical = {
-						mirror = false,
+					cursor = {
+						height = 0.01,
 					},
 				},
-				file_sorter = require("telescope.sorters").get_fuzzy_file,
-				generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-				path_display = { "truncate" },
-				winblend = 0,
-				border = {},
-				borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-				color_devicons = true,
-				set_env = { ["COLORTERM"] = "truecolor" },
-				file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-				grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-				qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-				mapping = {
-					["<C-t>"] = require("telescope._extensions.trouble").toggle,
-					["<C-q>"] = function()
-						vim.cmd("Telescope trouble")
-					end,
+				-- border = false,
+				preview = {
+					hide_on_startup = true,
+				},
+				path_display = {
+					truncate = 3,
+				},
+				mappings = {
+					n = {
+						["p"] = action_layout.toggle_preview,
+						["<C-f>"] = "close",
+						["]"] = action_layout.cycle_layout_next,
+						["["] = action_layout.cycle_layout_prev,
+						["gq"] = action.send_selected_to_qflist + action.open_qflist,
+						["<C-t>"] = openTrouble,
+					},
+					i = {
+						["<C-f>"] = "close",
+						["<C-t>"] = openTrouble,
+					},
+				},
+				extensions = {
+					["ui-select"] = {
+						layout_strategy = "cursor",
+						-- require("telescope.themes").get_cursor({
+						-- 	-- even more opts
+						-- }),
+					},
 				},
 			},
 		})
 
-		require("telescope").load_extension("fzf")
-		require("telescope").load_extension("trouble")
+		require("telescope").load_extension("luasnip")
+		require("telescope").load_extension("ui-select")
 	end,
 }

@@ -1,22 +1,10 @@
 return {
 	"davidgranstrom/scnvim",
-	{
-		"j-hui/fidget.nvim",
-		opts = {
-			-- options
-		},
-	},
+	{ "j-hui/fidget.nvim" },
 	"nvim-lua/plenary.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	"benfowler/telescope-luasnip.nvim",
 	"nvim-telescope/telescope-project.nvim",
-	-- "williamboman/nvim-lsp-installer",
-	{
-		"folke/trouble.nvim",
-		lazy = false,
-		opts = {},
-		cmd = "Trouble",
-	},
 	{
 		"artemave/workspace-diagnostics.nvim",
 		config = function()
@@ -28,7 +16,6 @@ return {
 		end,
 	},
 
-	{ "williamboman/mason.nvim",           lazy = false },
 	{ "williamboman/mason-lspconfig.nvim", lazy = false },
 
 	{ "neovim/nvim-lspconfig",             lazy = false },
@@ -54,11 +41,10 @@ return {
 	"hrsh7th/cmp-calc",
 	"rafamadriz/friendly-snippets",
 	"saadparwaiz1/cmp_luasnip",
-	{ "kylechui/nvim-surround", lazy = false },
-	{ "kevinhwang91/nvim-ufo",  dependencies = "kevinhwang91/promise-async" },
+	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
-	{ "hedyhli/outline.nvim",   lazy = false },
+	{ "hedyhli/outline.nvim",  lazy = false },
 	"norcalli/nvim-colorizer.lua",
 	"tpope/vim-fugitive",
 	{
@@ -72,7 +58,7 @@ return {
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim",      dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
@@ -92,7 +78,7 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{ "tyru/open-browser.vim",       lazy = true },
+	{ "tyru/open-browser.vim", lazy = true },
 	{
 		"Bekaboo/dropbar.nvim",
 		-- optional, but required for fuzzy finder support
