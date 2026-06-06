@@ -3,8 +3,6 @@ return {
 	build = "make install_jsregexp",
 	event = "InsertEnter",
 	dependencies = {
-		"hrsh7th/nvim-cmp",
-		{ "saadparwaiz1/cmp_luasnip" },
 		{ "rafamadriz/friendly-snippets" },
 	},
 	config = function()

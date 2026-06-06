@@ -1,8 +1,6 @@
 return {
 	"davidgranstrom/scnvim",
 	{ "j-hui/fidget.nvim" },
-	"nvim-lua/plenary.nvim",
-	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"artemave/workspace-diagnostics.nvim",
 		config = function()
@@ -27,9 +25,6 @@ return {
 			require("neodev").setup()
 		end,
 	},
-	"rafamadriz/friendly-snippets",
-	"saadparwaiz1/cmp_luasnip",
-	{ "kevinhwang91/nvim-ufo",  dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
 	"tpope/vim-fugitive",
@@ -52,17 +47,13 @@ return {
 		end,
 	},
 	{
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-		lazy = true,
-	},
-	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{ "tyru/open-browser.vim", lazy = true },
+	{ "tyru/open-browser.vim",  lazy = true },
 	{
 		"Bekaboo/dropbar.nvim",
 		-- optional, but required for fuzzy finder support
