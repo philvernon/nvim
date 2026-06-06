@@ -1,85 +1,8 @@
 -- core
-require("phil.options")
-require("phil.plugins-lazy")
-require("phil.theme")
-require("phil.keymaps")
-require("phil.lualine")
---plugins
-require("phil.nvim-cmp")
--- require("phil.conform")
--- require("phil.lint")
--- require("phil.none-ls")
-require("phil.mason")
-require("phil.lsp.lsp-mason")
-require("phil.lsp.config")
-require("phil.lsp.vue")
-require("phil.lsp.rust")
-require("phil.luasnip")
-require("phil.lsp.keymaps")
-require("phil.neo-tree")
-require("phil.treesitter")
-require("phil.comment")
-require("phil.surround")
-require("phil.autopairs")
-require("phil.fold")
-require("phil.telescope")
-require("phil.trouble")
-require("phil.gitsigns")
-require("phil.toggleterm")
-require("phil.whichkey")
-require("phil.outline")
-require("phil.markdown-preview")
--- require "phil.glow"
--- require("phil.colorizor")
-require("phil.octo")
-require("phil.dap")
-require("phil.godot-setup")
-
--- fix https://github.com/neovim/neovim/issues/21856
--- vim.api.nvim_create_autocmd({ "VimLeave" }, {
--- 	callback = function()
--- 		vim.fn.jobstart("", { detach = true })
--- 	end,
--- })
---
--- vim.api.nvim_create_autocmd({ "VimLeave" }, {
--- 	callback = function()
--- 		vim.fn.jobstart("", { detach = true })
--- 	end,
--- })
-
--- local scnvim = require("scnvim")
--- local map = scnvim.map
--- local map_expr = scnvim.map_expr
---
--- scnvim.setup({
--- 	keymaps = {
--- 		["<M-e>"] = map("editor.send_line", { "i", "n" }),
--- 		["<C-e>"] = {
--- 			map("editor.send_block", { "i", "n" }),
--- 			map("editor.send_selection", "x"),
--- 		},
--- 		["<CR>"] = map("postwin.toggle"),
--- 		["<M-CR>"] = map("postwin.toggle", "i"),
--- 		["<M-L>"] = map("postwin.clear", { "n", "i" }),
--- 		["<C-k>"] = map("signature.show", { "n", "i" }),
--- 		["<F12>"] = map("sclang.hard_stop", { "n", "x", "i" }),
--- 		["<leader>st"] = map("sclang.start"),
--- 		["<leader>sk"] = map("sclang.recompile"),
--- 		["<F1>"] = map_expr("s.boot"),
--- 		["<F2>"] = map_expr("s.meter"),
--- 	},
--- 	editor = {
--- 		highlight = {
--- 			color = "IncSearch",
--- 		},
--- 	},
--- 	postwin = {
--- 		float = {
--- 			enabled = true,
--- 		},
--- 	},
--- })
+require("user.options")
+require("user.plugins-lazy")
+require("user.theme")
+require("user.keymaps")
 
 local google_translate = function(args)
 	local lang = args["args"]
@@ -99,52 +22,12 @@ local google_translate = function(args)
 end
 
 vim.api.nvim_create_user_command("Translate", google_translate, { nargs = "?" })
--- vim.api.nvim_create_autocmd("VimEnter", {
--- 	callback = function()
--- 		local cwd = vim.fn.getcwd()
--- 		if cwd:match("/synthesis/web$") then
--- 			if os.getenv("TMUX") then
--- 				-- Check if web-dev already exists
--- 				local windows = vim.fn.systemlist("tmux list-windows -F '#W'")
--- 				local exists = vim.tbl_contains(windows, "web-dev")
---
--- 				if not exists then
--- 					-- Create web-dev window in background
--- 					vim.fn.jobstart({ "tmux", "new-window", "-d", "-n", "web-dev", "-c", cwd }, { detach = true })
---
--- 					-- Run docker compose in top pane (pane 0)
--- 					vim.fn.jobstart(
--- 						{ "tmux", "send-keys", "-t", "web-dev.0", "docker compose up", "C-m" },
--- 						{ detach = true }
--- 					)
---
--- 					-- Create vertical split in that window (bottom pane)
--- 					vim.fn.jobstart({ "tmux", "split-window", "-v", "-t", "web-dev", "-c", cwd }, { detach = true })
---
--- 					vim.defer_fn(function()
--- 						vim.fn.jobstart(
--- 							{ "tmux", "send-keys", "-t", "web-dev.1", "npm run dev", "C-m" },
--- 							{ detach = true }
--- 						)
--- 					end, 1000)
---
--- 					print("🧱 Started Docker + npm in tmux window: web-dev")
--- 				else
--- 					print("🔁 tmux window 'web-dev' already exists — skipping")
--- 				end
--- 			else
--- 				print("⚠️ Not inside tmux — skipping dev setup")
--- 			end
--- 		end
--- 	end,
--- })
 
 -- paths to check for project.godot file
 local paths_to_check = { '/', '/../' }
 local is_godot_project = false
 local godot_project_path = ''
 local cwd = vim.fn.getcwd()
-
 
 -- iterate over paths and check
 for key, value in pairs(paths_to_check) do

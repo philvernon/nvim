@@ -18,5 +18,5 @@ local config = {
 }
 
 require("lazy").setup({
-	{ import = "phil.plugins" },
+	{ import = "user.plugins" },
 }, config)

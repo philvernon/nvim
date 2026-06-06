@@ -7,36 +7,7 @@ return {
 		},
 	},
 	"nvim-lua/plenary.nvim",
-	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
-	},
 	"JoosepAlviste/nvim-ts-context-commentstring",
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		lazy = false,
-		branch = "v2.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		},
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		lazy = false,
-		-- tag = "0.1.0",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	{
-		"pwntester/octo.nvim",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
-	},
 	"benfowler/telescope-luasnip.nvim",
 	"nvim-telescope/telescope-project.nvim",
 	-- "williamboman/nvim-lsp-installer",
@@ -66,9 +37,7 @@ return {
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	{ "nvimtools/none-ls.nvim",                 dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{ "mfussenegger/nvim-lint" },
 	{
 		"folke/neodev.nvim",
 		opts = {},
@@ -76,28 +45,20 @@ return {
 			require("neodev").setup()
 		end,
 	},
-	{ "windwp/nvim-autopairs", lazy = false },
+	{ "windwp/nvim-autopairs",                  lazy = false },
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"hrsh7th/cmp-calc",
-	{ "hrsh7th/nvim-cmp",      lazy = false },
 	"rafamadriz/friendly-snippets",
-	{ "L3MON4D3/LuaSnip",       lazy = false },
 	"saadparwaiz1/cmp_luasnip",
 	{ "kylechui/nvim-surround", lazy = false },
 	{ "kevinhwang91/nvim-ufo",  dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
-	{ "lewis6991/gitsigns.nvim",   lazy = false },
-	{ "numToStr/Comment.nvim",     lazy = false },
-	{ "folke/which-key.nvim",      lazy = false },
-	{ "akinsho/toggleterm.nvim",   lazy = false },
-	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
-	{ "catppuccin/nvim",           name = "catppuccin",                                         priority = 1000 },
-	{ "hedyhli/outline.nvim",      lazy = false },
+	{ "hedyhli/outline.nvim",   lazy = false },
 	"norcalli/nvim-colorizer.lua",
 	"tpope/vim-fugitive",
 	{
@@ -111,14 +72,13 @@ return {
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim",      dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
 			require("debugprint").setup()
 		end,
 	},
-	{ "mfussenegger/nvim-dap",       lazy = false },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
 		"rcarriga/nvim-dap-ui",
@@ -132,7 +92,7 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{ "tyru/open-browser.vim", lazy = true },
+	{ "tyru/open-browser.vim",       lazy = true },
 	{
 		"Bekaboo/dropbar.nvim",
 		-- optional, but required for fuzzy finder support
