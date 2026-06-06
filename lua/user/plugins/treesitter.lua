@@ -1,30 +1,30 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		require("nvim-treesitter.configs").setup({
-			ensure_installed = {
-				"javascript",
-				"css",
-				"html",
-				"scss",
-				"vue",
-				"typescript",
-				"json",
-				"bash",
-				"lua",
-				"vim",
-				"vimdoc",
-			},
-			highlight = { enable = true },
-			indent = { enable = true },
-			incremental_selection = { enable = true },
-			autotag = { enable = true },
-			matchup = { enable = true },
-		})
-
-		vim.treesitter.language.register("javascript", "vue")
-		vim.treesitter.language.register("typescript", "vue")
-	end,
+	-- "nvim-treesitter/nvim-treesitter",
+	-- build = ":TSUpdate",
+	-- event = { "BufReadPre", "BufNewFile" },
+	-- config = function()
+	-- 	require("nvim-treesitter.configs").setup({
+	-- 		ensure_installed = {
+	-- 			"javascript",
+	-- 			"css",
+	-- 			"html",
+	-- 			"scss",
+	-- 			"vue",
+	-- 			"typescript",
+	-- 			"json",
+	-- 			"bash",
+	-- 			"lua",
+	-- 			"vim",
+	-- 			"vimdoc",
+	-- 		},
+	-- 		highlight = { enable = true },
+	-- 		indent = { enable = true },
+	-- 		incremental_selection = { enable = true },
+	-- 		autotag = { enable = true },
+	-- 		matchup = { enable = true },
+	-- 	})
+	--
+	-- 	vim.treesitter.language.register("javascript", "vue")
+	-- 	vim.treesitter.language.register("typescript", "vue")
+	-- end,
 }
