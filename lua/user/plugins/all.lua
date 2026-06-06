@@ -12,4 +12,5 @@ return {
 	{ "tpope/vim-dadbod" },
 	{ "folke/snacks.nvim" },
 	{ "carderne/pi-nvim", config = function() require("pi-nvim").setup() end },
+	{ "bullets-vim/bullets.vim" },
 }

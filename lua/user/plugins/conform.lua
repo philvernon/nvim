@@ -23,7 +23,8 @@ return {
 			sql = { "pg_format" },
 		},
 	},
-	config = function()
+	config = function(_, opts)
+		require("conform").setup(opts)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "*",
 			callback = function(args)
