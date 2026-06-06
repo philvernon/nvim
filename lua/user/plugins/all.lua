@@ -1,16 +1,5 @@
 return {
-	"davidgranstrom/scnvim",
 	{ "j-hui/fidget.nvim" },
-	{
-		"artemave/workspace-diagnostics.nvim",
-		config = function()
-			require("workspace-diagnostics").setup({
-				workspace_files = function()
-					return vim.fn.systemlist("git ls-files") -- Example to get files from Git.
-				end,
-			})
-		end,
-	},
 	{ "williamboman/mason-lspconfig.nvim", lazy = false },
 	{ "neovim/nvim-lspconfig",             lazy = false },
 	{
