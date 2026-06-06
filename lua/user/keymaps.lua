@@ -4,7 +4,6 @@ local keymap = vim.keymap.set
 
 -- GENERAL
 keymap("n", "<leader>qq", "<cmd>wqa<CR>", opts)
-
 -- Better window navigation
 keymap("n", "<Left>", "<C-w>h", opts)
 keymap("n", "<Down>", "<C-w>j", opts)
@@ -70,11 +69,8 @@ keymap("n", "<C-t>", "<cmd>Neotree<CR>", opts)
 keymap("n", "<bslash>fs", "<cmd>Neotree reveal<CR>", opts)
 -- bufferline
 keymap("n", "tg", "<cmd>BufferLinePick<CR>", opts)
--- keymap("n", "<bslash>w", ":BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>", opts)
 keymap("n", "<bslash>w", "<cmd>w|%bd|e#|bd#<CR>", opts)
 keymap("n", "<bslash>q", "<cmd>Bdelete<CR>", opts)
--- keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
--- keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 -- whichkey
 keymap("n", "<bslash>a", "<cmd>WhichKey<CR>", opts)
 -- toggleterm
@@ -88,23 +84,9 @@ keymap("n", "<bslash>tc", "<cmd>tabclose<CR>", opts)
 keymap("n", "<bslash>to", "<cmd>tabonly<CR>", opts)
 keymap("n", "<bslash>tn", "<cmd>tabn<CR>", opts)
 keymap("n", "<bslash>tp", "<cmd>tabp<CR>", opts)
--- harpoon
--- keymap("n", "<leader>h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
--- keymap("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<CR>", opts)
--- keymap("n", "<C-c>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opts)
--- keymap("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opts)
--- keymap("n", "<C-e>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opts)
--- keymap("n", "<C-b>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opts)
--- zen
-keymap("n", "<leader>ts", "<cmd>ZenMode<CR>", opts)
 
 -- UUID Gen
 keymap("n", "<leader>id", '<cmd>exe ":normal i" . system("uuidgen | tr -d \'\\n\'")<CR>', opts)
-
--- octo
--- keymap("n", "<leader>gp", "<cmd>Octo pr list<CR>", opts)
--- keymap("n", "<leader>gi", "<cmd>Octo issue list<CR>", opts)
--- keymap("n", "<leader>gv", "<cmd>Octo issue list assignee=philvernon<CR>", opts)
 
 -- git
 keymap("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", opts)
@@ -114,9 +96,6 @@ keymap("n", "<leader>gS", "<cmd>Gitsigns show develop<CR>", opts)
 keymap("n", "<bslash>gg", "<cmd>Neogit kind=vsplit<CR>", opts)
 keymap("n", "<bslash>gs", "<cmd>Gitsigns stage_buffer<CR>", opts)
 keymap("n", "<bslash>gh", "<cmd>Gitsigns stage_hunk<CR>", opts)
-
--- session
-keymap("n", "<bslash>c", "<cmd>SessionRestore<CR>", opts)
 
 -- translate
 keymap("n", "<bslash>l", "<cmd>Translate<CR>", opts)
