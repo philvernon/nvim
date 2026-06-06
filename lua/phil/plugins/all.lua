@@ -79,10 +79,10 @@ return {
 		end,
 	},
 
-	{ "williamboman/mason.nvim", lazy = false },
+	{ "williamboman/mason.nvim",           lazy = false },
 	{ "williamboman/mason-lspconfig.nvim", lazy = false },
 
-	{ "neovim/nvim-lspconfig", lazy = false },
+	{ "neovim/nvim-lspconfig",             lazy = false },
 	-- "simrat39/rust-tools.nvim",
 	-- "rust-lang/rust.vim",
 	{
@@ -90,7 +90,7 @@ return {
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	{ "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
+	{ "nvimtools/none-ls.nvim",                 dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	-- { "stevearc/conform.nvim" },
 	{ "mfussenegger/nvim-lint" },
@@ -109,10 +109,10 @@ return {
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"hrsh7th/cmp-calc",
-	{ "hrsh7th/nvim-cmp", lazy = false },
+	{ "hrsh7th/nvim-cmp",      lazy = false },
 	-- "ms-jpq/coq_nvim",
 	"rafamadriz/friendly-snippets",
-	{ "L3MON4D3/LuaSnip", lazy = false },
+	{ "L3MON4D3/LuaSnip",       lazy = false },
 	"saadparwaiz1/cmp_luasnip",
 	-- "fatih/vim-go",
 	-- {
@@ -132,17 +132,17 @@ return {
 	{ "kylechui/nvim-surround", lazy = false },
 	-- "roycrippen4/nvim-ts-autotag",
 	-- "windwp/nvim-ts-autotag",
-	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+	{ "kevinhwang91/nvim-ufo",  dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
-	{ "lewis6991/gitsigns.nvim", lazy = false },
-	{ "numToStr/Comment.nvim", lazy = false },
-	{ "folke/which-key.nvim", lazy = false },
-	{ "akinsho/toggleterm.nvim", lazy = false },
+	{ "lewis6991/gitsigns.nvim",   lazy = false },
+	{ "numToStr/Comment.nvim",     lazy = false },
+	{ "folke/which-key.nvim",      lazy = false },
+	{ "akinsho/toggleterm.nvim",   lazy = false },
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "hedyhli/outline.nvim", lazy = false },
-	{ "rmagatti/auto-session", lazy = false },
+	{ "catppuccin/nvim",           name = "catppuccin",                                         priority = 1000 },
+	{ "hedyhli/outline.nvim",      lazy = false },
+	{ "rmagatti/auto-session",     lazy = false },
 	"norcalli/nvim-colorizer.lua",
 	"dkarter/bullets.vim",
 	"tpope/vim-fugitive",
@@ -157,7 +157,7 @@ return {
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim",      dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
@@ -176,7 +176,7 @@ return {
 	-- 		vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
 	-- 	end,
 	-- },
-	{ "mfussenegger/nvim-dap", lazy = false },
+	{ "mfussenegger/nvim-dap",       lazy = false },
 	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
 		"rcarriga/nvim-dap-ui",
@@ -193,7 +193,7 @@ return {
 		opts = {},
 	},
 	{ "skywind3000/asyncrun.vim" },
-	{ "tyru/open-browser.vim", lazy = true },
+	{ "tyru/open-browser.vim",   lazy = true },
 	{
 		"glacambre/firenvim",
 		build = function()
@@ -252,7 +252,7 @@ return {
 		cmd = "GitLink",
 		opts = {},
 		keys = {
-			{ "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
+			{ "<leader>gy", "<cmd>GitLink<cr>",  mode = { "n", "v" }, desc = "Yank git link" },
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
 	},
@@ -265,7 +265,7 @@ return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		dependencies = {
-			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+			{ "github/copilot.vim" },                    -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
 		-- build = "make tiktoken", -- Only on MacOS or Linux
@@ -363,9 +363,20 @@ return {
 		},
 	},
 	{
-		"pablopunk/pi.nvim",
+		"carderne/pi-nvim",
 		config = function()
-			require("pi").setup()
-		end,
-	},
+			require("pi-nvim").setup()
+		end
+	}
+	-- {
+	-- 	"alex35mil/pi.nvim",
+	-- 	dependencies = { "HakonHarnes/img-clip.nvim" },
+	-- 	config = true
+	-- }
+	-- {
+	-- 	"pablopunk/pi.nvim",
+	-- 	config = function()
+	-- 		require("pi").setup()
+	-- 	end,
+	-- },
 }
