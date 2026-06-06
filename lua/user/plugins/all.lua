@@ -1,7 +1,7 @@
 return {
 	{ "j-hui/fidget.nvim" },
 	{ "williamboman/mason-lspconfig.nvim", lazy = false },
-	{ "neovim/nvim-lspconfig",             lazy = false },
+	{ "neovim/nvim-lspconfig", lazy = false },
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^5", -- Recommended
@@ -42,7 +42,7 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{ "tyru/open-browser.vim",  lazy = true },
+	{ "tyru/open-browser.vim", lazy = true },
 	{
 		"shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -70,12 +70,17 @@ return {
 		cmd = "GitLink",
 		opts = {},
 		keys = {
-			{ "<leader>gy", "<cmd>GitLink<cr>",  mode = { "n", "v" }, desc = "Yank git link" },
+			{ "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
 	},
 	"opdavies/toggle-checkbox.nvim",
 	"tpope/vim-dadbod",
 	{ "folke/snacks.nvim" },
-	{ "carderne/pi-nvim", config = function() require("pi-nvim").setup() end }
+	{
+		"carderne/pi-nvim",
+		config = function()
+			require("pi-nvim").setup()
+		end,
+	},
 }
