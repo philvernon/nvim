@@ -3,8 +3,6 @@ return {
 	{ "j-hui/fidget.nvim" },
 	"nvim-lua/plenary.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
-	"benfowler/telescope-luasnip.nvim",
-	"nvim-telescope/telescope-project.nvim",
 	{
 		"artemave/workspace-diagnostics.nvim",
 		config = function()
@@ -15,16 +13,13 @@ return {
 			})
 		end,
 	},
-
 	{ "williamboman/mason-lspconfig.nvim", lazy = false },
-
 	{ "neovim/nvim-lspconfig",             lazy = false },
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{
 		"folke/neodev.nvim",
 		opts = {},
@@ -32,14 +27,11 @@ return {
 			require("neodev").setup()
 		end,
 	},
-	{ "windwp/nvim-autopairs",                  lazy = false },
 	"rafamadriz/friendly-snippets",
 	"saadparwaiz1/cmp_luasnip",
-	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+	{ "kevinhwang91/nvim-ufo",  dependencies = "kevinhwang91/promise-async" },
 	"famiu/bufdelete.nvim",
 	"lukas-reineke/indent-blankline.nvim",
-	{ "hedyhli/outline.nvim",  lazy = false },
-	"norcalli/nvim-colorizer.lua",
 	"tpope/vim-fugitive",
 	{
 		"NeogitOrg/neogit",
@@ -52,16 +44,14 @@ return {
 		},
 		config = true,
 	},
-	{ "sindrets/diffview.nvim",      dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"andrewferrier/debugprint.nvim",
 		config = function()
 			require("debugprint").setup()
 		end,
 	},
-	{ "jay-babu/mason-nvim-dap.nvim" },
 	{
-		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		lazy = true,
 	},
