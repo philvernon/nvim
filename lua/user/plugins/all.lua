@@ -55,29 +55,6 @@ return {
 	},
 	{ "tyru/open-browser.vim",  lazy = true },
 	{
-		"Bekaboo/dropbar.nvim",
-		-- optional, but required for fuzzy finder support
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-		},
-		config = function()
-			local dropbar_api = require("dropbar.api")
-			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
-		end,
-		opts = {
-			icons = {
-				ui = {
-					bar = {
-						separator = "!",
-					},
-				},
-			},
-		},
-	},
-	{
 		"shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -108,74 +85,8 @@ return {
 			{ "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
 		},
 	},
-	---@type LazySpec
-	{
-		"mikavilpas/yazi.nvim",
-		version = "*", -- use the latest stable version
-		event = "VeryLazy",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim", lazy = true },
-		},
-		keys = {
-			{
-				"<leader>-",
-				mode = { "n", "v" },
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				"<leader>cw",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<c-up>",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
-		},
-		---@type YaziConfig | {}
-		opts = {
-			open_for_directories = false,
-			keymaps = {
-				show_help = "<f1>",
-			},
-		},
-		init = function()
-			vim.g.loaded_netrwPlugin = 1
-		end,
-	},
 	"opdavies/toggle-checkbox.nvim",
 	"tpope/vim-dadbod",
-	{
-		"kndndrj/nvim-dbee",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		build = function()
-			require("dbee").install()
-		end,
-		config = function()
-			require("dbee").setup {
-				sources = {
-					require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),
-				},
-			}
-		end,
-	},
-	{
-		"folke/snacks.nvim",
-		---@type snacks.Config
-		opts = {
-			terminal = {
-				-- terminal config
-			},
-		},
-	},
-	{
-		"carderne/pi-nvim",
-		config = function()
-			require("pi-nvim").setup()
-		end
-	}
+	{ "folke/snacks.nvim" },
+	{ "carderne/pi-nvim", config = function() require("pi-nvim").setup() end }
 }
