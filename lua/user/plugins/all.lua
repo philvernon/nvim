@@ -1,8 +1,6 @@
 return {
 	{ "j-hui/fidget.nvim" },
-	{ "williamboman/mason-lspconfig.nvim", lazy = false },
-	{ "neovim/nvim-lspconfig", lazy = false },
-	{ "mrcjkb/rustaceanvim", version = "^9", lazy = false },
+
 	{ "famiu/bufdelete.nvim" },
 	{ "NeogitOrg/neogit", config = true },
 	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
