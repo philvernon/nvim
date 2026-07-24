@@ -11,6 +11,7 @@ return {
 	{ "opdavies/toggle-checkbox.nvim" },
 	{ "tpope/vim-dadbod" },
 	{ "folke/snacks.nvim" },
-	{ "carderne/pi-nvim", config = function() require("pi-nvim").setup() end },
+	{ "carderne/pi-nvim", lazy = false, config = function() require("pi-nvim").setup() end },
 	{ "bullets-vim/bullets.vim" },
+	{ "nvim-mini/mini.comment", version = false, config = function() require("mini.comment").setup() end },
 }
