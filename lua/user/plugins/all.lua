@@ -4,7 +4,6 @@ return {
 	{ "neovim/nvim-lspconfig", lazy = false },
 	{ "mrcjkb/rustaceanvim", version = "^9", lazy = false },
 	{ "famiu/bufdelete.nvim" },
-	{ "NeogitOrg/neogit", config = true },
 	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{ "MeanderingProgrammer/render-markdown.nvim", dependencies = { "nvim-mini/mini.nvim" } },
 	{ "tyru/open-browser.vim", lazy = true },
