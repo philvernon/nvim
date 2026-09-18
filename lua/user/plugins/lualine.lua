@@ -35,7 +35,7 @@ return {
 
 		ins_right({ "diagnostics", sources = { "nvim_diagnostic" }, symbols = { error = "", warn = "", info = "", hint = "" }, diagnostics_color = { color_error = { fg = colors.red }, color_warn = { fg = colors.yellow }, color_info = { fg = colors.cyan } } })
 		ins_right({ "filetype", color = { fg = clrs.subtext0 } })
-		ins_right({ function() local clients = vim.lsp.get_clients(); if next(clients) == nil then return "" end; local msg = ""; for _, client in ipairs(clients) do if client.name ~= "null-ls" then msg = msg .. client.name .. " " end end; return msg:gsub("%s+$", "") .. "" end, color = { fg = clrs.subtext0, gui = "bold" }, padding = 0 })
+		ins_right({ function() local clients = vim.lsp.get_clients(); if next(clients) == nil then return "" end; local msg = ""; for _, client in ipairs(clients) do msg = msg .. client.name .. " " end; return msg:gsub("%s+$", "") end, color = { fg = clrs.subtext0, gui = "bold" }, padding = 0 })
 		ins_right({ "location", color = { fg = clrs.subtext0 } })
 		ins_right({ function() return tostring(vim.api.nvim_buf_line_count(vim.fn.winbufnr(vim.g.statusline_winid))) end, color = { fg = clrs.subtext0 } })
 		ins_right({ "progress", color = { fg = clrs.subtext0, gui = "bold" } })

@@ -16,11 +16,7 @@ map("n", "K", function()
 end, "Hover")
 map("n", "<leader>gk", vim.lsp.buf.signature_help, "Signature")
 map("n", "<leader>gf", function()
-	vim.lsp.buf.format({
-		filter = function(client)
-			return client.name == "null-ls"
-		end,
-	})
+	require("conform").format({ lsp_format = "fallback" })
 end, "Format")
 
 map("n", "<leader>dq", vim.diagnostic.toqflist, "Quickfix")
@@ -31,7 +27,9 @@ map("n", "<leader>dh", function()
 	vim.diagnostic.config({ virtual_text = false })
 end, "Hide")
 
-map("n", "<leader>dd", "<cmd>lua toggle_diagnostic()<CR>", "Toggle")
+map("n", "<leader>dd", function()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, "Toggle")
 map("n", "<leader>de", vim.diagnostic.enable, "Enable")
 
 map({ "n", "v" }, "<leader>gn", vim.lsp.buf.rename, "Rename")

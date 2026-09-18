@@ -6,7 +6,6 @@ return {
 	{ "famiu/bufdelete.nvim" },
 	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{ "MeanderingProgrammer/render-markdown.nvim", dependencies = { "nvim-mini/mini.nvim" } },
-	{ "tyru/open-browser.vim", lazy = true },
 	{ "opdavies/toggle-checkbox.nvim" },
 	{ "carderne/pi-nvim", lazy = false, config = function() require("pi-nvim").setup() end },
 	{ "bullets-vim/bullets.vim" },

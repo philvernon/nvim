@@ -67,8 +67,7 @@ leader("fr", "<cmd>Telescope resume<CR>", "Resume")
 -- neo-tree
 keymap("n", "<C-t>", "<cmd>Neotree<CR>", opts)
 leader("e", "<cmd>Neotree reveal<CR>", "Files")
--- bufferline
-keymap("n", "tg", "<cmd>BufferLinePick<CR>", opts)
+-- buffer
 leader("bw", "<cmd>w|%bd|e#|bd#<CR>", "Solo")
 leader("bq", "<cmd>Bdelete<CR>", "Delete")
 -- whichkey

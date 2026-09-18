@@ -185,7 +185,6 @@ Status describes how the plugin appears in this configuration, not whether its r
 | bullets.vim | bullets-vim/bullets.vim | Active | Markdown bullets |
 | mkdnflow.nvim | jakewvincent/mkdnflow.nvim | Active | Markdown navigation |
 | zk | zk-org/zk-nvim | Active | Zettelkasten |
-| open-browser.vim | tyru/open-browser.vim | Active | Browser opener |
 | toggle-checkbox.nvim | opdavies/toggle-checkbox.nvim | Active | Checkboxes |
 | nvim-dbee | kndndrj/nvim-dbee | Active | Database UI |
 | bufdelete.nvim | famiu/bufdelete.nvim | Active | Buffer deletion |
@@ -258,7 +257,6 @@ Ctrl-D and Ctrl-U recenter the cursor after moving.
 | N | ,fr | Resume |
 | N | Ctrl-T | Neo-tree |
 | N | ,e | Files |
-| N | tg | Buffer pick |
 | N | ,bw | Buffer solo |
 | N | ,bq | Delete buffer |
 | N | ,? | Key hints |
@@ -436,9 +434,6 @@ Neovim MUST provide the vim.lsp.config and vim.lsp.enable APIs used by this conf
 
 ## Known caveats
 
-- tg calls :BufferLinePick, but no BufferLine plugin is declared in the current plugin specs. This mapping MAY fail unless that command is supplied elsewhere.
-- ,dd calls toggle_diagnostic(), but no definition for that function exists in this repository. This mapping MAY error.
-- ,gf filters formatting to an LSP client named null-ls, but null-ls is not declared as a plugin. This mapping MAY do nothing.
 - mason-lspconfig ensures ts_ls, while the Vue setup enables vtsls and vue_ls. vtsls MUST therefore be available by some other installation path if it is not managed by Mason here.
 - nvim-ufo is declared both in its dedicated plugin file and in all.lua. The duplicate spec SHOULD be consolidated if the configuration is cleaned up.
 - Comment.nvim is explicitly disabled while mini.comment is active. Its disabled dependency SHOULD NOT be treated as runtime functionality.
