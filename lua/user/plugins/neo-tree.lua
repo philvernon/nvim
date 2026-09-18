@@ -27,6 +27,15 @@ return {
 		-- vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
 		require("neo-tree").setup({
+			sources = { "filesystem", "buffers", "git_status", "pi-sessions.integrations.neo-tree" },
+			pi_sessions = {
+				window = {
+					mappings = {
+						["h"] = "collapse",
+						["l"] = "open",
+					},
+				},
+			},
 			filesystem = {
 				find_by_full_path_words = true,
 				-- hijack_netrw_behavior = "open_current",

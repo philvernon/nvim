@@ -11,7 +11,7 @@ return {
 			},
 			tools = {
 				pi = {
-					command = { "pi --tui-mode regular" },
+					cmd = { "pi", "--tui-mode", "regular" },
 				},
 			},
 		},
