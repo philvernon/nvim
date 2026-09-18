@@ -52,6 +52,38 @@ M.commands = {
 			renderer.focus_node(state, parent:get_id())
 		end
 	end,
+	preview = function(state)
+		local node = state.tree:get_node()
+		if not node or node.type ~= "session" then
+			return
+		end
+
+		local buf = vim.api.nvim_create_buf(false, true)
+		vim.api.nvim_buf_set_lines(buf, 0, -1, false, core.preview(node.extra.session))
+		vim.bo[buf].bufhidden = "wipe"
+		vim.bo[buf].filetype = "markdown"
+		vim.bo[buf].modifiable = false
+
+		local width = math.max(math.floor(vim.o.columns * 0.7), 60)
+		local height = math.max(math.floor(vim.o.lines * 0.7), 20)
+		local win = vim.api.nvim_open_win(buf, true, {
+			relative = "editor",
+			style = "minimal",
+			border = "rounded",
+			width = math.min(width, vim.o.columns - 4),
+			height = math.min(height, vim.o.lines - 4),
+			row = math.floor((vim.o.lines - math.min(height, vim.o.lines - 4)) / 2),
+			col = math.floor((vim.o.columns - math.min(width, vim.o.columns - 4)) / 2),
+			title = " Pi session ",
+			title_pos = "center",
+		})
+		vim.keymap.set("n", "q", function()
+			if vim.api.nvim_win_is_valid(win) then
+				vim.api.nvim_win_close(win, true)
+			end
+		end, { buffer = buf, nowait = true })
+		vim.keymap.set("n", "<esc>", "q", { buffer = buf, remap = true })
+	end,
 	new = function(state)
 		local node = state.tree:get_node()
 		if not node then
@@ -78,6 +110,7 @@ M.default_config = {
 			["l"] = "open",
 			["h"] = "collapse",
 			["o"] = "collapse",
+			["P"] = "preview",
 			["n"] = "new",
 			["R"] = "refresh",
 			["q"] = "close_window",

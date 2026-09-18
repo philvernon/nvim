@@ -7,6 +7,7 @@ function M.open()
 	local conf = require("telescope.config").values
 	local finders = require("telescope.finders")
 	local pickers = require("telescope.pickers")
+	local previewers = require("telescope.previewers")
 
 	local rows = {}
 	for _, project in ipairs(core.scan().projects) do
@@ -32,6 +33,12 @@ function M.open()
 			end,
 		}),
 		sorter = conf.generic_sorter({}),
+		previewer = previewers.new_buffer_previewer({
+			define_preview = function(self, entry)
+				vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, core.preview(entry.value.session))
+				vim.bo[self.state.bufnr].filetype = "markdown"
+			end,
+		}),
 		attach_mappings = function(bufnr, map)
 			local function selected()
 				local entry = action_state.get_selected_entry()
