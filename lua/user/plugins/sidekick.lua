@@ -13,6 +13,10 @@ return {
 						mode = "nt",
 					},
 				},
+				split = {
+					width = 0, -- set to 0 for default split width
+					height = 0, -- set to 0 for default split height
+				},
 			},
 			mux = {
 				backend = "tmux",
@@ -51,7 +55,7 @@ return {
 		},
 		{
 			"<leader>as",
-			function() require("sidekick.cli").select() end,
+			function() require("sidekick.cli").select({ filter = { installed = true } }) end,
 			-- Or to select only installed tools:
 			-- require("sidekick.cli").select({ filter = { installed = true } })
 			desc = "Select CLI",

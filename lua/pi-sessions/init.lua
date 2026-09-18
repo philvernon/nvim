@@ -134,34 +134,15 @@ function M.preview(session)
 	return require("pi-sessions.preview").lines(session)
 end
 
-local function launch(cwd, args)
-	local Config = require("sidekick.config")
-	local Session = require("sidekick.cli.session")
-	local State = require("sidekick.cli.state")
-
-	Session.setup()
-
-	local tool = Config.get_tool("pi")
-	local cmd = vim.deepcopy(tool.cmd)
-	vim.list_extend(cmd, args or {})
-
-	local session = Session.new({
-		tool = tool:clone({ cmd = cmd }),
-		cwd = cwd,
-	})
-
-	return State.attach(State.get_state(session), { show = true, focus = true })
-end
-
 function M.resume(session)
-	assert(session and session.path and session.cwd, "invalid Pi session")
-	return launch(session.cwd, { "--session", session.path })
+	assert(session and session.id and session.path and session.cwd, "invalid Pi session")
+	return require("pi-sessions.sidekick").resume(session)
 end
 
 function M.new(project)
 	local cwd = type(project) == "table" and project.cwd or project
 	assert(cwd and cwd ~= "", "invalid Pi project")
-	return launch(cwd, {})
+	return require("pi-sessions.sidekick").new(cwd)
 end
 
 function M.setup(opts)

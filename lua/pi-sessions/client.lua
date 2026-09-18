@@ -15,6 +15,7 @@ function M.open()
 	local placeholder = vim.api.nvim_get_current_win()
 	local placeholder_buf = vim.api.nvim_get_current_buf()
 
+	require("pi-sessions.sidekick").set_client_window(placeholder)
 	require("pi-sessions").new(cwd)
 
 	local agent = vim.api.nvim_get_current_win()
