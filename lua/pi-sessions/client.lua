@@ -12,22 +12,10 @@ function M.open()
 		vim.cmd.tabnew()
 	end
 
-	local placeholder = vim.api.nvim_get_current_win()
-	local placeholder_buf = vim.api.nvim_get_current_buf()
+	local client_win = vim.api.nvim_get_current_win()
 
-	require("pi-sessions.sidekick").set_client_window(placeholder)
+	require("pi-sessions.sidekick").set_client_window(client_win)
 	require("pi-sessions").new(cwd)
-
-	local agent = vim.api.nvim_get_current_win()
-	if agent ~= placeholder
-		and vim.api.nvim_win_is_valid(placeholder)
-		and vim.api.nvim_win_get_buf(placeholder) == placeholder_buf
-		and vim.api.nvim_buf_get_name(placeholder_buf) == ""
-		and vim.bo[placeholder_buf].buftype == ""
-		and not vim.bo[placeholder_buf].modified
-	then
-		vim.api.nvim_win_close(placeholder, true)
-	end
 
 	require("neo-tree.command").execute({
 		action = "focus",
@@ -35,8 +23,8 @@ function M.open()
 		position = "left",
 	})
 
-	if vim.api.nvim_win_is_valid(agent) then
-		vim.api.nvim_set_current_win(agent)
+	if vim.api.nvim_win_is_valid(client_win) then
+		vim.api.nvim_set_current_win(client_win)
 	end
 end
 

@@ -1,7 +1,6 @@
 local M = {}
 
 local tool_prefix = "pi-s-"
-local client_windows = {}
 local active_window
 local patched = false
 
@@ -14,12 +13,8 @@ local function valid_window(win)
 end
 
 local function client_window()
-	local tab = vim.api.nvim_get_current_tabpage()
-	local win = client_windows[tab]
-	if valid_window(win) and vim.api.nvim_win_get_tabpage(win) == tab then
-		return win
-	end
-	client_windows[tab] = nil
+	local win = vim.t.pi_sessions_client_win
+	return valid_window(win) and win or nil
 end
 
 local function restore_window(terminal)
@@ -41,7 +36,7 @@ local function restore_window(terminal)
 	end
 
 	terminal.win = nil
-	terminal._pi_sessions_window = nil
+	terminal._pi_sessions_embedded = nil
 	terminal._pi_sessions_previous_buf = nil
 end
 
@@ -68,7 +63,7 @@ local function patch_terminal()
 		end
 
 		if self:is_open() then
-			if self._pi_sessions_window then
+			if self._pi_sessions_embedded then
 				restore_window(self)
 			else
 				pcall(vim.api.nvim_win_close, self.win, true)
@@ -77,7 +72,7 @@ local function patch_terminal()
 		end
 
 		self._pi_sessions_previous_buf = vim.api.nvim_win_get_buf(target)
-		self._pi_sessions_window = target
+		self._pi_sessions_embedded = true
 		self.win = target
 
 		vim.api.nvim_win_set_buf(target, self.buf)
@@ -87,7 +82,7 @@ local function patch_terminal()
 	end
 
 	function Terminal:hide()
-		if self._pi_sessions_window then
+		if self._pi_sessions_embedded then
 			restore_window(self)
 			return self
 		end
@@ -149,7 +144,7 @@ end
 
 function M.set_client_window(win)
 	assert(valid_window(win), "invalid PiClient window")
-	client_windows[vim.api.nvim_win_get_tabpage(win)] = win
+	vim.t.pi_sessions_client_win = win
 end
 
 function M.resume(session)
