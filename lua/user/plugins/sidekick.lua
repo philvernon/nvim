@@ -4,6 +4,16 @@ return {
 	opts = {
 		-- add any options here
 		cli = {
+			win = {
+				keys = {
+					prompt = { "<leader>ap", "prompt", mode = "n", desc = "insert prompt or context" },
+					toggle_n = {
+						"<c-p>",
+						function() require("sidekick.cli").focus({ name = "pi" }) end,
+						mode = "nt",
+					},
+				},
+			},
 			mux = {
 				backend = "tmux",
 				enabled = true,
@@ -73,12 +83,6 @@ return {
 			function() require("sidekick.cli").prompt() end,
 			mode = { "n", "x" },
 			desc = "Sidekick Select Prompt",
-		},
-		-- Example of a keybinding to open Claude directly
-		{
-			"<leader>ac",
-			function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
-			desc = "Sidekick Toggle Claude",
 		},
 	},
 }

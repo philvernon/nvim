@@ -99,3 +99,5 @@ leader("gh", "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk")
 leader("L", "<cmd>Translate<CR>", "Translate")
 -- checkboxes
 leader("x", "<cmd>lua require('toggle-checkbox').toggle()<CR>", "Checkbox")
+
+keymap("n", "<C-p>", function() require("sidekick.cli").focus({ name = "pi" }) end)
