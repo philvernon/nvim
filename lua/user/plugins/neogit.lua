@@ -17,6 +17,6 @@ return {
 	},
 	cmd = "Neogit",
 	keys = {
-		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+		{ "<leader>gg", "<cmd>Neogit kind=vsplit<cr>", desc = "Neogit" },
 	},
 }
