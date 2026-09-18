@@ -4,11 +4,18 @@ local common = require("neo-tree.sources.common.components")
 local commands = require("neo-tree.sources.common.commands")
 
 local components = vim.tbl_extend("force", {}, common, {
-	session_name = function(_, node)
-		return { text = node.extra.session.title, highlight = "Normal" }
-	end,
-	session_time = function(_, node)
-		return { text = "  " .. node.extra.session.time, highlight = "Comment" }
+	session = function(_, node, _, width)
+		local title = node.extra.session.title
+		local time = node.extra.session.time
+		local available = math.max(1, width - #time - 2)
+		if vim.api.nvim_strwidth(title) > available then
+			title = vim.fn.strcharpart(title, 0, math.max(0, available - 1)) .. "…"
+		end
+		local gap = math.max(2, width - vim.api.nvim_strwidth(title) - #time)
+		return {
+			{ text = title, highlight = "Normal" },
+			{ text = string.rep(" ", gap) .. time, highlight = "Comment" },
+		}
 	end,
 })
 
@@ -103,8 +110,7 @@ M.default_config = {
 		},
 		session = {
 			{ "indent" },
-			{ "session_name" },
-			{ "session_time" },
+			{ "session" },
 		},
 	},
 }
