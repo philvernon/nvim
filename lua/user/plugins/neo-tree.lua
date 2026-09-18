@@ -27,7 +27,7 @@ return {
 		-- vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
 		require("neo-tree").setup({
-			sources = { "filesystem", "buffers", "git_status", "pi-sessions.integrations.neo-tree" },
+			sources = { "filesystem", "buffers", "git_status", "pi_sessions" },
 			pi_sessions = {
 				window = {
 					mappings = {

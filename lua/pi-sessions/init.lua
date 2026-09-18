@@ -37,17 +37,19 @@ local function read_session(path)
 
 	local header, name, first_message
 	for line in file:lines() do
-		local ok, item = pcall(vim.json.decode, line)
-		if ok and type(item) == "table" then
-			if not header and item.type == "session" then
-				header = item
-			elseif item.type == "session_info" then
-				name = type(item.name) == "string" and vim.trim(item.name) or nil
-				if name == "" then
-					name = nil
+		if not header or not first_message or line:find('"session_info"', 1, true) then
+			local ok, item = pcall(vim.json.decode, line)
+			if ok and type(item) == "table" then
+				if not header and item.type == "session" then
+					header = item
+				elseif item.type == "session_info" then
+					name = type(item.name) == "string" and vim.trim(item.name) or nil
+					if name == "" then
+						name = nil
+					end
+				elseif not first_message and item.type == "message" then
+					first_message = message_text(item.message)
 				end
-			elseif not first_message and item.type == "message" then
-				first_message = message_text(item.message)
 			end
 		end
 	end
@@ -133,7 +135,7 @@ local function launch(cwd, args)
 	Session.setup()
 
 	local tool = Config.get_tool("pi")
-	local cmd = vim.deepcopy(tool.cmd or { "pi" })
+	local cmd = vim.deepcopy(tool.cmd)
 	vim.list_extend(cmd, args or {})
 
 	local session = Session.new({
