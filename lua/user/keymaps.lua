@@ -2,9 +2,7 @@ local opts = { silent = true }
 -- local keymap = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
 
-local function leader(lhs, rhs, desc, mode)
-	keymap(mode or "n", "<leader>" .. lhs, rhs, { silent = true, desc = desc })
-end
+local function leader(lhs, rhs, desc, mode) keymap(mode or "n", "<leader>" .. lhs, rhs, { silent = true, desc = desc }) end
 
 -- GENERAL
 leader("qq", "<cmd>wqa<CR>", "Quit all")
@@ -58,11 +56,11 @@ keymap("n", "<C-f>", "<cmd>Telescope find_files hidden=true<CR>", opts)
 keymap("n", "to", "<cmd>Telescope buffers<CR>", opts)
 leader("ft", "<cmd>Telescope<CR>", "Telescope")
 leader("fb", "<cmd>Telescope buffers<CR>", "Buffers")
-leader("fg", "<cmd>Telescope live_grep<CR>", "Grep")
+leader("fs", "<cmd>Telescope live_grep<CR>", "Grep")
 leader("fG", "<cmd>Telescope git_files<CR>", "Git files")
 leader("fh", "<cmd>Telescope help_tags<CR>", "Help")
 leader("fc", "<cmd>Telescope git_commits<CR>", "Commits")
-leader("fs", "<cmd>Telescope git_status<CR>", "Git status")
+leader("fg", "<cmd>Telescope git_status<CR>", "Git status")
 leader("fd", "<cmd>Telescope diagnostics<CR>", "Diagnostics")
 leader("fr", "<cmd>Telescope resume<CR>", "Resume")
 

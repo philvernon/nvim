@@ -12,8 +12,6 @@ return {
 	{ "folke/snacks.nvim" },
 	{ "carderne/pi-nvim", lazy = false, config = function() require("pi-nvim").setup() end },
 	{ "bullets-vim/bullets.vim" },
-	{ "nvim-mini/mini.comment", version = false, config = function() require("mini.comment").setup() end },
-	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 	{
 		"esmuellert/codediff.nvim",
 		cmd = "CodeDiff",
