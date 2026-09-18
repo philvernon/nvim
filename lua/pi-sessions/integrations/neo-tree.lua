@@ -1,6 +1,7 @@
 local core = require("pi-sessions")
 local renderer = require("neo-tree.ui.renderer")
 local common = require("neo-tree.sources.common.components")
+local commands = require("neo-tree.sources.common.commands")
 
 local M = {
 	name = "pi_sessions",
@@ -8,29 +9,8 @@ local M = {
 	components = common,
 }
 
-local function toggle(state, node)
-	if node:is_expanded() then
-		node:collapse()
-	else
-		node:expand()
-	end
+local function redraw(state)
 	renderer.redraw(state)
-end
-
-local function collapse(state)
-	local node = state.tree:get_node()
-	if not node then
-		return
-	end
-	if node.type == "project" and node:is_expanded() then
-		node:collapse()
-		renderer.redraw(state)
-		return
-	end
-	local parent = node:get_parent_id()
-	if parent then
-		renderer.focus_node(state, parent)
-	end
 end
 
 M.commands = {
@@ -43,7 +23,33 @@ M.commands = {
 			renderer.close(state)
 			core.resume(node.extra.session)
 		elseif node.type == "project" then
-			toggle(state, node)
+			if node:is_expanded() then
+				node:collapse()
+			else
+				node:expand()
+			end
+			redraw(state)
+		end
+	end,
+	collapse = function(state)
+		local node = state.tree:get_node()
+		if not node then
+			return
+		end
+
+		if node.type == "project" then
+			if node:is_expanded() then
+				node:collapse()
+				redraw(state)
+			end
+			return
+		end
+
+		local parent = state.tree:get_node(node:get_parent_id())
+		if parent and parent.type == "project" then
+			parent:collapse()
+			redraw(state)
+			renderer.focus_node(state, parent:get_id())
 		end
 	end,
 	new = function(state)
@@ -57,15 +63,12 @@ M.commands = {
 			core.new(project)
 		end
 	end,
-	collapse = collapse,
-	navigate_up = collapse,
 	refresh = function(state)
 		M.navigate(state)
 	end,
-	close_window = function(state)
-		renderer.close(state)
-	end,
 }
+
+commands._add_common_commands(M.commands)
 
 M.default_config = {
 	window = {
@@ -73,6 +76,8 @@ M.default_config = {
 		mappings = {
 			["<cr>"] = "open",
 			["l"] = "open",
+			["h"] = "collapse",
+			["o"] = "collapse",
 			["n"] = "new",
 			["R"] = "refresh",
 			["q"] = "close_window",

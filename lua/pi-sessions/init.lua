@@ -57,7 +57,7 @@ local function read_session(path)
 		return
 	end
 
-	name = name or header.name or header.title or first_message
+	name = name or first_message
 	if name then
 		name = name:gsub("%s+", " ")
 	end

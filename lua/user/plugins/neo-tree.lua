@@ -31,8 +31,10 @@ return {
 			pi_sessions = {
 				window = {
 					mappings = {
-						["h"] = "collapse",
+						["<cr>"] = "open",
 						["l"] = "open",
+						["h"] = "collapse",
+						["o"] = "collapse",
 					},
 				},
 			},
