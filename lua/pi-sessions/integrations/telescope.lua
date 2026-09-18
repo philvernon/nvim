@@ -5,6 +5,7 @@ function M.open()
 	local actions = require("telescope.actions")
 	local action_state = require("telescope.actions.state")
 	local conf = require("telescope.config").values
+	local entry_display = require("telescope.pickers.entry_display")
 	local finders = require("telescope.finders")
 	local pickers = require("telescope.pickers")
 	local previewers = require("telescope.previewers")
@@ -16,6 +17,15 @@ function M.open()
 		end
 	end
 
+	local displayer = entry_display.create({
+		separator = "  ",
+		items = {
+			{ width = 30 },
+			{ remaining = true },
+			{ width = 16 },
+		},
+	})
+
 	pickers.new({}, {
 		prompt_title = "Pi sessions",
 		finder = finders.new_table({
@@ -23,7 +33,13 @@ function M.open()
 			entry_maker = function(row)
 				return {
 					value = row,
-					display = ("%s  %s"):format(row.project.name, row.session.label),
+					display = function()
+						return displayer({
+							{ row.project.name, "Directory" },
+							{ row.session.title, "Normal" },
+							{ row.session.time, "Comment" },
+						})
+					end,
 					ordinal = table.concat({
 						row.project.cwd,
 						row.session.name or "",

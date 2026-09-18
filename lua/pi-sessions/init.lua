@@ -8,7 +8,8 @@ local function timestamp(ts)
 	if not ts or ts == "" then
 		return "unknown"
 	end
-	return ts:gsub("T", " "):gsub("%.000Z$", "Z")
+	local date, time = ts:match("^(%d%d%d%d%-%d%d%-%d%d)T(%d%d:%d%d)")
+	return date and (date .. " " .. time) or ts
 end
 
 local function message_text(message)
@@ -68,9 +69,11 @@ local function read_session(path)
 		path = path,
 		cwd = header.cwd,
 		timestamp = header.timestamp,
+		time = timestamp(header.timestamp),
 		name = name,
 	}
-	session.label = ("%s  %s"):format(name or header.id:sub(1, 8), timestamp(header.timestamp))
+	session.title = name or header.id:sub(1, 8)
+	session.label = ("%s  %s"):format(session.title, session.time)
 	return session
 end
 

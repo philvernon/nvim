@@ -3,10 +3,19 @@ local renderer = require("neo-tree.ui.renderer")
 local common = require("neo-tree.sources.common.components")
 local commands = require("neo-tree.sources.common.commands")
 
+local components = vim.tbl_extend("force", {}, common, {
+	session_name = function(_, node)
+		return { text = node.extra.session.title, highlight = "Normal" }
+	end,
+	session_time = function(_, node)
+		return { text = "  " .. node.extra.session.time, highlight = "Comment" }
+	end,
+})
+
 local M = {
 	name = "pi_sessions",
 	display_name = "  Pi ",
-	components = common,
+	components = components,
 }
 
 local preview_sessions = {}
@@ -19,7 +28,6 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
 		local session = preview_sessions[vim.api.nvim_buf_get_name(args.buf)]
 		if not session then return end
 		vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, core.preview(session))
-		vim.bo[args.buf].filetype = "markdown"
 		vim.bo[args.buf].modified = false
 		vim.bo[args.buf].modifiable = false
 	end,
@@ -95,7 +103,8 @@ M.default_config = {
 		},
 		session = {
 			{ "indent" },
-			{ "name", highlight = "NeoTreeFileName" },
+			{ "session_name" },
+			{ "session_time" },
 		},
 	},
 }

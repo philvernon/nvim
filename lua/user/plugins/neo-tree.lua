@@ -33,6 +33,16 @@ return {
 	end,
 	opts = {
 		sources = { "filesystem", "buffers", "git_status", "pi_sessions" },
+		pi_sessions = {
+			window = {
+				mappings = {
+					["<cr>"] = "open",
+					["l"] = "open",
+					["h"] = "collapse",
+					["o"] = "collapse",
+				},
+			},
+		},
 		filesystem = {
 			find_by_full_path_words = true,
 			-- hijack_netrw_behavior = "open_current",
