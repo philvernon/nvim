@@ -63,6 +63,18 @@ local function patch_terminal()
 			return
 		end
 
+		if self._pi_sessions_embedded and self.win ~= target then
+			self:hide()
+		end
+
+		local current_id = vim.w[target].sidekick_session_id
+		if current_id and current_id ~= self.id then
+			local current = Terminal.get(current_id)
+			if current then
+				current:hide()
+			end
+		end
+
 		self._pi_sessions_previous_buf = vim.api.nvim_win_get_buf(target)
 		self._pi_sessions_embedded = true
 		self.win = target
@@ -87,10 +99,10 @@ local function patch_terminal()
 	end
 end
 
-local function with_client_window(fn)
+local function with_window(win, fn)
 	patch_terminal()
 	local previous = active_window
-	active_window = client_window()
+	active_window = valid_window(win) and win or client_window()
 	local result = { pcall(fn) }
 	active_window = previous
 	if not result[1] then
@@ -99,21 +111,19 @@ local function with_client_window(fn)
 	return unpack(result, 2)
 end
 
-local function switch_attached_pi(State, name)
-	local target
+local function attached_pi(State, name)
+	if not name then
+		return
+	end
 	for _, state in ipairs(State.get({ attached = true })) do
-		local state_name = state.tool and state.tool.name
-		if state_name == name then
-			target = state
-		elseif state_name == "pi" or (state_name and vim.startswith(state_name, tool_prefix)) then
-			State.detach(state)
+		if state.tool and state.tool.name == name then
+			return state
 		end
 	end
-	return target
 end
 
-local function launch(cwd, args, name)
-	return with_client_window(function()
+local function launch(cwd, args, name, win)
+	return with_window(win, function()
 		local Config = require("sidekick.config")
 		local Session = require("sidekick.cli.session")
 		local State = require("sidekick.cli.state")
@@ -125,7 +135,7 @@ local function launch(cwd, args, name)
 		vim.list_extend(cmd, args or {})
 		tool = tool:clone({ cmd = cmd, name = name or tool.name })
 
-		local attached = switch_attached_pi(State, name)
+		local attached = attached_pi(State, name)
 		if attached then
 			return State.attach(attached, { show = true, focus = true })
 		end
@@ -144,12 +154,12 @@ function M.set_client_window(win)
 	vim.t.pi_sessions_client_win = win
 end
 
-function M.resume(session)
-	return launch(session.cwd, { "--session", session.path }, tool_name(session.id))
+function M.resume(session, win)
+	return launch(session.cwd, { "--session", session.path }, tool_name(session.id), win)
 end
 
-function M.new(cwd)
-	return launch(cwd, {})
+function M.new(cwd, win)
+	return launch(cwd, {}, nil, win)
 end
 
 return M

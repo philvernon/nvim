@@ -47,10 +47,11 @@ M.commands = {
 		local node = state.tree:get_node()
 		if not node then return end
 		if node.type == "session" then
+			local win = require("neo-tree").get_prior_window()
 			if state.current_position == "float" then
 				renderer.close(state)
 			end
-			core.resume(node.extra.session)
+			core.resume(node.extra.session, win)
 		elseif node.type == "project" then
 			if node:is_expanded() then
 				node:collapse()
@@ -84,10 +85,11 @@ M.commands = {
 		if not node then return end
 		local project = node.extra and node.extra.project
 		if project then
+			local win = require("neo-tree").get_prior_window()
 			if state.current_position == "float" then
 				renderer.close(state)
 			end
-			core.new(project)
+			core.new(project, win)
 		end
 	end,
 	refresh = function(state) M.navigate(state) end,

@@ -134,15 +134,15 @@ function M.preview(session)
 	return require("pi-sessions.preview").lines(session)
 end
 
-function M.resume(session)
+function M.resume(session, win)
 	assert(session and session.id and session.path and session.cwd, "invalid Pi session")
-	return require("pi-sessions.sidekick").resume(session)
+	return require("pi-sessions.sidekick").resume(session, win)
 end
 
-function M.new(project)
+function M.new(project, win)
 	local cwd = type(project) == "table" and project.cwd or project
 	assert(cwd and cwd ~= "", "invalid Pi project")
-	return require("pi-sessions.sidekick").new(cwd)
+	return require("pi-sessions.sidekick").new(cwd, win)
 end
 
 function M.setup(opts)

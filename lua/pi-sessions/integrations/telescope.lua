@@ -65,18 +65,23 @@ function M.open()
 				local entry = action_state.get_selected_entry()
 				return entry and entry.value
 			end
+			local function target_window()
+				return action_state.get_current_picker(bufnr).original_win_id
+			end
 			actions.select_default:replace(function()
 				local row = selected()
 				if row then
+					local win = target_window()
 					actions.close(bufnr)
-					core.resume(row.session)
+					core.resume(row.session, win)
 				end
 			end)
 			local function new()
 				local row = selected()
 				if row then
+					local win = target_window()
 					actions.close(bufnr)
-					core.new(row.project)
+					core.new(row.project, win)
 				end
 			end
 			map("i", "<C-n>", new)
