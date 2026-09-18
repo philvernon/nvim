@@ -36,6 +36,7 @@ function M.open()
 		previewer = previewers.new_buffer_previewer({
 			define_preview = function(self, entry)
 				vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, core.preview(entry.value.session))
+				vim.bo[self.state.bufnr].filetype = "markdown"
 				vim.schedule(function()
 					if self.state.winid and vim.api.nvim_win_is_valid(self.state.winid) then
 						vim.api.nvim_win_set_cursor(self.state.winid, { vim.api.nvim_buf_line_count(self.state.bufnr), 0 })
