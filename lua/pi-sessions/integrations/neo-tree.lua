@@ -117,6 +117,7 @@ M.default_config = {
 
 function M.navigate(state, _, _, callback)
 	local snapshot = core.scan()
+	local cwd = vim.fs.normalize(vim.uv.cwd())
 	local nodes = {}
 	preview_sessions = {}
 	state.default_expanded_nodes = {}
@@ -144,7 +145,9 @@ function M.navigate(state, _, _, callback)
 			children = children,
 			extra = { project = project },
 		}
-		state.default_expanded_nodes[#state.default_expanded_nodes + 1] = project_id
+		if vim.fs.normalize(project.cwd) == cwd then
+			state.default_expanded_nodes[#state.default_expanded_nodes + 1] = project_id
+		end
 	end
 
 	state.path = core.root()
