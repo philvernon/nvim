@@ -8,7 +8,7 @@ return {
 		require("catppuccin").setup({
 			flavor = "mocha",
 			integrations = {
-				cmp = true,
+				blink_cmp = true,
 				gitsigns = true,
 				neo_tree = true,
 				treesitter = true,

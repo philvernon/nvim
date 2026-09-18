@@ -34,7 +34,7 @@ The config is organised around these subsystems:
 | --- | --- |
 | Editor | Relative numbers, system clipboard, persistent undo, two-space indentation, split-below/right |
 | Plugin management | lazy.nvim imports every spec under lua/user/plugins |
-| Completion | nvim-cmp with LSP, LuaSnip, buffer and path sources |
+| Completion | blink.cmp with LSP, LuaSnip, buffer and path sources |
 | LSP | Native vim.lsp.config/vim.lsp.enable with Mason-managed servers |
 | Formatting | Conform formats on write then falls back to LSP formatting |
 | Linting | nvim-lint runs eslint_d for JavaScript, TypeScript and Vue |
@@ -129,7 +129,7 @@ Conform MUST run first on BufWritePre. If Conform reports that it could not form
 
 nvim-lint runs eslint_d for JavaScript, TypeScript and Vue on buffer entry, after writes, after leaving insert mode and after text changes.
 
-nvim-cmp combines LSP, LuaSnip, buffer and path completion. LuaSnip loads friendly-snippets and adds Vue translation snippets.
+blink.cmp provides LSP, LuaSnip, buffer and path completion. Tab and Shift-Tab cycle completion items, Enter accepts the selection and LuaSnip remains the snippet engine. LuaSnip loads friendly-snippets and adds Vue translation snippets.
 
 ## Plugins
 
@@ -143,14 +143,7 @@ Status describes how the plugin appears in this configuration, not whether its r
 | nvim-lspconfig | neovim/nvim-lspconfig | Active | LSP configs |
 | rustaceanvim | mrcjkb/rustaceanvim | Active | Rust LSP |
 | fidget.nvim | j-hui/fidget.nvim | Active | LSP progress |
-| nvim-cmp | hrsh7th/nvim-cmp | Active | Completion engine |
-| cmp-nvim-lsp | hrsh7th/cmp-nvim-lsp | Active | LSP completion |
-| cmp-buffer | hrsh7th/cmp-buffer | Active | Buffer completion |
-| cmp-path | hrsh7th/cmp-path | Active | Path completion |
-| cmp-cmdline | hrsh7th/cmp-cmdline | Active | Command completion |
-| cmp-nvim-lsp-signature-help | hrsh7th/cmp-nvim-lsp-signature-help | Active | Signature completion |
-| cmp-calc | hrsh7th/cmp-calc | Active | Calculator completion |
-| cmp_luasnip | saadparwaiz1/cmp_luasnip | Active | Snippet completion |
+| blink.cmp | saghen/blink.cmp | Active | Completion engine |
 | LuaSnip | L3MON4D3/LuaSnip | Active | Snippets |
 | friendly-snippets | rafamadriz/friendly-snippets | Active | Snippet library |
 | conform.nvim | stevearc/conform.nvim | Active | Formatting |
@@ -400,6 +393,8 @@ These mappings apply only inside the relevant plugin UI or completion menu.
 
 | Mode | Key | Action |
 | --- | --- | --- |
+| I | Tab | Next item |
+| I | Shift-Tab | Prev item |
 | I | Up | Prev item |
 | I | Down | Next item |
 | I | Ctrl-B | Docs up |
