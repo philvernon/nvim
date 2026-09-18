@@ -42,7 +42,7 @@ return {
 				cycle_layout_list = { "horizontal", "center", "cursor" },
 				layout_config = {
 					vertical = {
-						prompt_position = "bottom",
+						prompt_position = "top",
 						mirror = true,
 					},
 					center = {
