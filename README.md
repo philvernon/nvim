@@ -40,7 +40,7 @@ The config is organised around these subsystems:
 | Linting | nvim-lint runs eslint_d for JavaScript, TypeScript and Vue |
 | Search | Telescope handles files, grep, buffers, Git state and diagnostics |
 | Files | Neo-tree provides an in-Neovim explorer; Yazi provides an external file manager |
-| Git | Gitsigns, Neogit, Diffview, CodeDiff and Gitlinker |
+| Git | Gitsigns, Neogit, Diffview and Gitlinker |
 | Debugging | nvim-dap, mason-nvim-dap and nvim-dap-ui |
 | UI | Catppuccin Mocha, Lualine, WhichKey, hlchunk and Outline |
 | Notes/Markdown | render-markdown, bullets.vim, mkdnflow and zk |
@@ -170,12 +170,7 @@ Status describes how the plugin appears in this configuration, not whether its r
 | gitsigns.nvim | lewis6991/gitsigns.nvim | Active | Git hunks |
 | neogit | NeogitOrg/neogit | Active | Git UI |
 | diffview.nvim | sindrets/diffview.nvim | Active | Git diff UI |
-| codediff.nvim | esmuellert/codediff.nvim | Active | Diff UI |
 | gitlinker.nvim | linrongbin16/gitlinker.nvim | Active | Git links |
-| baleia.nvim | m00qek/baleia.nvim | Active dependency | ANSI rendering |
-| fzf-lua | ibhagwan/fzf-lua | Active dependency | Picker backend |
-| mini.pick | nvim-mini/mini.pick | Active dependency | Picker backend |
-| snacks.nvim | folke/snacks.nvim | Active | Utility dependency |
 | nvim-dap | mfussenegger/nvim-dap | Active | Debug adapter |
 | mason-nvim-dap.nvim | jay-babu/mason-nvim-dap.nvim | Active | DAP installer |
 | nvim-dap-ui | rcarriga/nvim-dap-ui | Active | Debug UI |
@@ -192,7 +187,6 @@ Status describes how the plugin appears in this configuration, not whether its r
 | zk | zk-org/zk-nvim | Active | Zettelkasten |
 | open-browser.vim | tyru/open-browser.vim | Active | Browser opener |
 | toggle-checkbox.nvim | opdavies/toggle-checkbox.nvim | Active | Checkboxes |
-| vim-dadbod | tpope/vim-dadbod | Active | Database core |
 | nvim-dbee | kndndrj/nvim-dbee | Active | Database UI |
 | bufdelete.nvim | famiu/bufdelete.nvim | Active | Buffer deletion |
 | sidekick.nvim | folke/sidekick.nvim | Active | AI CLI bridge |

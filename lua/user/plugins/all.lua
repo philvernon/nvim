@@ -8,14 +8,8 @@ return {
 	{ "MeanderingProgrammer/render-markdown.nvim", dependencies = { "nvim-mini/mini.nvim" } },
 	{ "tyru/open-browser.vim", lazy = true },
 	{ "opdavies/toggle-checkbox.nvim" },
-	{ "tpope/vim-dadbod" },
-	{ "folke/snacks.nvim" },
 	{ "carderne/pi-nvim", lazy = false, config = function() require("pi-nvim").setup() end },
 	{ "bullets-vim/bullets.vim" },
-	{
-		"esmuellert/codediff.nvim",
-		cmd = "CodeDiff",
-	},
 	{
 		"zk-org/zk-nvim",
 		name = "zk",
