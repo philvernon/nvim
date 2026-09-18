@@ -84,7 +84,9 @@ M.commands = {
 		if not node then return end
 		local project = node.extra and node.extra.project
 		if project then
-			renderer.close(state)
+			if state.current_position == "float" then
+				renderer.close(state)
+			end
 			core.new(project)
 		end
 	end,

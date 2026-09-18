@@ -179,6 +179,10 @@ function M.setup(opts)
 			return { "neo-tree", "telescope" }
 		end,
 	})
+
+	vim.api.nvim_create_user_command("PiClient", function()
+		require("pi-sessions.client").open()
+	end, { force = true })
 end
 
 return M
