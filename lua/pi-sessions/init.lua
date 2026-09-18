@@ -11,22 +11,43 @@ local function timestamp(ts)
 	return ts:gsub("T", " "):gsub("%.000Z$", "Z")
 end
 
+local function message_text(message)
+	if type(message) ~= "table" or message.role ~= "user" then
+		return
+	end
+	if type(message.content) == "string" then
+		return message.content
+	end
+	if type(message.content) == "table" then
+		local text = {}
+		for _, part in ipairs(message.content) do
+			if type(part) == "table" and part.type == "text" and type(part.text) == "string" then
+				text[#text + 1] = part.text
+			end
+		end
+		return table.concat(text, " ")
+	end
+end
+
 local function read_session(path)
 	local file = io.open(path, "r")
 	if not file then
 		return
 	end
 
-	local header, name
+	local header, name, first_message
 	for line in file:lines() do
-		if not header or line:find('"session_info"', 1, true) then
-			local ok, item = pcall(vim.json.decode, line)
-			if ok and type(item) == "table" then
-				if not header and item.type == "session" then
-					header = item
-				elseif item.type == "session_info" and item.name and item.name ~= "" then
-					name = item.name
+		local ok, item = pcall(vim.json.decode, line)
+		if ok and type(item) == "table" then
+			if not header and item.type == "session" then
+				header = item
+			elseif item.type == "session_info" then
+				name = type(item.name) == "string" and vim.trim(item.name) or nil
+				if name == "" then
+					name = nil
 				end
+			elseif not first_message and item.type == "message" then
+				first_message = message_text(item.message)
 			end
 		end
 	end
@@ -36,7 +57,10 @@ local function read_session(path)
 		return
 	end
 
-	name = name or header.name or header.title
+	name = name or header.name or header.title or first_message
+	if name then
+		name = name:gsub("%s+", " ")
+	end
 	local session = {
 		id = header.id,
 		path = path,
@@ -101,44 +125,34 @@ function M.sessions(project)
 	return {}
 end
 
-local function launch(cwd, args, key)
+local function launch(cwd, args)
 	local Config = require("sidekick.config")
 	local Session = require("sidekick.cli.session")
 	local State = require("sidekick.cli.state")
-	local Terminal = require("sidekick.cli.terminal")
 
 	Session.setup()
-
-	local id = "pi_sessions_" .. vim.fn.sha256(key):sub(1, 12)
-	local existing = Terminal.get(id)
-	if existing and existing:is_running() then
-		existing:focus()
-		return existing
-	end
 
 	local tool = Config.get_tool("pi")
 	local cmd = vim.deepcopy(tool.cmd or { "pi" })
 	vim.list_extend(cmd, args or {})
-	tool = tool:clone({ cmd = cmd })
 
 	local session = Session.new({
-		tool = tool,
+		tool = tool:clone({ cmd = cmd }),
 		cwd = cwd,
-		backend = "terminal",
-		id = id,
 	})
+
 	return State.attach(State.get_state(session), { show = true, focus = true })
 end
 
 function M.resume(session)
 	assert(session and session.path and session.cwd, "invalid Pi session")
-	return launch(session.cwd, { "--session", session.path }, session.path)
+	return launch(session.cwd, { "--session", session.path })
 end
 
 function M.new(project)
 	local cwd = type(project) == "table" and project.cwd or project
 	assert(cwd and cwd ~= "", "invalid Pi project")
-	return launch(cwd, {}, "new:" .. cwd)
+	return launch(cwd, {})
 end
 
 function M.setup(opts)
