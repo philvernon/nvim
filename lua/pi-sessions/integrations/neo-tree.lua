@@ -47,7 +47,9 @@ M.commands = {
 		local node = state.tree:get_node()
 		if not node then return end
 		if node.type == "session" then
-			renderer.close(state)
+			if state.current_position == "float" then
+				renderer.close(state)
+			end
 			core.resume(node.extra.session)
 		elseif node.type == "project" then
 			if node:is_expanded() then
