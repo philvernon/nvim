@@ -30,6 +30,7 @@ return {
 			{ "<leader>g", group = "Code" },
 			{ "<leader>d", group = "Diag" },
 			{ "<leader>D", group = "Debug" },
+			{ "<leader>a", group = "Sidekick" },
 		})
 
 		-- wk.register(mappings, opts)

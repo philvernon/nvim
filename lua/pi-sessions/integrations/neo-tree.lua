@@ -9,16 +9,28 @@ local M = {
 	components = common,
 }
 
-local function redraw(state)
-	renderer.redraw(state)
-end
+local preview_sessions = {}
+local preview_group = vim.api.nvim_create_augroup("PiSessionsPreview", { clear = true })
+
+vim.api.nvim_create_autocmd("BufReadCmd", {
+	group = preview_group,
+	pattern = "pi-session://*",
+	callback = function(args)
+		local session = preview_sessions[vim.api.nvim_buf_get_name(args.buf)]
+		if not session then return end
+		vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, core.preview(session))
+		vim.bo[args.buf].filetype = "markdown"
+		vim.bo[args.buf].modified = false
+		vim.bo[args.buf].modifiable = false
+	end,
+})
+
+local function redraw(state) renderer.redraw(state) end
 
 M.commands = {
 	open = function(state)
 		local node = state.tree:get_node()
-		if not node then
-			return
-		end
+		if not node then return end
 		if node.type == "session" then
 			renderer.close(state)
 			core.resume(node.extra.session)
@@ -33,9 +45,7 @@ M.commands = {
 	end,
 	collapse = function(state)
 		local node = state.tree:get_node()
-		if not node then
-			return
-		end
+		if not node then return end
 
 		if node.type == "project" then
 			if node:is_expanded() then
@@ -52,52 +62,16 @@ M.commands = {
 			renderer.focus_node(state, parent:get_id())
 		end
 	end,
-	preview = function(state)
-		local node = state.tree:get_node()
-		if not node or node.type ~= "session" then
-			return
-		end
-
-		local buf = vim.api.nvim_create_buf(false, true)
-		vim.api.nvim_buf_set_lines(buf, 0, -1, false, core.preview(node.extra.session))
-		vim.bo[buf].bufhidden = "wipe"
-		vim.bo[buf].filetype = "markdown"
-		vim.bo[buf].modifiable = false
-
-		local width = math.max(math.floor(vim.o.columns * 0.7), 60)
-		local height = math.max(math.floor(vim.o.lines * 0.7), 20)
-		local win = vim.api.nvim_open_win(buf, true, {
-			relative = "editor",
-			style = "minimal",
-			border = "rounded",
-			width = math.min(width, vim.o.columns - 4),
-			height = math.min(height, vim.o.lines - 4),
-			row = math.floor((vim.o.lines - math.min(height, vim.o.lines - 4)) / 2),
-			col = math.floor((vim.o.columns - math.min(width, vim.o.columns - 4)) / 2),
-			title = " Pi session ",
-			title_pos = "center",
-		})
-		vim.keymap.set("n", "q", function()
-			if vim.api.nvim_win_is_valid(win) then
-				vim.api.nvim_win_close(win, true)
-			end
-		end, { buffer = buf, nowait = true })
-		vim.keymap.set("n", "<esc>", "q", { buffer = buf, remap = true })
-	end,
 	new = function(state)
 		local node = state.tree:get_node()
-		if not node then
-			return
-		end
+		if not node then return end
 		local project = node.extra and node.extra.project
 		if project then
 			renderer.close(state)
 			core.new(project)
 		end
 	end,
-	refresh = function(state)
-		M.navigate(state)
-	end,
+	refresh = function(state) M.navigate(state) end,
 }
 
 commands._add_common_commands(M.commands)
@@ -110,11 +84,8 @@ M.default_config = {
 			["l"] = "open",
 			["h"] = "collapse",
 			["o"] = "collapse",
-			["P"] = "preview",
 			["n"] = "new",
 			["R"] = "refresh",
-			["q"] = "close_window",
-			["<esc>"] = "close_window",
 		},
 	},
 	renderers = {
@@ -132,14 +103,18 @@ M.default_config = {
 function M.navigate(state, _, _, callback)
 	local snapshot = core.scan()
 	local nodes = {}
+	preview_sessions = {}
 	state.default_expanded_nodes = {}
 
 	for _, project in ipairs(snapshot.projects) do
 		local project_id = "project:" .. project.cwd
 		local children = {}
 		for _, session in ipairs(project.sessions) do
+			local preview_path = "pi-session://" .. session.id
+			preview_sessions[preview_path] = session
 			children[#children + 1] = {
 				id = session.path,
+				path = preview_path,
 				name = session.label,
 				type = "session",
 				loaded = true,
@@ -159,9 +134,7 @@ function M.navigate(state, _, _, callback)
 
 	state.path = core.root()
 	renderer.show_nodes(nodes, state)
-	if callback then
-		vim.schedule(callback)
-	end
+	if callback then vim.schedule(callback) end
 end
 
 function M.setup() end

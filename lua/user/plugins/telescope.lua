@@ -26,11 +26,8 @@ return {
 			TelescopePreviewNormal = { bg = colors.mantle },
 			TelescopePromptBorder = { bg = colors.mantle, fg = colors.mantle },
 			TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-			TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+			TelescopePreviewBorder = { bg = colors.mantle, fg = colors.surface0 },
 			TelescopeSelectionCaret = { fg = colors.mantle },
-			-- TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
-			-- TelescopeResultsTitle = { fg = colors.mantle },
-			-- TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
 		}
 
 		for hl, col in pairs(TelescopeColor) do
@@ -41,11 +38,15 @@ return {
 				results_title = false,
 				prompt_prefix = " ",
 				selection_caret = ". ",
-				layout_strategy = "center",
+				layout_strategy = "vertical",
 				cycle_layout_list = { "horizontal", "center", "cursor" },
 				layout_config = {
-					center = {
+					vertical = {
 						prompt_position = "bottom",
+						mirror = true,
+					},
+					center = {
+						prompt_position = "top",
 					},
 					horizontal = {
 						-- width = 0.5
@@ -57,7 +58,7 @@ return {
 				},
 				-- border = false,
 				preview = {
-					hide_on_startup = true,
+					hide_on_startup = false,
 				},
 				path_display = {
 					truncate = 3,

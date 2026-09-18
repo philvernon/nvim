@@ -29,75 +29,6 @@ local function message_text(message)
 	end
 end
 
-local preview_cache = {}
-
-local function content_text(content)
-	if type(content) == "string" then
-		return content
-	end
-	if type(content) ~= "table" then
-		return
-	end
-
-	local parts = {}
-	for _, part in ipairs(content) do
-		if type(part) == "table" and part.type == "text" and type(part.text) == "string" then
-			parts[#parts + 1] = part.text
-		end
-	end
-	return #parts > 0 and table.concat(parts, "\n") or nil
-end
-
-local function preview_block(lines, heading, body)
-	if not body or body == "" then
-		return
-	end
-	lines[#lines + 1] = "## " .. heading
-	vim.list_extend(lines, vim.split(vim.trim(body), "\n", { plain = true }))
-	lines[#lines + 1] = ""
-end
-
-local function render_preview_entry(lines, entry)
-	if entry.type == "compaction" then
-		preview_block(lines, "Summary", entry.summary)
-		return
-	elseif entry.type == "branch_summary" then
-		preview_block(lines, "Branch summary", entry.summary)
-		return
-	elseif entry.type ~= "message" or type(entry.message) ~= "table" then
-		return
-	end
-
-	local message = entry.message
-	if message.role == "user" then
-		preview_block(lines, "User", content_text(message.content))
-	elseif message.role == "assistant" then
-		preview_block(lines, "Assistant", content_text(message.content))
-		if type(message.content) == "table" then
-			for _, part in ipairs(message.content) do
-				if type(part) == "table" and (part.type == "toolCall" or part.type == "tool_call") then
-					local args = part.arguments or part.input
-					local detail = type(args) == "table" and (args.path or args.file_path or args.command or args.query) or nil
-					lines[#lines + 1] = ("### Tool: %s%s"):format(
-						part.name or part.toolName or "unknown",
-						detail and (" " .. tostring(detail)) or ""
-					)
-					lines[#lines + 1] = ""
-				end
-			end
-		end
-	elseif message.role == "toolResult" and message.isError then
-		preview_block(lines, "Tool error: " .. (message.toolName or "unknown"), content_text(message.content))
-	elseif message.role == "bashExecution" then
-		lines[#lines + 1] = "### Tool: bash " .. (message.command or "")
-		lines[#lines + 1] = ""
-	elseif message.role == "branchSummary" then
-		preview_block(lines, "Branch summary", message.summary)
-	elseif message.role == "compactionSummary" then
-		preview_block(lines, "Summary", message.summary)
-	end
-end
-
 local function read_session(path)
 	local file = io.open(path, "r")
 	if not file then
@@ -197,66 +128,7 @@ function M.sessions(project)
 end
 
 function M.preview(session)
-	local stat = vim.uv.fs_stat(session.path)
-	if not stat then
-		return { "Session file not found" }
-	end
-
-	local key = ("%d:%d:%d"):format(stat.size, stat.mtime.sec, stat.mtime.nsec)
-	local cached = preview_cache[session.path]
-	if cached and cached.key == key then
-		return cached.lines
-	end
-
-	local file = io.open(session.path, "r")
-	if not file then
-		return { "Unable to read session" }
-	end
-
-	local header, leaf = nil, nil
-	local entries, ordered = {}, {}
-	for line in file:lines() do
-		local ok, entry = pcall(vim.json.decode, line)
-		if ok and type(entry) == "table" then
-			if entry.type == "session" then
-				header = entry
-			elseif entry.id then
-				entries[entry.id] = entry
-				ordered[#ordered + 1] = entry
-				leaf = entry
-			end
-		end
-	end
-	file:close()
-
-	local branch = {}
-	if header and header.version == 1 then
-		branch = ordered
-	else
-		local seen = {}
-		while leaf and leaf.id and not seen[leaf.id] do
-			seen[leaf.id] = true
-			branch[#branch + 1] = leaf
-			leaf = leaf.parentId and entries[leaf.parentId] or nil
-		end
-		for i = 1, math.floor(#branch / 2) do
-			branch[i], branch[#branch - i + 1] = branch[#branch - i + 1], branch[i]
-		end
-	end
-
-	local lines = {}
-	for _, entry in ipairs(branch) do
-		render_preview_entry(lines, entry)
-	end
-	if #lines == 0 then
-		lines = { "No previewable messages" }
-	elseif #lines > 500 then
-		lines = vim.list_slice(lines, #lines - 498, #lines)
-		table.insert(lines, 1, "… older preview omitted")
-	end
-
-	preview_cache[session.path] = { key = key, lines = lines }
-	return lines
+	return require("pi-sessions.preview").lines(session)
 end
 
 local function launch(cwd, args)
