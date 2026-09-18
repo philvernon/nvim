@@ -4,24 +4,6 @@ local tool_prefix = "pi-s-"
 local active_window
 local patched = false
 
-local sidekick_window_options = {
-	"winhighlight",
-	"colorcolumn",
-	"cursorcolumn",
-	"cursorline",
-	"fillchars",
-	"list",
-	"listchars",
-	"number",
-	"relativenumber",
-	"sidescrolloff",
-	"signcolumn",
-	"statuscolumn",
-	"spell",
-	"winbar",
-	"wrap",
-}
-
 local function tool_name(id)
 	return tool_prefix .. vim.fn.sha256(id):sub(1, 10)
 end
@@ -46,9 +28,6 @@ local function restore_window(terminal)
 			vim.cmd.stopinsert()
 		end
 		vim.api.nvim_win_set_buf(win, previous)
-		for name, value in pairs(terminal._pi_sessions_previous_wo or {}) do
-			vim.wo[win][name] = value
-		end
 	end
 
 	if valid_window(win) and vim.w[win].sidekick_session_id == terminal.id then
@@ -59,7 +38,6 @@ local function restore_window(terminal)
 	terminal.win = nil
 	terminal._pi_sessions_embedded = nil
 	terminal._pi_sessions_previous_buf = nil
-	terminal._pi_sessions_previous_wo = nil
 end
 
 local function patch_terminal()
@@ -71,6 +49,7 @@ local function patch_terminal()
 	local Terminal = require("sidekick.cli.terminal")
 	local open_win = Terminal.open_win
 	local hide = Terminal.hide
+	local wo = Terminal.wo
 
 	function Terminal:open_win()
 		local target = active_window
@@ -80,36 +59,23 @@ local function patch_terminal()
 		if not self.buf then
 			return
 		end
-		if self.win == target and self:is_open() then
+		if self.win == target and vim.api.nvim_win_get_buf(target) == self.buf then
 			return
 		end
 
-		if self:is_open() then
-			if self._pi_sessions_embedded then
-				restore_window(self)
-			else
-				pcall(vim.api.nvim_win_close, self.win, true)
-				self.win = nil
-			end
-		end
-
 		self._pi_sessions_previous_buf = vim.api.nvim_win_get_buf(target)
-		self._pi_sessions_previous_wo = {}
-		for _, name in ipairs(sidekick_window_options) do
-			self._pi_sessions_previous_wo[name] = vim.wo[target][name]
-		end
-		for name in pairs(self.opts.wo or {}) do
-			if self._pi_sessions_previous_wo[name] == nil then
-				self._pi_sessions_previous_wo[name] = vim.wo[target][name]
-			end
-		end
 		self._pi_sessions_embedded = true
 		self.win = target
 
 		vim.api.nvim_win_set_buf(target, self.buf)
 		vim.w[target].sidekick_cli = self.tool
 		vim.w[target].sidekick_session_id = self.id
-		self:wo()
+	end
+
+	function Terminal:wo(opts)
+		if not self._pi_sessions_embedded then
+			return wo(self, opts)
+		end
 	end
 
 	function Terminal:hide()

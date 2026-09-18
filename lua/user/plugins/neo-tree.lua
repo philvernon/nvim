@@ -32,6 +32,7 @@ return {
 		})
 	end,
 	opts = {
+		open_files_do_not_replace_types = { "Trouble", "qf", "edgy" },
 		sources = { "filesystem", "buffers", "git_status", "pi_sessions" },
 		source_selector = {
 			winbar = false,
