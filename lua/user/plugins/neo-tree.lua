@@ -33,6 +33,15 @@ return {
 	end,
 	opts = {
 		sources = { "filesystem", "buffers", "git_status", "pi_sessions" },
+		source_selector = {
+			winbar = false,
+			sources = {
+				{ source = "filesystem", display_name = " Files " },
+				{ source = "buffers", display_name = " Buffers " },
+				{ source = "git_status", display_name = " Git " },
+				{ source = "pi_sessions", display_name = " Pi " },
+			},
+		},
 		pi_sessions = {
 			window = {
 				mappings = {
