@@ -55,7 +55,7 @@ local function run_rename_uppercase()
 	end
 end
 
-keymap("n", "<bslash>'", run_rename_uppercase, { noremap = true, silent = true })
+keymap("n", "<leader>r", run_rename_uppercase, { noremap = true, silent = true, desc = "Rust fix" })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.rs",

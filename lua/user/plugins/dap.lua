@@ -18,15 +18,15 @@ return {
 			automatic_installation = true,
 		})
 
-		vim.keymap.set("n", "<bslash>dc", dap.continue)
-		vim.keymap.set("n", "<bslash>dso", dap.step_over)
-		vim.keymap.set("n", "<bslash>dsi", dap.step_into)
-		vim.keymap.set("n", "<bslash>dso", dap.step_out)
-		vim.keymap.set("n", "<bslash>dd", dap.toggle_breakpoint)
-		vim.keymap.set("n", "<bslash>dq", dap.clear_breakpoints)
-		vim.keymap.set("n", "<bslash>db", function()
+		vim.keymap.set("n", "<leader>Dc", dap.continue, { desc = "Continue" })
+		vim.keymap.set("n", "<leader>Do", dap.step_over, { desc = "Step over" })
+		vim.keymap.set("n", "<leader>Di", dap.step_into, { desc = "Step in" })
+		vim.keymap.set("n", "<leader>DO", dap.step_out, { desc = "Step out" })
+		vim.keymap.set("n", "<leader>Db", dap.toggle_breakpoint, { desc = "Breakpoint" })
+		vim.keymap.set("n", "<leader>Dq", dap.clear_breakpoints, { desc = "Clear breaks" })
+		vim.keymap.set("n", "<leader>DB", function()
 			dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-		end)
+		end, { desc = "Condition" })
 
 		dapui.setup()
 
@@ -94,6 +94,6 @@ return {
 			dapui.close({})
 		end
 
-		vim.keymap.set("n", "<leader>ui", require("dapui").toggle)
+		vim.keymap.set("n", "<leader>ui", require("dapui").toggle, { desc = "Debug UI" })
 	end,
 }

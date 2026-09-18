@@ -55,5 +55,5 @@ for k, v in pairs(options) do
 end
 
 -- leader key
-vim.g.mapleader = "sd"
-vim.g.maplocalleader = "sd"
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","

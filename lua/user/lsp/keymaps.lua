@@ -1,47 +1,45 @@
-local opts = { noremap = true, silent = true }
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
-keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-keymap("n", "<bslash>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-keymap("n", "<bslash>gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>', opts)
-keymap("n", "<bslash>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-keymap("n", "K", "<cmd>lua vim.lsp.buf.hover({ border = 'none' })<CR>", opts)
-keymap("n", "<bslash>k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-keymap(
-	"n",
-	"<bslash>gf",
-	"<cmd>lua vim.lsp.buf.format({filter = function(client) return client.name == 'null-ls' end})<CR>",
-	opts
-)
--- keymap('n', '<bslash>gf',
--- function()
---   vim.lsp.buf.format({filter = function(client)
---     return client.name == 'null-ls'
---   end
--- }),
--- end,
--- opts)
+local function map(mode, lhs, rhs, desc)
+	keymap(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+end
 
-keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.toqflist()<CR>", opts)
--- keymap('n', '<leader>ds', "<cmd>lua vim.diagnostic.show()<CR>", opts)
--- keymap('n', '<leader>dh', "<cmd>lua vim.diagnostic.hide()<CR>", opts)
-keymap("n", "<leader>ds", "<cmd>:lua vim.diagnostic.config({ virtual_text = true })<CR>", opts)
-keymap("n", "<leader>dh", "<cmd>:lua vim.diagnostic.config({ virtual_text = false })<CR>", opts)
+map("n", "gD", vim.lsp.buf.declaration, "Declaration")
+map("n", "gd", vim.lsp.buf.definition, "Definition")
+map("n", "<leader>gi", vim.lsp.buf.implementation, "Implementation")
+map("n", "<leader>gl", function()
+	vim.diagnostic.open_float({ border = "rounded" })
+end, "Diagnostic")
+map("n", "<leader>gr", vim.lsp.buf.references, "References")
+map("n", "K", function()
+	vim.lsp.buf.hover({ border = "none" })
+end, "Hover")
+map("n", "<leader>gk", vim.lsp.buf.signature_help, "Signature")
+map("n", "<leader>gf", function()
+	vim.lsp.buf.format({
+		filter = function(client)
+			return client.name == "null-ls"
+		end,
+	})
+end, "Format")
 
--- function toggle_diagnostic()
--- 	if vim.diagnostic.is_disabled() then
--- 		vim.diagnostic.enable()
--- 	else
--- 		vim.diagnostic.disable()
--- 	end
--- end
---
-keymap("n", "<leader>dd", "<cmd>lua toggle_diagnostic()<CR>", opts)
-keymap("n", "<leader>de", "<cmd>lua vim.diagnostic.enable()<CR>", opts)
+map("n", "<leader>dq", vim.diagnostic.toqflist, "Quickfix")
+map("n", "<leader>ds", function()
+	vim.diagnostic.config({ virtual_text = true })
+end, "Show")
+map("n", "<leader>dh", function()
+	vim.diagnostic.config({ virtual_text = false })
+end, "Hide")
 
-keymap("", "<bslash>gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-keymap("", "<bslash>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+map("n", "<leader>dd", "<cmd>lua toggle_diagnostic()<CR>", "Toggle")
+map("n", "<leader>de", vim.diagnostic.enable, "Enable")
 
-keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded", focusable = true })<CR>', opts)
-keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+map({ "n", "v" }, "<leader>gn", vim.lsp.buf.rename, "Rename")
+map({ "n", "v" }, "<leader>ga", vim.lsp.buf.code_action, "Actions")
+
+map("n", "]d", function()
+	vim.diagnostic.goto_next({ border = "rounded", focusable = true })
+end, "Next diagnostic")
+map("n", "[d", function()
+	vim.diagnostic.goto_prev({ border = "rounded" })
+end, "Prev diagnostic")
