@@ -48,9 +48,7 @@ M.commands = {
 		if not node then return end
 		if node.type == "session" then
 			local win = require("neo-tree").get_prior_window()
-			if state.current_position == "float" then
-				renderer.close(state)
-			end
+			if state.current_position == "float" then renderer.close(state) end
 			core.resume(node.extra.session, win)
 		elseif node.type == "project" then
 			if node:is_expanded() then
@@ -86,9 +84,7 @@ M.commands = {
 		local project = node.extra and node.extra.project
 		if project then
 			local win = require("neo-tree").get_prior_window()
-			if state.current_position == "float" then
-				renderer.close(state)
-			end
+			if state.current_position == "float" then renderer.close(state) end
 			core.new(project, win)
 		end
 	end,
@@ -168,6 +164,13 @@ function M.open()
 		action = "focus",
 		source = M.name,
 		position = "float",
+	})
+end
+
+function M.toggle()
+	require("neo-tree.command").execute({
+		source = M.name,
+		toggle = true,
 	})
 end
 

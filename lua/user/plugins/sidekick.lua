@@ -12,6 +12,16 @@ return {
 						function() require("sidekick.cli").focus({ name = "pi" }) end,
 						mode = "nt",
 					},
+					vsplit = {
+						"<leader>s",
+						function() vim.cmd.vnew() end,
+						mode = "n",
+					},
+					hsplit = {
+						"<leader>S",
+						function() vim.cmd.new() end,
+						mode = "n",
+					},
 				},
 				split = {
 					width = 0, -- set to 0 for default split width
@@ -50,8 +60,9 @@ return {
 		},
 		{
 			"<leader>aa",
-			function() require("sidekick.cli").toggle() end,
-			desc = "Sidekick Toggle CLI",
+			function() require("pi-sessions.integrations.telescope").open() end,
+			mode = { "n" },
+			desc = "Session picker",
 		},
 		{
 			"<leader>as",
@@ -87,6 +98,11 @@ return {
 			function() require("sidekick.cli").prompt() end,
 			mode = { "n", "x" },
 			desc = "Sidekick Select Prompt",
+		},
+		{
+			"<leader>a.",
+			function() require("sidekick.cli").toggle() end,
+			desc = "Sidekick Toggle CLI",
 		},
 	},
 }
