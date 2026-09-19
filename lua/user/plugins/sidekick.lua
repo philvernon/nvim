@@ -113,6 +113,7 @@ return {
 					height = 0, -- set to 0 for default split height
 				},
 			},
+			picker = "telescope",
 			mux = {
 				backend = "tmux",
 				enabled = true,
