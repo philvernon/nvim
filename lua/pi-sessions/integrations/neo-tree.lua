@@ -167,6 +167,20 @@ function M.open()
 	})
 end
 
+function M.focus_or_open()
+	local state = require("neo-tree.sources.manager").get_state(M.name)
+	if state and state.winid and vim.api.nvim_win_is_valid(state.winid) then
+		vim.api.nvim_set_current_win(state.winid)
+		return
+	end
+
+	require("neo-tree.command").execute({
+		action = "focus",
+		source = M.name,
+		position = "left",
+	})
+end
+
 function M.toggle()
 	require("neo-tree.command").execute({
 		source = M.name,

@@ -159,7 +159,8 @@ function M.resume(session, win)
 end
 
 function M.new(cwd, win)
-	return launch(cwd, {}, nil, win)
+	local id = vim.fn.sha256(("%s:%s"):format(cwd, vim.uv.hrtime())):sub(1, 10)
+	return launch(cwd, {}, "pi-new-" .. id, win)
 end
 
 return M

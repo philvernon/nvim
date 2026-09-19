@@ -27,6 +27,54 @@ return {
 						function() require("pi-sessions.integrations.telescope").open() end,
 						mode = "n",
 					},
+					host_session_picker = {
+						",p",
+						function() require("pi-sessions.integrations.telescope").open() end,
+						mode = "t",
+						desc = "Pi session picker",
+					},
+					host_session_tree = {
+						",e",
+						function() require("pi-sessions.integrations.neo-tree").focus_or_open() end,
+						mode = "t",
+						desc = "Pi session tree",
+					},
+					host_files = {
+						",f",
+						function() require("telescope.builtin").find_files({ hidden = true }) end,
+						mode = "t",
+						desc = "Find files",
+					},
+					host_new_pi = {
+						",n",
+						function() require("pi-sessions").new(vim.uv.cwd(), vim.api.nvim_get_current_win()) end,
+						mode = "t",
+						desc = "New Pi",
+					},
+					host_vsplit = {
+						",v",
+						function() vim.cmd.vnew() end,
+						mode = "t",
+						desc = "Vertical split",
+					},
+					host_hsplit = {
+						",s",
+						function() vim.cmd.new() end,
+						mode = "t",
+						desc = "Horizontal split",
+					},
+					host_tab = {
+						",t",
+						function() vim.cmd.tabnew() end,
+						mode = "t",
+						desc = "New tab",
+					},
+					host_close = {
+						",q",
+						function() vim.cmd.close() end,
+						mode = "t",
+						desc = "Close window",
+					},
 					nav_left = { "<c-h>", "nav_left", expr = true, desc = "navigate to the left window" },
 					nav_down = { "<c-j>", "nav_down", expr = true, desc = "navigate to the below window" },
 					nav_up = { "<c-k>", "nav_up", expr = true, desc = "navigate to the above window" },
@@ -44,7 +92,7 @@ return {
 			},
 			tools = {
 				pi = {
-					cmd = { "pi", "--tui-mode", "regular" },
+					cmd = { "pi", "--tui-mode", "fullscreen" },
 					native_scroll = true,
 				},
 			},
