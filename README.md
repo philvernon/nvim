@@ -44,7 +44,7 @@ The config is organised around these subsystems:
 | Debugging | nvim-dap, mason-nvim-dap and nvim-dap-ui |
 | UI | Catppuccin Mocha, Lualine, WhichKey, hlchunk and Outline |
 | Notes/Markdown | render-markdown, bullets.vim, mkdnflow and zk |
-| AI/CLI | Sidekick, pi-nvim and Neocrush |
+| AI/CLI | Sidekick, pi-tools, pi-nvim and Neocrush |
 
 ## Configuration layout
 
@@ -59,7 +59,6 @@ The config is organised around these subsystems:
 | lua/extra.lua | Translate command and Godot project server bootstrap |
 | after/ftplugin/ | Filetype-specific behaviour |
 | lazy-lock.json | Pinned plugin revisions |
-| utils/ | Local helper files, including Sidekick tmux integration |
 
 New plugin configuration SHOULD live under lua/user/plugins. Cross-plugin editor behaviour SHOULD live in lua/user/keymaps.lua or lua/user/lsp. Filetype-specific behaviour SHOULD live under after/ftplugin.
 
@@ -189,7 +188,8 @@ Status describes how the plugin appears in this configuration, not whether its r
 | nvim-dbee | kndndrj/nvim-dbee | Active | Database UI |
 | bufdelete.nvim | famiu/bufdelete.nvim | Active | Buffer deletion |
 | sidekick.nvim | folke/sidekick.nvim | Active | AI CLI bridge |
-| pi-nvim | carderne/pi-nvim | Active | Pi integration |
+| pi-tools | ~/dev-trash/pi-tools | Active local plugin/tooling repo | Pi CLI, session browser and Sidekick integration |
+| pi-nvim | carderne/pi-nvim | Active | Pi editor/context integration |
 | neocrush.nvim | taigrr/neocrush.nvim | Active | Crush bridge |
 | glaze.nvim | taigrr/glaze.nvim | Active dependency | Binary manager |
 
@@ -328,17 +328,28 @@ DAP includes JavaScript, TypeScript, TSX and Vue launch/attach configurations pl
 | Mode | Key | Action |
 | --- | --- | --- |
 | N | Tab | Next edit |
-| N/T/I/V | Ctrl-. | Focus CLI |
-| N | ,aa | Toggle CLI |
+| N/T/I/V | Ctrl-P | Focus CLI |
 | N | ,as | Select CLI |
 | N | ,ad | Detach CLI |
 | N/V | ,at | Send this |
 | N | ,af | Send file |
 | V | ,av | Send selection |
 | N/V | ,ap | Prompt |
-| N | ,ac | Claude |
+| N | ,a. | Toggle CLI |
 
-Sidekick uses tmux as its mux backend and prepends utils/sidekick-tmux to PATH. The configured Pi command is pi --tui-mode regular.
+Sidekick uses tmux as its mux backend. Pi-specific Sidekick configuration lives in the local pi-tools plugin.
+
+#### Pi sessions
+
+| Mode | Key | Action |
+| --- | --- | --- |
+| N | ,aa | Pi session picker |
+| Sidekick N | Ctrl-R | Pi session picker |
+| Sidekick T | ,p | Pi session picker |
+| Sidekick T | ,e | Pi session tree |
+| Sidekick T | ,n | New Pi |
+
+pi-tools is loaded from ~/dev-trash/pi-tools. Its Neovim module automatically prepends the repo's own bin/ directory so Sidekick uses the isolated `tmux -L agents` server, and it configures Pi as `pi --tui-mode fullscreen`. The plugin provides `:PiSessionBrowser`, the compatibility alias `:PiSesh` and `:PiClient`; `:PiSessions` remains owned by pi-nvim. The same repo also owns the `pia` CLI wrapper.
 
 #### Neocrush
 

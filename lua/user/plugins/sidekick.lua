@@ -1,8 +1,5 @@
 return {
 	"folke/sidekick.nvim",
-	init = function()
-		vim.env.PATH = vim.fn.expand("~/.config/bin/agent-tmux") .. ":" .. vim.env.PATH
-	end,
 	config = function(_, opts)
 		require("sidekick").setup(opts)
 		require("pi-sessions.sidekick").setup()
@@ -32,29 +29,6 @@ return {
 						end,
 						mode = "n",
 					},
-					search_pi_sessions = {
-						"<c-r>",
-						function()
-							require("pi-sessions.integrations.telescope").open()
-						end,
-						mode = "n",
-					},
-					host_session_picker = {
-						",p",
-						function()
-							require("pi-sessions.integrations.telescope").open()
-						end,
-						mode = "t",
-						desc = "Pi session picker",
-					},
-					host_session_tree = {
-						",e",
-						function()
-							require("pi-sessions.integrations.neo-tree").focus_or_open()
-						end,
-						mode = "t",
-						desc = "Pi session tree",
-					},
 					host_files = {
 						",f",
 						function()
@@ -62,14 +36,6 @@ return {
 						end,
 						mode = "t",
 						desc = "Find files",
-					},
-					host_new_pi = {
-						",n",
-						function()
-							require("pi-sessions").new(vim.uv.cwd(), vim.api.nvim_get_current_win())
-						end,
-						mode = "t",
-						desc = "New Pi",
 					},
 					host_vsplit = {
 						",v",
@@ -119,12 +85,6 @@ return {
 				enabled = true,
 				create = "terminal",
 			},
-			tools = {
-				pi = {
-					cmd = { "pi", "--tui-mode", "fullscreen" },
-					native_scroll = true,
-				},
-			},
 		},
 	},
 	keys = {
@@ -146,14 +106,6 @@ return {
 			end,
 			desc = "Sidekick Focus",
 			mode = { "n", "t", "i", "x" },
-		},
-		{
-			"<leader>aa",
-			function()
-				require("pi-sessions.integrations.telescope").open()
-			end,
-			mode = { "n" },
-			desc = "Session picker",
 		},
 		{
 			"<leader>as",

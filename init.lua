@@ -1,6 +1,5 @@
 require("user.options")
 require("user.plugins-lazy")
-require("pi-sessions").setup()
 require("user.keymaps")
 -- require("user.godot-setup")
 require("extra")

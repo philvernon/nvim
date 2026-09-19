@@ -82,56 +82,12 @@ return {
 			extensions = {
 				["ui-select"] = {
 					layout_strategy = "vertical",
-					specific_opts = {
-						sidekick_cli = {
-							make_indexed = function(items)
-								local sessions = {}
-
-								for _, session in ipairs(require("pi-sessions").all()) do
-									sessions[session.id] = session.title
-								end
-
-								local indexed = {}
-
-								for idx, state in ipairs(items) do
-									local mux = state.session and state.session.mux_session
-									local display = mux or state.tool.name
-
-									if state.tool and state.tool.name == "pi" and mux then
-										local id = mux:match("^pi%-(.+)$")
-										local title = id and sessions[id]
-
-										if title then
-											display = display .. "  " .. title
-										end
-									end
-
-									indexed[#indexed + 1] = {
-										idx = idx,
-										text = state,
-										display = display,
-									}
-								end
-
-								return indexed
-							end,
-
-							make_display = function()
-								return function(entry)
-									return entry.value.display
-								end
-							end,
-
-							make_ordinal = function(entry)
-								return entry.display
-							end,
-						},
-					},
 				},
 			},
 		})
 
 		require("telescope").load_extension("luasnip")
 		require("telescope").load_extension("ui-select")
+		require("pi-sessions.integrations.telescope").setup()
 	end,
 }
