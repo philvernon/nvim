@@ -22,6 +22,15 @@ return {
 						function() vim.cmd.new() end,
 						mode = "n",
 					},
+					search_pi_sessions = {
+						"<c-r>",
+						function() require("pi-sessions.integrations.telescope").open() end,
+						mode = "n",
+					},
+					nav_left = { "<c-h>", "nav_left", expr = true, desc = "navigate to the left window" },
+					nav_down = { "<c-j>", "nav_down", expr = true, desc = "navigate to the below window" },
+					nav_up = { "<c-k>", "nav_up", expr = true, desc = "navigate to the above window" },
+					nav_right = { "<c-l>", "nav_right", expr = true, desc = "navigate to the right window" },
 				},
 				split = {
 					width = 0, -- set to 0 for default split width
@@ -36,6 +45,7 @@ return {
 			tools = {
 				pi = {
 					cmd = { "pi", "--tui-mode", "regular" },
+					native_scroll = true,
 				},
 			},
 		},

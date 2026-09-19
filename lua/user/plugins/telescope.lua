@@ -21,10 +21,10 @@ return {
 			TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
 			--
 			TelescopePromptPrefix = { bg = colors.mantle },
-			TelescopePromptNormal = { bg = colors.mantle },
+			TelescopePromptNormal = { bg = colors.crust },
 			TelescopeResultsNormal = { bg = colors.mantle },
 			TelescopePreviewNormal = { bg = colors.mantle },
-			TelescopePromptBorder = { bg = colors.mantle, fg = colors.mantle },
+			TelescopePromptBorder = { bg = colors.crust, fg = colors.crust },
 			TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
 			TelescopePreviewBorder = { bg = colors.mantle, fg = colors.surface0 },
 			TelescopeSelectionCaret = { fg = colors.mantle },
@@ -38,12 +38,13 @@ return {
 				results_title = false,
 				prompt_prefix = " ",
 				selection_caret = ". ",
+				sorting_strategy = "ascending",
 				layout_strategy = "vertical",
 				cycle_layout_list = { "horizontal", "center", "cursor" },
 				layout_config = {
 					vertical = {
 						prompt_position = "top",
-						mirror = true,
+						width = 0.5,
 					},
 					center = {
 						prompt_position = "top",

@@ -74,9 +74,8 @@ leader("bw", "<cmd>w|%bd|e#|bd#<CR>", "Solo")
 leader("bq", "<cmd>Bdelete<CR>", "Delete")
 -- whichkey
 leader("?", "<cmd>WhichKey<CR>", "Keys")
--- toggleterm
-keymap("t", "<esc>", [[<C-\><C-n>]], opts)
-keymap("t", "jk", [[<C-\><C-n>]], opts)
+-- exit terminal
+keymap("t", "<C-n>", [[<C-\><C-n>]], opts)
 -- tabby
 leader("ta", "<cmd>$tabnew<CR>", "New")
 leader("tc", "<cmd>tabclose<CR>", "Close")
