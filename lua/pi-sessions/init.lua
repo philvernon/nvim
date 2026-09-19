@@ -147,7 +147,7 @@ end
 
 function M.setup(opts)
 	opts = opts or {}
-	vim.api.nvim_create_user_command("PiSessions", function(cmd)
+	vim.api.nvim_create_user_command("PiSesh", function(cmd)
 		local integration = cmd.args ~= "" and cmd.args or opts.integration or "neo-tree"
 		if integration == "neotree" then
 			integration = "neo-tree"
