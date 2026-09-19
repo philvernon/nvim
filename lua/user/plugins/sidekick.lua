@@ -1,6 +1,12 @@
 return {
 	"folke/sidekick.nvim",
-	init = function() vim.env.PATH = vim.fn.expand("~/.config/nvim/utils/sidekick-tmux") .. ":" .. vim.env.PATH end,
+	init = function()
+		vim.env.PATH = vim.fn.expand("~/.config/bin/agent-tmux") .. ":" .. vim.env.PATH
+	end,
+	config = function(_, opts)
+		require("sidekick").setup(opts)
+		require("pi-sessions.sidekick").setup()
+	end,
 	opts = {
 		-- add any options here
 		cli = {
@@ -14,64 +20,86 @@ return {
 					},
 					vsplit = {
 						"<leader>s",
-						function() vim.cmd.vnew() end,
+						function()
+							vim.cmd.vnew()
+						end,
 						mode = "n",
 					},
 					hsplit = {
 						"<leader>S",
-						function() vim.cmd.new() end,
+						function()
+							vim.cmd.new()
+						end,
 						mode = "n",
 					},
 					search_pi_sessions = {
 						"<c-r>",
-						function() require("pi-sessions.integrations.telescope").open() end,
+						function()
+							require("pi-sessions.integrations.telescope").open()
+						end,
 						mode = "n",
 					},
 					host_session_picker = {
 						",p",
-						function() require("pi-sessions.integrations.telescope").open() end,
+						function()
+							require("pi-sessions.integrations.telescope").open()
+						end,
 						mode = "t",
 						desc = "Pi session picker",
 					},
 					host_session_tree = {
 						",e",
-						function() require("pi-sessions.integrations.neo-tree").focus_or_open() end,
+						function()
+							require("pi-sessions.integrations.neo-tree").focus_or_open()
+						end,
 						mode = "t",
 						desc = "Pi session tree",
 					},
 					host_files = {
 						",f",
-						function() require("telescope.builtin").find_files({ hidden = true }) end,
+						function()
+							require("telescope.builtin").find_files({ hidden = true })
+						end,
 						mode = "t",
 						desc = "Find files",
 					},
 					host_new_pi = {
 						",n",
-						function() require("pi-sessions").new(vim.uv.cwd(), vim.api.nvim_get_current_win()) end,
+						function()
+							require("pi-sessions").new(vim.uv.cwd(), vim.api.nvim_get_current_win())
+						end,
 						mode = "t",
 						desc = "New Pi",
 					},
 					host_vsplit = {
 						",v",
-						function() vim.cmd.vnew() end,
+						function()
+							vim.cmd.vnew()
+						end,
 						mode = "t",
 						desc = "Vertical split",
 					},
 					host_hsplit = {
 						",s",
-						function() vim.cmd.new() end,
+						function()
+							vim.cmd.new()
+						end,
 						mode = "t",
 						desc = "Horizontal split",
 					},
 					host_tab = {
 						",t",
-						function() vim.cmd.tabnew() end,
+						function()
+							vim.cmd.tabnew()
+						end,
 						mode = "t",
 						desc = "New tab",
 					},
 					host_close = {
 						",q",
-						function() vim.cmd.close() end,
+						function()
+							vim.cmd.close()
+						end,
 						mode = "t",
 						desc = "Close window",
 					},
@@ -112,55 +140,73 @@ return {
 		},
 		{
 			"<c-p>",
-			function() require("sidekick.cli").focus() end,
+			function()
+				require("sidekick.cli").focus()
+			end,
 			desc = "Sidekick Focus",
 			mode = { "n", "t", "i", "x" },
 		},
 		{
 			"<leader>aa",
-			function() require("pi-sessions.integrations.telescope").open() end,
+			function()
+				require("pi-sessions.integrations.telescope").open()
+			end,
 			mode = { "n" },
 			desc = "Session picker",
 		},
 		{
 			"<leader>as",
-			function() require("sidekick.cli").select({ filter = { installed = true } }) end,
+			function()
+				require("sidekick.cli").select({ filter = { installed = true } })
+			end,
 			-- Or to select only installed tools:
 			-- require("sidekick.cli").select({ filter = { installed = true } })
 			desc = "Select CLI",
 		},
 		{
 			"<leader>ad",
-			function() require("sidekick.cli").close() end,
+			function()
+				require("sidekick.cli").close()
+			end,
 			desc = "Detach a CLI Session",
 		},
 		{
 			"<leader>at",
-			function() require("sidekick.cli").send({ msg = "{this}" }) end,
+			function()
+				require("sidekick.cli").send({ msg = "{this}" })
+			end,
 			mode = { "x", "n" },
 			desc = "Send This",
 		},
 		{
 			"<leader>af",
-			function() require("sidekick.cli").send({ msg = "{file}" }) end,
+			function()
+				require("sidekick.cli").send({ msg = "{file}" })
+			end,
 			desc = "Send File",
 		},
 
 		{
 			"<leader>av",
-			function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+			function()
+				require("sidekick.cli").send({ msg = "{selection}" })
+			end,
 			mode = { "x" },
 			desc = "Send Visual Selection",
 		},
 		{
 			"<leader>ap",
-			function() require("sidekick.cli").prompt() end,
+			function()
+				require("sidekick.cli").prompt()
+			end,
 			mode = { "n", "x" },
 			desc = "Sidekick Select Prompt",
 		},
 		{
 			"<leader>a.",
-			function() require("sidekick.cli").toggle() end,
+			function()
+				require("sidekick.cli").toggle()
+			end,
 			desc = "Sidekick Toggle CLI",
 		},
 	},
