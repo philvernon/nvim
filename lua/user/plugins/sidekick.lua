@@ -9,7 +9,7 @@ return {
 					prompt = { "<leader>ap", "prompt", mode = "n", desc = "insert prompt or context" },
 					toggle_n = {
 						"<c-p>",
-						function() require("sidekick.cli").focus({ name = "pi" }) end,
+						"blur",
 						mode = "nt",
 					},
 					vsplit = {
@@ -111,7 +111,7 @@ return {
 			desc = "Goto/Apply Next Edit Suggestion",
 		},
 		{
-			"<c-.>",
+			"<c-p>",
 			function() require("sidekick.cli").focus() end,
 			desc = "Sidekick Focus",
 			mode = { "n", "t", "i", "x" },
@@ -145,6 +145,7 @@ return {
 			function() require("sidekick.cli").send({ msg = "{file}" }) end,
 			desc = "Send File",
 		},
+
 		{
 			"<leader>av",
 			function() require("sidekick.cli").send({ msg = "{selection}" }) end,
