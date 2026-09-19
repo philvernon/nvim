@@ -2,7 +2,8 @@ local M = {}
 
 local tool_prefix = "pi-s-"
 local active_window
-local patched = false
+local terminal_patched = false
+local tmux_patched = false
 
 local function tool_name(id)
 	return tool_prefix .. vim.fn.sha256(id):sub(1, 10)
@@ -40,11 +41,33 @@ local function restore_window(terminal)
 	terminal._pi_sessions_previous_buf = nil
 end
 
-local function patch_terminal()
-	if patched then
+local function patch_tmux_attach()
+	if tmux_patched then
 		return
 	end
-	patched = true
+	tmux_patched = true
+
+	local Tmux = require("sidekick.cli.session.tmux")
+	local attach = Tmux.attach
+
+	function Tmux:attach()
+		local mux = self.mux_session
+
+		if self.tool and self.tool.name == "pi" and type(mux) == "string" then
+			return {
+				cmd = { "tmux", "attach-session", "-t", mux },
+			}
+		end
+
+		return attach(self)
+	end
+end
+
+local function patch_terminal()
+	if terminal_patched then
+		return
+	end
+	terminal_patched = true
 
 	local Terminal = require("sidekick.cli.terminal")
 	local open_win = Terminal.open_win
@@ -106,6 +129,7 @@ local function patch_terminal()
 end
 
 local function with_window(win, fn)
+	patch_tmux_attach()
 	patch_terminal()
 	local previous = active_window
 	active_window = valid_window(win) and win or client_window()
@@ -153,6 +177,10 @@ local function launch(cwd, args, name, win)
 
 		return State.attach(State.get_state(session), { show = true, focus = true })
 	end)
+end
+
+function M.setup()
+	patch_tmux_attach()
 end
 
 function M.set_client_window(win)

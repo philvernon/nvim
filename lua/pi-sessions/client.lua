@@ -3,7 +3,7 @@ local M = {}
 function M.open()
 	local cwd = vim.uv.cwd()
 	local buf = vim.api.nvim_get_current_buf()
-	local empty = #vim.api.nvim_tabpage_list_wins(0) == 1
+	local empty = vim.tbl_count(vim.api.nvim_tabpage_list_wins(0)) == 1
 		and vim.api.nvim_buf_get_name(buf) == ""
 		and vim.bo[buf].buftype == ""
 		and not vim.bo[buf].modified
