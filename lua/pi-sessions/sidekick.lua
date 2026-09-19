@@ -65,6 +65,9 @@ local function patch_terminal()
 
 		if self._pi_sessions_embedded and self.win ~= target then
 			self:hide()
+			if not valid_window(target) then
+				return open_win(self)
+			end
 		end
 
 		local current_id = vim.w[target].sidekick_session_id
@@ -72,6 +75,9 @@ local function patch_terminal()
 			local current = Terminal.get(current_id)
 			if current then
 				current:hide()
+				if not valid_window(target) then
+					return open_win(self)
+				end
 			end
 		end
 
