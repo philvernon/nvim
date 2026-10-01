@@ -14,9 +14,11 @@ return {
 			python = { "isort", "black" },
 			-- Use a sub-list to run only the first available formatter
 			javascript = { "prettierd", "prettier" },
+			javascriptreact = { "prettierd", "prettier" },
 			vue = { "prettierd", "prettier" },
 			scss = { "prettierd", "prettier" },
 			typescript = { "prettierd", "prettier" },
+			typescriptreact = { "prettierd", "prettier" },
 			rust = { "rustfmt" },
 			go = { "goimports", "gofumpt" },
 			html = { "prettierd" },
