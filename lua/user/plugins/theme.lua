@@ -17,6 +17,7 @@ return {
 				markdown = true,
 				which_key = true,
 				lsp_trouble = true,
+				render_markdown = true,
 				nvim_tree = {
 					enabled = true,
 					show_root = false,

@@ -2,7 +2,9 @@ local opts = { silent = true }
 -- local keymap = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
 
-local function leader(lhs, rhs, desc, mode) keymap(mode or "n", "<leader>" .. lhs, rhs, { silent = true, desc = desc }) end
+local function leader(lhs, rhs, desc, mode)
+	keymap(mode or "n", "<leader>" .. lhs, rhs, { silent = true, desc = desc })
+end
 
 -- GENERAL
 leader("qq", "<cmd>wqa<CR>", "Quit all")
@@ -98,3 +100,5 @@ leader("gh", "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk")
 leader("L", "<cmd>Translate<CR>", "Translate")
 -- checkboxes
 leader("x", "<cmd>lua require('toggle-checkbox').toggle()<CR>", "Checkbox")
+
+leader("m", "<cmd>RenderMarkdown toggle<CR>", "Toggle MD Render")
