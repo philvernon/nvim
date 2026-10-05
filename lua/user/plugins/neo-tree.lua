@@ -55,7 +55,7 @@ return {
 		},
 		filesystem = {
 			find_by_full_path_words = true,
-			-- hijack_netrw_behavior = "open_current",
+			hijack_netrw_behavior = "disabled",
 			filtered_items = {
 				visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
 				hide_dotfiles = false,
@@ -63,7 +63,6 @@ return {
 			},
 			window = {
 				popup = {
-					position = { col = "50%", row = "50%" },
 					size = function(state)
 						local root_name = vim.fn.fnamemodify(state.path, ":~")
 						local root_len = string.len(root_name) + 4
@@ -88,7 +87,6 @@ return {
 			},
 			modified = {
 				symbol = "[+]",
-				-- highlight = "NeoTreeModified",
 			},
 			name = {
 				trailing_slash = false,
@@ -113,8 +111,6 @@ return {
 		},
 		window = {
 			position = "float",
-			-- width = 5,
-			-- height = 5,
 			mapping_options = {
 				noremap = true,
 				nowait = true,

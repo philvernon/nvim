@@ -67,7 +67,7 @@ leader("fd", "<cmd>Telescope diagnostics<CR>", "Diagnostics")
 leader("fr", "<cmd>Telescope resume<CR>", "Resume")
 
 -- neo-tree
-keymap("n", "<C-t>", "<cmd>Neotree toggle float<CR>", opts)
+keymap("n", "<C-t>", "<cmd>Yazi toggle float<CR>", opts)
 leader("es", "<cmd>Neotree reveal<CR>", "Files")
 leader("el", "<cmd>Neotree left<CR>", "Open left")
 leader("ef", "<cmd>Neotree float<CR>", "Open float")

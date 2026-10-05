@@ -27,9 +27,33 @@ return
 	},
 	---@type YaziConfig | {}
 	opts = {
-		open_for_directories = false,
+		open_for_directories = true,
+		yazi_floating_window_border = "none",
+		yazi_floating_window_winblend = 0,
+		floating_window_scaling_factor = 0.6,
+		highlight_hovered_buffers_in_same_directory = false,
+		set_keymappings_function = function(bufnr, config, context)
+			vim.keymap.set("t", ":", [[<C-\><C-n>:]], {
+				buffer = bufnr,
+			})
+		end,
 		keymaps = {
 			show_help = "<f1>",
+		},
+		hooks = {
+			yazi_opened = function(_, bufnr)
+				vim.api.nvim_set_hl(0, "YaziFloat", {
+					bg = "#181825",
+				})
+				local win = vim.fn.bufwinid(bufnr)
+				if win ~= -1 then
+					vim.api.nvim_set_option_value(
+						"winhighlight",
+						"Normal:YaziFloat,NormalFloat:YaziFloat,FloatBorder:YaziFloatBorder",
+						{ win = win }
+					)
+				end
+			end,
 		},
 	},
 	init = function()
